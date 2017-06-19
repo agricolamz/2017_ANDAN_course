@@ -1,8 +1,19 @@
 ---
 title: "От вектора к текстам в R"
-date: "25-26 июля 2017"
+date: "25-26 июля 2017, АНДАН"
+author: "Г. Мороз"
 ---
 
+Библиотеки:
+
+```{r, message=FALSE}
+library(tidyverse)
+library(stringr)
+library(cld2)
+library(cld3)
+library(stringdist)
+library(tidytext)
+```
 
 
 ## 1. Векторы и регулярные выражения
