@@ -16,7 +16,6 @@ library(cld3)
 library(stringdist)
 library(tidytext)
 library(tidyverse)
-library(testthat)
 ```
 
 Требования к участникам: знание `dplyr`, `ggplot` и `tidyr`. Умение писать свои функции.
