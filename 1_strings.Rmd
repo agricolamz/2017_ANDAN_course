@@ -145,8 +145,27 @@ stringr::str_sort(unsorted_cyrillic, locale = "ru_UA")
 <div class="parallax"></div>
 
 ### 6. Задачи
-#### 6.1 Искусственные данные по средней продолжительности сна
-[В данных по продолжительности сна](https://goo.gl/dpCSV2) две переменных: код испытуемого и среднее время сна. Попробуйте сделать следующий график:
+#### 6.1 Чет-нечет
+Напишите функцию `is.odd()`, которая возвращает значение `TRUE`, если число символов в строке нечетно, `FALSE`, если число символов в строке четно.
+
+```{r,echo=FALSE, message = FALSE}
+is.odd <- function(x){nchar(x) %% 2 == 1}
+```
+```{r}
+is.odd(c("odd", "even", ""))
+```
+
+#### 6.2 Лишние пробелы
+Напишите функцию `spaceless()`, которая убирает лишние пробелы.
+```{r,echo=FALSE, message = FALSE}
+spaceless <- function(x){gsub(" {1,}", " ", x)}
+```
+```{r}
+spaceless(c("two  spaces", "tree   spaces"))
+```
+
+#### 6.3 Искусственные данные по средней продолжительности сна
+[В данных по продолжительности сна](https://goo.gl/dpCSV2) (1.1_sleep_hours.csv) две переменных: код испытуемого и среднее время сна. Попробуйте сделать следующий график:
 
 ```{r, echo=FALSE, message = FALSE}
 library(tidyverse)
@@ -156,10 +175,21 @@ read.csv("https://goo.gl/dpCSV2") %>%
   geom_density(alpha= 0.4)+
   theme_bw()+
   labs(title = "Зависимость времени сна от пола",
-       subtitle = "искусственные данные",
+       caption = "искусственные данные",
        y = "плотность",
        x = "среднее время сна")
+```
 
+#### 6.4 Какой порядок?
+Как было сказано выше, "алфавитный" порядок разный в разных локалях. Напишите функцию `ordering_in_locales`, которая на вход принимает два символа, а возвращает таблицу с информацией о том, в скольких локалях порядок соответствует поданному в функцию, а в скольких порядок обратный:
+```{r, echo=FALSE, message = FALSE}
+ordering_in_locales <- function(x, y){
+  table(
+    sapply(stringi::stri_locale_list(), function(z){
+    paste(stringr::str_sort(c(x, y), locale = z), collapse = "_")}))}
+```
+```{r}
+ordering_in_locales("i", "и")
 ```
 
 <div class="parallax"></div>

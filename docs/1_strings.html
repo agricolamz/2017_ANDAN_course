@@ -550,10 +550,30 @@ stringr::<span class="kw">str_sort</span>(unsorted_cyrillic)</code></pre></div>
 </div>
 <div class="section level3">
 <h3>6. Задачи</h3>
+<div id="-" class="section level4">
+<h4>6.1 Чет-нечет</h4>
+<p>Напишите функцию <code>is.odd()</code>, которая возвращает значение <code>TRUE</code>, если число символов в строке нечетно, <code>FALSE</code>, если число символов в строке четно.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.odd</span>(<span class="kw">c</span>(<span class="st">&quot;odd&quot;</span>, <span class="st">&quot;even&quot;</span>, <span class="st">&quot;&quot;</span>))</code></pre></div>
+<pre><code>## [1]  TRUE FALSE FALSE</code></pre>
+</div>
+<div id="-" class="section level4">
+<h4>6.2 Лишние пробелы</h4>
+<p>Напишите функцию <code>spaceless()</code>, которая убирает лишние пробелы.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">spaceless</span>(<span class="kw">c</span>(<span class="st">&quot;two  spaces&quot;</span>, <span class="st">&quot;tree   spaces&quot;</span>))</code></pre></div>
+<pre><code>## [1] &quot;two spaces&quot;  &quot;tree spaces&quot;</code></pre>
+</div>
 <div id="-----" class="section level4">
-<h4>6.1 Искусственные данные по средней продолжительности сна</h4>
-<p><a href="https://goo.gl/dpCSV2">В данных по продолжительности сна</a> две переменных: код испытуемого и среднее время сна. Попробуйте сделать следующий график:</p>
-<p><img src="1_strings_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<h4>6.3 Искусственные данные по средней продолжительности сна</h4>
+<p><a href="https://goo.gl/dpCSV2">В данных по продолжительности сна</a> (1.1_sleep_hours.csv) две переменных: код испытуемого и среднее время сна. Попробуйте сделать следующий график:</p>
+<p><img src="1_strings_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+<div id="-" class="section level4">
+<h4>6.4 Какой порядок?</h4>
+<p>Как было сказано выше, “алфавитный” порядок разный в разных локалях. Напишите функцию <code>ordering_in_locales</code>, которая на вход принимает два символа, а возвращает таблицу с информацией о том, в скольких локалях порядок соответствует поданному в функцию, а в скольких порядок обратный:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ordering_in_locales</span>(<span class="st">&quot;i&quot;</span>, <span class="st">&quot;и&quot;</span>)</code></pre></div>
+<pre><code>## 
+## i_и и_i 
+## 425 217</code></pre>
 <div class="parallax">
 
 </div>
