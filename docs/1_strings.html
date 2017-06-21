@@ -16,7 +16,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -24,6 +24,8 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -31,38 +33,38 @@
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+table.sourceCode { width: 100%; line-height: 100%; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
 td.sourceCode { padding-left: 5px; }
-pre, code { background-color: #f8f8f8; }
-code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code > span.dt { color: #204a87; } /* DataType */
-code > span.dv { color: #0000cf; } /* DecVal */
-code > span.bn { color: #0000cf; } /* BaseN */
-code > span.fl { color: #0000cf; } /* Float */
-code > span.ch { color: #4e9a06; } /* Char */
-code > span.st { color: #4e9a06; } /* String */
-code > span.co { color: #8f5902; font-style: italic; } /* Comment */
-code > span.ot { color: #8f5902; } /* Other */
-code > span.al { color: #ef2929; } /* Alert */
-code > span.fu { color: #000000; } /* Function */
-code > span.er { color: #a40000; font-weight: bold; } /* Error */
-code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #000000; } /* Constant */
-code > span.sc { color: #000000; } /* SpecialChar */
-code > span.vs { color: #4e9a06; } /* VerbatimString */
-code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
 code > span.im { } /* Import */
-code > span.va { color: #000000; } /* Variable */
-code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
 code > span.ex { } /* Extension */
-code > span.at { color: #c4a000; } /* Attribute */
-code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 <style type="text/css">
   pre:not([class]) {
@@ -129,34 +131,34 @@ button.code-folding-btn:focus {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 54px;
+  padding-top: 52px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 57px;
+  margin-top: -57px;
 }
 
 .section h2 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 57px;
+  margin-top: -57px;
 }
 .section h3 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 57px;
+  margin-top: -57px;
 }
 .section h4 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 57px;
+  margin-top: -57px;
 }
 .section h5 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 57px;
+  margin-top: -57px;
 }
 .section h6 {
-  padding-top: 59px;
-  margin-top: -59px;
+  padding-top: 57px;
+  margin-top: -57px;
 }
 </style>
 
@@ -203,7 +205,7 @@ $(document).ready(function ()  {
 
     // establish options
     var options = {
-      selectors: "h1,h2,h3",
+      selectors: "h1,h2,h3,h4",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
@@ -415,7 +417,6 @@ div.tocify {
 </div>
 <div id="-" class="section level3">
 <h3>2. Экранирование метасимволов</h3>
-<p>Использование некоторых символов в R уже зарезервировано, так что приходится использовать двойной бэкслэш, чтобы экранировать символы:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">.&quot;</span></code></pre></div>
 <pre><code>## [1] &quot;\\.&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">$&quot;</span></code></pre></div>
@@ -451,53 +452,92 @@ div.tocify {
 <ul>
 <li>изменение регистра</li>
 <li>подсчет количества символов в строке</li>
+<li>сортировка строк</li>
 <li>соединение строк</li>
 <li>поиск вектора по подстроке</li>
 <li>разделение вектора по подстроке</li>
-<li>выделение подстроки по номеру
+<li>выделение подстроки по номеру</li>
+</ul>
+base R vs. <code>stringr</code>, <code>stringi</code>…
 <div class="parallax">
 
-</div></li>
-</ul>
+</div>
 <div id="-" class="section level4">
 <h4>3.1 Изменение регистра</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">latin &lt;-<span class="st"> &quot;tHe QuIcK BrOwN fOx JuMpS OvEr ThE lAzY dOg&quot;</span>
+<span class="kw">tolower</span>(latin)</code></pre></div>
+<pre><code>## [1] &quot;the quick brown fox jumps over the lazy dog&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">toupper</span>(latin)</code></pre></div>
+<pre><code>## [1] &quot;THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cyrillic &lt;-<span class="st"> &quot;лЮбЯ, сЪеШь ЩиПцЫ, — вЗдОхНёТ мЭр, — кАйФ жГуЧ&quot;</span>
+<span class="kw">tolower</span>(cyrillic)</code></pre></div>
+<pre><code>## [1] &quot;любя, съешь щипцы, — вздохнёт мэр, — кайф жгуч&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">toupper</span>(cyrillic)</code></pre></div>
+<pre><code>## [1] &quot;ЛЮБЯ, СЪЕШЬ ЩИПЦЫ, — ВЗДОХНЁТ МЭР, — КАЙФ ЖГУЧ&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_to_upper</span>(latin)</code></pre></div>
+<pre><code>## [1] &quot;THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_to_lower</span>(cyrillic)</code></pre></div>
+<pre><code>## [1] &quot;любя, съешь щипцы, — вздохнёт мэр, — кайф жгуч&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_to_title</span>(latin)</code></pre></div>
+<pre><code>## [1] &quot;The Quick Brown Fox Jumps Over The Lazy Dog&quot;</code></pre>
 <div class="parallax">
 
 </div>
 </div>
 <div id="----" class="section level4">
-<h4>3.2 подсчет количества символов в строке</h4>
+<h4>3.2 Подсчет количества символов в строке</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nchar</span>(latin)</code></pre></div>
+<pre><code>## [1] 43</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_length</span>(latin)</code></pre></div>
+<pre><code>## [1] 43</code></pre>
 <div class="parallax">
 
 </div>
 </div>
 <div id="-" class="section level4">
-<h4>3.3 соединение строк</h4>
+<h4>3.3 Сортировка строк</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">unsorted_latin &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;I&quot;</span>, <span class="st">&quot;♥&quot;</span>, <span class="st">&quot;N&quot;</span>, <span class="st">&quot;Y&quot;</span>)
+stringr::<span class="kw">str_sort</span>(unsorted_latin)</code></pre></div>
+<pre><code>## [1] &quot;♥&quot; &quot;I&quot; &quot;N&quot; &quot;Y&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_sort</span>(unsorted_latin, <span class="dt">locale =</span> <span class="st">&quot;lt&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;♥&quot; &quot;I&quot; &quot;Y&quot; &quot;N&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">unsorted_cyrillic &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;я&quot;</span>, <span class="st">&quot;i&quot;</span>, <span class="st">&quot;ж&quot;</span>)
+stringr::<span class="kw">str_sort</span>(unsorted_cyrillic)</code></pre></div>
+<pre><code>## [1] &quot;i&quot; &quot;ж&quot; &quot;я&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_sort</span>(unsorted_cyrillic, <span class="dt">locale =</span> <span class="st">&quot;ru_UA&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;ж&quot; &quot;я&quot; &quot;i&quot;</code></pre>
+<p>Список локалей можно посмотреть командой <code>stringi::stri_locale_list()</code>. Еще полезные команды: <code>stringi::stri_locale_info</code> и <code>stringi::stri_locale_set</code>.</p>
+<div class="parallax">
+
+</div>
+</div>
+<div id="-" class="section level4">
+<h4>3.4 Соединение строк</h4>
 <div class="parallax">
 
 </div>
 </div>
 <div id="---" class="section level4">
-<h4>3.4 поиск вектора по подстроке</h4>
+<h4>3.5 Поиск вектора по подстроке</h4>
 <div class="parallax">
 
 </div>
 </div>
 <div id="---" class="section level4">
-<h4>3.5 разделение вектора по подстроке</h4>
+<h4>3.6 Разделение вектора по подстроке</h4>
 <div class="parallax">
 
 </div>
 </div>
 <div id="---" class="section level4">
-<h4>3.6 выделение подстроки по номеру</h4>
+<h4>3.7 Выделение подстроки по номеру</h4>
 <div class="parallax">
 
 </div>
 </div>
 </div>
 <div id="---" class="section level3">
-<h3>4. Операции с векторами строками</h3>
+<h3>4. Операции с векторами строк</h3>
 <div class="parallax">
 
 </div>

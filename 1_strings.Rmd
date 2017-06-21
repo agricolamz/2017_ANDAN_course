@@ -2,14 +2,6 @@
 title: "1.1 Работа со строками и регулярки"
 date: "25 июля 2017, АНДАН"
 author: "Г. Мороз"
-output:
-  html_document:
-    theme: lumen
-    highlight: tango
-    toc: yes
-    toc_position: right
-    toc_float: yes
-    smooth_scroll: false
 ---
 
 <style>
@@ -63,8 +55,6 @@ str(data.frame(letters[6:10], LETTERS[4:8], stringsAsFactors = FALSE))
 <div class="parallax"></div>
 
 ### 2. Экранирование метасимволов
-
-Использование некоторых символов в R уже зарезервировано, так что приходится использовать двойной бэкслэш, чтобы экранировать символы:
 ```{r}
 "\\."
 "\\$"
@@ -86,37 +76,67 @@ str(data.frame(letters[6:10], LETTERS[4:8], stringsAsFactors = FALSE))
 
 * изменение регистра
 * подсчет количества символов в строке
+* сортировка строк
 * соединение строк
 * поиск вектора по подстроке
 * разделение вектора по подстроке
 * выделение подстроки по номеру
+
+base R vs. `stringr`, `stringi`…
 <div class="parallax"></div>
 
 #### 3.1 Изменение регистра
+```{r}
+latin <- "tHe QuIcK BrOwN fOx JuMpS OvEr ThE lAzY dOg"
+tolower(latin)
+toupper(latin)
+cyrillic <- "лЮбЯ, сЪеШь ЩиПцЫ, — вЗдОхНёТ мЭр, — кАйФ жГуЧ"
+tolower(cyrillic)
+toupper(cyrillic)
+stringr::str_to_upper(latin)
+stringr::str_to_lower(cyrillic)
+stringr::str_to_title(latin)
+```
 
 <div class="parallax"></div>
 
-#### 3.2 подсчет количества символов в строке
+#### 3.2 Подсчет количества символов в строке
+```{r}
+nchar(latin)
+stringr::str_length(latin)
+```
 
 <div class="parallax"></div>
 
-#### 3.3 соединение строк
+#### 3.3 Сортировка строк
+```{r}
+unsorted_latin <- c("I", "♥", "N", "Y")
+stringr::str_sort(unsorted_latin)
+stringr::str_sort(unsorted_latin, locale = "lt")
+unsorted_cyrillic <- c("я", "i", "ж")
+stringr::str_sort(unsorted_cyrillic)
+stringr::str_sort(unsorted_cyrillic, locale = "ru_UA")
+```
+Список локалей можно посмотреть командой `stringi::stri_locale_list()`. Еще полезные команды: `stringi::stri_locale_info` и `stringi::stri_locale_set`.
+
+<div class="parallax"></div>
+#### 3.4 Соединение строк
 
 <div class="parallax"></div>
 
-#### 3.4 поиск вектора по подстроке
+#### 3.5 Поиск вектора по подстроке
 
 <div class="parallax"></div>
 
-#### 3.5 разделение вектора по подстроке
+#### 3.6 Разделение вектора по подстроке
 
 <div class="parallax"></div>
 
-#### 3.6 выделение подстроки по номеру
+#### 3.7 Выделение подстроки по номеру
 
 <div class="parallax"></div>
 
-### 4. Операции с векторами строками
+### 4. Операции с векторами строк
 
 <div class="parallax"></div>
 

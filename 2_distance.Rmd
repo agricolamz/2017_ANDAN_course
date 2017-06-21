@@ -1,5 +1,25 @@
 ---
 title: "1.2 Расстояние между словами"
-date: "25-26 июля 2017, АНДАН"
+date: "25 июля 2017, АНДАН"
 author: "Г. Мороз"
 ---
+
+<style>
+.parallax {
+    /* The image used */
+    background-image: url("2_distance.png");
+
+    /* Set a specific height */
+    min-height: 300px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+</style>
+
+<div class="parallax"></div>
+### 1. 
+<div class="parallax"></div>

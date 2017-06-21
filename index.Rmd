@@ -2,16 +2,22 @@
 title: "От вектора к текстам в R"
 date: "25-26 июля 2017, АНДАН"
 author: "Г. Мороз"
+output:
+  html_document:
+    theme: spacelab
+    highlight: pygments
+    toc: false
 ---
 
 Библиотеки:
 ```{r, message=FALSE}
-library(tidyverse)
 library(stringr)
+library(stringi)
 library(cld2)
 library(cld3)
 library(stringdist)
 library(tidytext)
+library(tidyverse)
 library(testthat)
 ```
 
