@@ -1,5 +1,5 @@
 ---
-title: "1.2 Расстояние между словами"
+title: "1.2 Определение языка. Расстояние между словами"
 date: "25 июля 2017, АНДАН"
 author: "Г. Мороз"
 ---
@@ -7,19 +7,23 @@ author: "Г. Мороз"
 <style>
 .parallax {
     /* The image used */
-    background-image: url("2_distance.png");
+    background-image: url("2_distance.jpg");
 
     /* Set a specific height */
-    min-height: 300px; 
+    min-height: 360px; 
 
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: auto;
+    background-size: length;
 }
 </style>
 
+> "Что общего между вороном и письменным столом?" (Л. Кэрролл)
+
 <div class="parallax"></div>
 ### 1. 
+<div class="parallax"></div>
+Данная картинка -- изображение из книжки Яна Экхольма "Тутта Карлссон, первая и единственная, Людвиг Четырнадцатый и другие"
 <div class="parallax"></div>
