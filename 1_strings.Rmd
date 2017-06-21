@@ -147,6 +147,7 @@ stringr::str_sort(unsorted_cyrillic, locale = "ru_UA")
 ### 6. Задачи
 #### 6.1 Искусственные данные по средней продолжительности сна
 [В данных по продолжительности сна](https://goo.gl/dpCSV2) две переменных: код испытуемого и среднее время сна. Попробуйте сделать следующий график:
+
 ```{r, echo=FALSE, message = FALSE}
 library(tidyverse)
 read.csv("https://goo.gl/dpCSV2") %>% 
