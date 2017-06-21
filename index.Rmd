@@ -12,6 +12,7 @@ library(cld2)
 library(cld3)
 library(stringdist)
 library(tidytext)
+library(testthat)
 ```
 
 Требования к участникам: знание `dplyr` и `tidyr`. Умение писать свои функции.

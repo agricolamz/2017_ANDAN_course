@@ -5,6 +5,6 @@ author: "Г. Мороз"
 ---
 
 ### 1. Введение в `tidytext`
-### 2. Закон Хипса (Heaps' law)
+### 2. Закон Хердана-Хипса (Herdan-Heaps' law)
 ### 3. Закон Ципфа (Zipf's law)
 ### 4. TF-IDF

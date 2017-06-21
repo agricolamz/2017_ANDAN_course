@@ -1,5 +1,127 @@
 ---
-title: "1.1 Работа со строками и регулярные выражения"
-date: "25-26 июля 2017, АНДАН"
+title: "1.1 Работа со строками и регулярки"
+date: "25 июля 2017, АНДАН"
 author: "Г. Мороз"
+output:
+  html_document:
+    theme: lumen
+    highlight: tango
+    toc: yes
+    toc_position: right
+    toc_float: yes
+    smooth_scroll: false
 ---
+
+<style>
+.parallax {
+    /* The image used */
+    background-image: url("1_strings.jpg");
+
+    /* Set a specific height */
+    min-height: 300px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+</style>
+
+<div class="parallax"></div>
+
+### 1. Как получить строку?
+
+* следите за кавычками
+```{r}
+"the quick brown fox jumps over the lazy dog"
+'the quick brown fox jumps over the lazy dog'
+"the quick 'brown' fox jumps over the lazy dog"
+'the quick "brown" fox jumps over the lazy dog'
+```
+* пустая строка
+```{r}
+""
+''
+character(3)
+```
+* преобразование
+```{r}
+typeof(4:7)
+as.character(4:7)
+```
+* встроенные векторы
+```{r}
+letters
+LETTERS
+```
+* пользовательские данные
+```{r}
+str(data.frame(letters[6:10], LETTERS[4:8]))
+str(data.frame(letters[6:10], LETTERS[4:8], stringsAsFactors = FALSE))
+```
+<div class="parallax"></div>
+
+### 2. Экранирование метасимволов
+
+Использование некоторых символов в R уже зарезервировано, так что приходится использовать двойной бэкслэш, чтобы экранировать символы:
+```{r}
+"\\."
+"\\$"
+"\\*"
+"\\+"
+"\\?"
+"\\|"
+"\\^"
+"\\["
+"\\]"
+"\\{"
+"\\}"
+"\\)"
+"\\\\"
+```
+<div class="parallax"></div>
+
+### 3. Операции со строками
+
+* изменение регистра
+* подсчет количества символов в строке
+* соединение строк
+* поиск вектора по подстроке
+* разделение вектора по подстроке
+* выделение подстроки по номеру
+<div class="parallax"></div>
+
+#### 3.1 Изменение регистра
+
+<div class="parallax"></div>
+
+#### 3.2 подсчет количества символов в строке
+
+<div class="parallax"></div>
+
+#### 3.3 соединение строк
+
+<div class="parallax"></div>
+
+#### 3.4 поиск вектора по подстроке
+
+<div class="parallax"></div>
+
+#### 3.5 разделение вектора по подстроке
+
+<div class="parallax"></div>
+
+#### 3.6 выделение подстроки по номеру
+
+<div class="parallax"></div>
+
+### 4. Операции с векторами строками
+
+<div class="parallax"></div>
+
+### 5. Регулярные выражения
+
+<div class="parallax"></div>
+Данная картинка -- изображение из книжки Яна Экхольма "Тутта Карлссон, первая и единственная, Людвиг Четырнадцатый и другие"
+<div class="parallax"></div>
