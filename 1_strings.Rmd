@@ -111,6 +111,7 @@ stringr::str_length(latin)
 #### 3.3 Сортировка
 ```{r}
 unsorted_latin <- c("I", "♥", "N", "Y")
+sort(unsorted_latin)
 stringr::str_sort(unsorted_latin)
 stringr::str_sort(unsorted_latin, locale = "lt")
 unsorted_cyrillic <- c("я", "i", "ж")

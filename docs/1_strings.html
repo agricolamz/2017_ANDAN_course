@@ -497,7 +497,9 @@ base R vs. <code>stringr</code>, <code>stringi</code>…
 <div class="section level4">
 <h4>3.3 Сортировка</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">unsorted_latin &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;I&quot;</span>, <span class="st">&quot;♥&quot;</span>, <span class="st">&quot;N&quot;</span>, <span class="st">&quot;Y&quot;</span>)
-stringr::<span class="kw">str_sort</span>(unsorted_latin)</code></pre></div>
+<span class="kw">sort</span>(unsorted_latin)</code></pre></div>
+<pre><code>## [1] &quot;♥&quot; &quot;I&quot; &quot;N&quot; &quot;Y&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_sort</span>(unsorted_latin)</code></pre></div>
 <pre><code>## [1] &quot;♥&quot; &quot;I&quot; &quot;N&quot; &quot;Y&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_sort</span>(unsorted_latin, <span class="dt">locale =</span> <span class="st">&quot;lt&quot;</span>)</code></pre></div>
 <pre><code>## [1] &quot;♥&quot; &quot;I&quot; &quot;Y&quot; &quot;N&quot;</code></pre>
