@@ -122,6 +122,33 @@ stringr::str_sort(unsorted_cyrillic, locale = "ru_UA")
 <div class="parallax"></div>
 #### 3.4 Соединение строк
 
+* одинаковое количество строк
+```{r}
+greek_abc <- c("Α", "Β", "Γ", "Δ")
+latin_abc <- c("A", "B", "C", "D")
+paste(greek_abc, latin_abc)
+paste0(greek_abc, latin_abc)
+paste(greek_abc, latin_abc, sep = "-")
+paste(greek_abc, "Ы") # если векторы разной длины
+```
+
+* ... → одна строка
+```{r}
+paste(greek_abc, collapse = "_")
+paste(greek_abc, latin_abc, collapse = "_")
+paste(greek_abc, latin_abc, sep = "-", collapse = "_")
+```
+
+* `stringr`
+```{r}
+stringr::str_c(greek_abc, latin_abc)
+stringr::str_c(greek_abc, latin_abc, sep = " ")
+stringr::str_c(greek_abc, latin_abc, sep = "-")
+stringr::str_c(greek_abc, collapse = "_")
+stringr::str_c(greek_abc, latin_abc, collapse = "_")
+stringr::str_c(greek_abc, latin_abc, sep = "-", collapse = "_")
+```
+
 <div class="parallax"></div>
 
 #### 3.5 Поиск вектора по подстроке
@@ -161,7 +188,7 @@ is.odd(c("odd", "even", ""))
 spaceless <- function(x){gsub(" {1,}", " ", x)}
 ```
 ```{r}
-spaceless(c("two  spaces", "tree   spaces"))
+spaceless(c("two  spaces", "five     spaces"))
 ```
 
 #### 6.3 Искусственные данные по средней продолжительности сна
@@ -180,7 +207,7 @@ read.csv("https://goo.gl/dpCSV2") %>%
        x = "среднее время сна")
 ```
 
-#### 6.4 Какой порядок?
+#### 6.4 Алфавитный порядок
 Как было сказано выше, "алфавитный" порядок разный в разных локалях. Напишите функцию `ordering_in_locales`, которая на вход принимает два символа, а возвращает таблицу с информацией о том, в скольких локалях порядок соответствует поданному в функцию, а в скольких порядок обратный:
 ```{r, echo=FALSE, message = FALSE}
 ordering_in_locales <- function(x, y){

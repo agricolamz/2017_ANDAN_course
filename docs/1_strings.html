@@ -513,6 +513,43 @@ stringr::<span class="kw">str_sort</span>(unsorted_cyrillic)</code></pre></div>
 </div>
 <div id="-" class="section level4">
 <h4>3.4 Соединение строк</h4>
+<ul>
+<li>одинаковое количество строк</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">greek_abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Α&quot;</span>, <span class="st">&quot;Β&quot;</span>, <span class="st">&quot;Γ&quot;</span>, <span class="st">&quot;Δ&quot;</span>)
+latin_abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>)
+<span class="kw">paste</span>(greek_abc, latin_abc)</code></pre></div>
+<pre><code>## [1] &quot;Α A&quot; &quot;Β B&quot; &quot;Γ C&quot; &quot;Δ D&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste0</span>(greek_abc, latin_abc)</code></pre></div>
+<pre><code>## [1] &quot;ΑA&quot; &quot;ΒB&quot; &quot;ΓC&quot; &quot;ΔD&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste</span>(greek_abc, latin_abc, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Α-A&quot; &quot;Β-B&quot; &quot;Γ-C&quot; &quot;Δ-D&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste</span>(greek_abc, <span class="st">&quot;Ы&quot;</span>) <span class="co"># если векторы разной длины</span></code></pre></div>
+<pre><code>## [1] &quot;Α Ы&quot; &quot;Β Ы&quot; &quot;Γ Ы&quot; &quot;Δ Ы&quot;</code></pre>
+<ul>
+<li>… → одна строка</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste</span>(greek_abc, <span class="dt">collapse =</span> <span class="st">&quot;_&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Α_Β_Γ_Δ&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste</span>(greek_abc, latin_abc, <span class="dt">collapse =</span> <span class="st">&quot;_&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Α A_Β B_Γ C_Δ D&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste</span>(greek_abc, latin_abc, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>, <span class="dt">collapse =</span> <span class="st">&quot;_&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Α-A_Β-B_Γ-C_Δ-D&quot;</code></pre>
+<ul>
+<li><code>stringr</code></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_c</span>(greek_abc, latin_abc)</code></pre></div>
+<pre><code>## [1] &quot;ΑA&quot; &quot;ΒB&quot; &quot;ΓC&quot; &quot;ΔD&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_c</span>(greek_abc, latin_abc, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Α A&quot; &quot;Β B&quot; &quot;Γ C&quot; &quot;Δ D&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_c</span>(greek_abc, latin_abc, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Α-A&quot; &quot;Β-B&quot; &quot;Γ-C&quot; &quot;Δ-D&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_c</span>(greek_abc, <span class="dt">collapse =</span> <span class="st">&quot;_&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Α_Β_Γ_Δ&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_c</span>(greek_abc, latin_abc, <span class="dt">collapse =</span> <span class="st">&quot;_&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;ΑA_ΒB_ΓC_ΔD&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_c</span>(greek_abc, latin_abc, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>, <span class="dt">collapse =</span> <span class="st">&quot;_&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Α-A_Β-B_Γ-C_Δ-D&quot;</code></pre>
 <div class="parallax">
 
 </div>
@@ -559,16 +596,16 @@ stringr::<span class="kw">str_sort</span>(unsorted_cyrillic)</code></pre></div>
 <div id="-" class="section level4">
 <h4>6.2 Лишние пробелы</h4>
 <p>Напишите функцию <code>spaceless()</code>, которая убирает лишние пробелы.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">spaceless</span>(<span class="kw">c</span>(<span class="st">&quot;two  spaces&quot;</span>, <span class="st">&quot;tree   spaces&quot;</span>))</code></pre></div>
-<pre><code>## [1] &quot;two spaces&quot;  &quot;tree spaces&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">spaceless</span>(<span class="kw">c</span>(<span class="st">&quot;two  spaces&quot;</span>, <span class="st">&quot;five     spaces&quot;</span>))</code></pre></div>
+<pre><code>## [1] &quot;two spaces&quot;  &quot;five spaces&quot;</code></pre>
 </div>
 <div id="-----" class="section level4">
 <h4>6.3 Искусственные данные по средней продолжительности сна</h4>
 <p><a href="https://goo.gl/dpCSV2">В данных по продолжительности сна</a> (1.1_sleep_hours.csv) две переменных: код испытуемого и среднее время сна. Попробуйте сделать следующий график:</p>
-<p><img src="1_strings_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="1_strings_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 </div>
 <div id="-" class="section level4">
-<h4>6.4 Какой порядок?</h4>
+<h4>6.4 Алфавитный порядок</h4>
 <p>Как было сказано выше, “алфавитный” порядок разный в разных локалях. Напишите функцию <code>ordering_in_locales</code>, которая на вход принимает два символа, а возвращает таблицу с информацией о том, в скольких локалях порядок соответствует поданному в функцию, а в скольких порядок обратный:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ordering_in_locales</span>(<span class="st">&quot;i&quot;</span>, <span class="st">&quot;и&quot;</span>)</code></pre></div>
 <pre><code>## 
