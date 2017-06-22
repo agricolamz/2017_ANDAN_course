@@ -100,7 +100,7 @@ stringr::str_to_title(latin)
 
 <div class="parallax"></div>
 
-#### 3.2 Подсчет количества символов в строке
+#### 3.2 Подсчет количества символов
 ```{r}
 nchar(latin)
 stringr::str_length(latin)
@@ -108,7 +108,7 @@ stringr::str_length(latin)
 
 <div class="parallax"></div>
 
-#### 3.3 Сортировка строк
+#### 3.3 Сортировка
 ```{r}
 unsorted_latin <- c("I", "♥", "N", "Y")
 stringr::str_sort(unsorted_latin)
@@ -120,7 +120,7 @@ stringr::str_sort(unsorted_cyrillic, locale = "ru_UA")
 Список локалей можно посмотреть командой `stringi::stri_locale_list()`. Еще полезные команды: `stringi::stri_locale_info` и `stringi::stri_locale_set`.
 
 <div class="parallax"></div>
-#### 3.4 Соединение строк
+#### 3.4 Соединение
 
 * одинаковое количество строк
 ```{r}
@@ -163,7 +163,7 @@ stringr::str_c(greek_abc, latin_abc, sep = "-", collapse = "_")
 
 <div class="parallax"></div>
 
-### 4. Операции с векторами строк
+### 4. Логические операции с векторами
 
 <div class="parallax"></div>
 
