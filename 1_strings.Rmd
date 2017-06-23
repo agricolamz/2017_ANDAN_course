@@ -22,7 +22,9 @@ author: "Г. Мороз"
 
 <div class="parallax"></div>
 
-### 1. Как получить строку?
+
+### 1. Как получить строку?[^1]
+[^1]: Данная картинка -- изображение из книжки Яна Экхольма "Тутта Карлссон, первая и единственная, Людвиг Четырнадцатый и другие"
 
 * следите за кавычками
 ```{r}
@@ -205,6 +207,16 @@ stringr::str_c(c(NULL, NA, ""))
 <div class="parallax"></div>
 
 #### 3.5 Поиск вектора по подстроке
+```{r}
+a <- c("the quick", "brown", "fox", "jumps", "over")
+b <- c("jumps", "over", "the", "lazy", "dog")
+grep("the", c(a, b))
+grep("the", c(a, b), value = TRUE)
+grep("the", c(a, b), invert = TRUE)
+grep("the", c(a, b), invert = TRUE, value = TRUE)
+grepl("the", c(a, b))
+stringr::str_detect("the", c(a, b))
+```
 
 <div class="parallax"></div>
 
@@ -216,7 +228,61 @@ stringr::str_c(c(NULL, NA, ""))
 
 <div class="parallax"></div>
 
-### 4. Логические операции с векторами
+### 4. Операции над векторами
+
+Векторы не мноежества, но операции на них действуют те же:
+
+* Объединение
+* Пересечение
+* Разность
+* Сравнение
+* Подмножество?
+
+<div class="parallax"></div>
+
+#### 4.1 Объединение
+```{r}
+a; b
+c(a, b)
+unique(c(a, b))
+union(a, b)
+```
+
+<div class="parallax"></div>
+
+#### 4.2 Пересечение
+```{r}
+a; b
+intersect(a, b)
+```
+
+<div class="parallax"></div>
+
+#### 4.3 Разность
+```{r}
+a; b
+setdiff(a, b)
+```
+
+<div class="parallax"></div>
+
+#### 4.4 Сравнение
+```{r}
+c <- c("brown", "fox", "jumps", "over", "the quick")
+a; c
+setequal(c, a)
+identical(c, a)
+```
+<div class="parallax"></div>
+
+#### 4.5 Подмножество?
+```{r}
+a
+is.element("over", a)
+is.element("the dog", a)
+is.element(c("over", "the dog"), a)
+c("over", "the dog") %in% a
+```
 
 <div class="parallax"></div>
 
@@ -245,7 +311,7 @@ spaceless(c("two  spaces", "five     spaces"))
 ```
 
 #### 6.3 Искусственные данные по средней продолжительности сна
-[В данных по продолжительности сна](https://goo.gl/dpCSV2) (1.1_sleep_hours.csv)[^1] две переменных: код испытуемого и среднее время сна. Попробуйте сделать следующий график:
+[В данных по продолжительности сна](https://goo.gl/dpCSV2) (1.1_sleep_hours.csv)[^2] две переменных: код испытуемого и среднее время сна. Попробуйте сделать следующий график:
 
 ```{r, echo=FALSE, message = FALSE}
 library(tidyverse)
@@ -260,7 +326,7 @@ read.csv("https://goo.gl/dpCSV2") %>%
        x = "среднее время сна")
 ```
 
-[^1]: Если у Вас не получается считать файл, попробуйте добавлять разные аргументы к `read.csv`: `encoding="UTF-8"` или `fileEncoding = "UTF-8"`… Я надеюсь, поможет…
+[^2]: Если у Вас не получается считать файл, попробуйте добавлять разные аргументы к `read.csv`: `encoding="UTF-8"` или `fileEncoding = "UTF-8"`… Я надеюсь, поможет…
 
 #### 6.4 Алфавитный порядок
 Как было сказано выше, "алфавитный" порядок разный в разных локалях. Напишите функцию `ordering_in_locales`, которая на вход принимает два символа, а возвращает таблицу с информацией о том, в скольких локалях порядок соответствует поданному в функцию, а в скольких порядок обратный:
@@ -274,6 +340,4 @@ ordering_in_locales <- function(x, y){
 ordering_in_locales("i", "и")
 ```
 
-<div class="parallax"></div>
-Данная картинка -- изображение из книжки Яна Экхольма "Тутта Карлссон, первая и единственная, Людвиг Четырнадцатый и другие"
 <div class="parallax"></div>
