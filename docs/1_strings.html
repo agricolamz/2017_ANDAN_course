@@ -550,29 +550,29 @@ huge &lt;-<span class="st"> </span><span class="kw">sample</span>(letters, <span
   <span class="kw">sort</span>(huge)
 )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   5.371   0.030   5.427</code></pre>
+##   5.432   0.044   5.518</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(
   <span class="kw">sort</span>(huge, <span class="dt">method =</span> <span class="st">&quot;radix&quot;</span>)
 )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.529   0.030   0.560</code></pre>
+##   0.544   0.033   0.584</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(
   stringr::<span class="kw">str_sort</span>(huge)
 )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##  10.207   0.090  10.308</code></pre>
+##  10.261   0.076  10.352</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">huge_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(huge)
 <span class="kw">system.time</span>(
   dplyr::<span class="kw">arrange</span>(<span class="dt">.data =</span> huge_df, huge)
 )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   5.755   0.017   5.778</code></pre>
+##   5.714   0.014   5.735</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">huge_tbl &lt;-<span class="st"> </span>tibble::<span class="kw">data_frame</span>(huge)
 <span class="kw">system.time</span>(
   dplyr::<span class="kw">arrange</span>(<span class="dt">.data =</span> huge_tbl, huge)
 )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   5.960   0.113   6.084</code></pre>
+##   5.970   0.066   6.041</code></pre>
 <p>Предварительный вывод: для больших данных – <code>sort(..., method = &quot;radix&quot;)</code>.</p>
 <div class="parallax">
 
@@ -675,7 +675,7 @@ latin_abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="s
 </div>
 <div id="-----" class="section level4">
 <h4>6.3 Искусственные данные по средней продолжительности сна</h4>
-<p><a href="https://goo.gl/dpCSV2">В данных по продолжительности сна</a> (1.1_sleep_hours.csv) две переменных: код испытуемого и среднее время сна. Попробуйте сделать следующий график:</p>
+<p><a href="https://goo.gl/dpCSV2">В данных по продолжительности сна</a> (1.1_sleep_hours.csv)<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> две переменных: код испытуемого и среднее время сна. Попробуйте сделать следующий график:</p>
 <p><img src="1_strings_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 </div>
 <div id="-" class="section level4">
@@ -693,6 +693,12 @@ latin_abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="s
 
 </div>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Если у Вас не получается считать файл, попробуйте добавлять разные аргументы к <code>read.csv</code>: <code>encoding=&quot;UTF-8&quot;</code> или <code>fileEncoding = &quot;UTF-8&quot;</code>… Я надеюсь, поможет…<a href="#fnref1">↩</a></p></li>
+</ol>
 </div>
 
 
