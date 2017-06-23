@@ -3,14 +3,41 @@ title: "2.1 Частотность слов"
 date: "26 июля 2017, АНДАН"
 author: "Г. Мороз"
 ---
+<style>
+.parallax {
+    /* The image used */
+    background-image: url("3_frequency.jpg");
+
+    /* Set a specific height */
+    min-height: 360px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: length;
+}
+</style>
+
 >  "Интересно, кто же это такой Слонопотам?"-- подумал Пух. <br> -- Их не часто встретишь,-- небрежно сказал Кристофер Робин. <div style="float: right; clear: right; margin: 13px;">(А. А. Милн)</div>
 
-### 1. Введение в `tidytext`
+<div class="parallax"></div>
+
+### 1. Введение в `tidytext`[^1]
+[^1]: Я использовал один из рисунков Эрнеста Говарда Шепарда к Винни-Пуху.
+
+<div class="parallax"></div>
 
 ### 2. Закон Хердана-Хипса
-Закон Хердана-Хипса (или Herdan-Heaps' law)
+Закон Хердана-Хипса (или Herdan-Heaps' law)...
+
+<div class="parallax"></div>
 
 ### 3. Закон Ципфа
 Закон Ципфа (или Zipf's law)
 
+<div class="parallax"></div>
+
 ### 4. TF-IDF
+
+<div class="parallax"></div>
