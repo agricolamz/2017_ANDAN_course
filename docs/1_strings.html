@@ -550,29 +550,30 @@ huge &lt;-<span class="st"> </span><span class="kw">sample</span>(letters, <span
   <span class="kw">sort</span>(huge)
 )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   5.321   0.033   5.362</code></pre>
+##   5.371   0.030   5.427</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(
   <span class="kw">sort</span>(huge, <span class="dt">method =</span> <span class="st">&quot;radix&quot;</span>)
 )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.529   0.030   0.559</code></pre>
+##   0.529   0.030   0.560</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(
   stringr::<span class="kw">str_sort</span>(huge)
 )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##  10.148   0.077  10.234</code></pre>
+##  10.207   0.090  10.308</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">huge_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(huge)
 <span class="kw">system.time</span>(
   dplyr::<span class="kw">arrange</span>(<span class="dt">.data =</span> huge_df, huge)
 )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   5.724   0.037   5.766</code></pre>
+##   5.755   0.017   5.778</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">huge_tbl &lt;-<span class="st"> </span>tibble::<span class="kw">data_frame</span>(huge)
 <span class="kw">system.time</span>(
   dplyr::<span class="kw">arrange</span>(<span class="dt">.data =</span> huge_tbl, huge)
 )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   6.121   0.080   6.306</code></pre>
+##   5.960   0.113   6.084</code></pre>
+<p>Предварительный вывод: для больших данных – <code>sort(..., method = &quot;radix&quot;)</code>.</p>
 <div class="parallax">
 
 </div>
