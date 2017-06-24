@@ -243,7 +243,7 @@ stringr::str_split(b, " ", simplify = TRUE)
 
 <div class="parallax"></div>
 
-#### 3.6 Выделение подстроки по номеру
+#### 3.8 Выделение подстроки по номеру
 
 <div class="parallax"></div>
 
