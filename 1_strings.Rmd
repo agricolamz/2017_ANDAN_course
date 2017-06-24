@@ -203,28 +203,47 @@ paste(c(NULL, NA, ""))
 stringr::str_c(c(NULL, NA, ""))
 ```
 
-
 <div class="parallax"></div>
 
-#### 3.5 Поиск вектора по подстроке
+#### 3.5 Поиск строки по подстроке
 ```{r}
-a <- c("the quick", "brown", "fox", "jumps", "over")
-b <- c("jumps", "over", "the", "lazy", "dog")
-grep("the", c(a, b))
-grep("the", c(a, b), value = TRUE)
-grep("the", c(a, b), invert = TRUE)
-grep("the", c(a, b), invert = TRUE, value = TRUE)
-grepl("the", c(a, b))
-stringr::str_detect("the", c(a, b))
+a <- c("the quick", "brown", "fox", "jumps", "over", "jumps", "over", "the", "lazy", "dog")
+grep("the", a)
+grep("the", a, value = TRUE)
+grep("the", a, invert = TRUE)
+grep("the", a, invert = TRUE, value = TRUE)
+grepl("the", a)
+stringr::str_which(a, "the")
+stringr::str_subset(a, "the")
+stringr::str_detect(a, "the")
+stringr::str_view(a, "r")
+stringr::str_locate(a, "r")
+```
+<div class="parallax"></div>
+
+#### 3.6 Замена подстроки в строке
+```{r}
+b <- c("the quick brown fox", "jumps over the lazy dog")
+sub("o", "_", b)
+gsub("o", "_", b)
+stringr::str_replace(b, "o", "_")
+stringr::str_replace_all(b, "o", "_")
 ```
 
 <div class="parallax"></div>
 
-#### 3.6 Разделение вектора по подстроке
+#### 3.7 Разделение вектора по подстроке
+```{r}
+b
+strsplit(b, " ")
+stringr::str_split(b, " ")
+stringr::str_split(b, " ", simplify = TRUE)
+```
+
 
 <div class="parallax"></div>
 
-#### 3.7 Выделение подстроки по номеру
+#### 3.6 Выделение подстроки по номеру
 
 <div class="parallax"></div>
 

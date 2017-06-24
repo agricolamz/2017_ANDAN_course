@@ -26,6 +26,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="site_libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<link href="site_libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
+<script src="site_libs/str_view-binding-1.2.0/str_view.js"></script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -623,33 +626,84 @@ latin_abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="s
 </div>
 </div>
 <div id="---" class="section level4">
-<h4>3.5 Поиск вектора по подстроке</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;the quick&quot;</span>, <span class="st">&quot;brown&quot;</span>, <span class="st">&quot;fox&quot;</span>, <span class="st">&quot;jumps&quot;</span>, <span class="st">&quot;over&quot;</span>)
-b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;jumps&quot;</span>, <span class="st">&quot;over&quot;</span>, <span class="st">&quot;the&quot;</span>, <span class="st">&quot;lazy&quot;</span>, <span class="st">&quot;dog&quot;</span>)
-<span class="kw">grep</span>(<span class="st">&quot;the&quot;</span>, <span class="kw">c</span>(a, b))</code></pre></div>
+<h4>3.5 Поиск строки по подстроке</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;the quick&quot;</span>, <span class="st">&quot;brown&quot;</span>, <span class="st">&quot;fox&quot;</span>, <span class="st">&quot;jumps&quot;</span>, <span class="st">&quot;over&quot;</span>, <span class="st">&quot;jumps&quot;</span>, <span class="st">&quot;over&quot;</span>, <span class="st">&quot;the&quot;</span>, <span class="st">&quot;lazy&quot;</span>, <span class="st">&quot;dog&quot;</span>)
+<span class="kw">grep</span>(<span class="st">&quot;the&quot;</span>, a)</code></pre></div>
 <pre><code>## [1] 1 8</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grep</span>(<span class="st">&quot;the&quot;</span>, <span class="kw">c</span>(a, b), <span class="dt">value =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grep</span>(<span class="st">&quot;the&quot;</span>, a, <span class="dt">value =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## [1] &quot;the quick&quot; &quot;the&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grep</span>(<span class="st">&quot;the&quot;</span>, <span class="kw">c</span>(a, b), <span class="dt">invert =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grep</span>(<span class="st">&quot;the&quot;</span>, a, <span class="dt">invert =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## [1]  2  3  4  5  6  7  9 10</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grep</span>(<span class="st">&quot;the&quot;</span>, <span class="kw">c</span>(a, b), <span class="dt">invert =</span> <span class="ot">TRUE</span>, <span class="dt">value =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grep</span>(<span class="st">&quot;the&quot;</span>, a, <span class="dt">invert =</span> <span class="ot">TRUE</span>, <span class="dt">value =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## [1] &quot;brown&quot; &quot;fox&quot;   &quot;jumps&quot; &quot;over&quot;  &quot;jumps&quot; &quot;over&quot;  &quot;lazy&quot;  &quot;dog&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grepl</span>(<span class="st">&quot;the&quot;</span>, <span class="kw">c</span>(a, b))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">grepl</span>(<span class="st">&quot;the&quot;</span>, a)</code></pre></div>
 <pre><code>##  [1]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_detect</span>(<span class="st">&quot;the&quot;</span>, <span class="kw">c</span>(a, b))</code></pre></div>
-<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_which</span>(a, <span class="st">&quot;the&quot;</span>)</code></pre></div>
+<pre><code>## [1] 1 8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_subset</span>(a, <span class="st">&quot;the&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;the quick&quot; &quot;the&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_detect</span>(a, <span class="st">&quot;the&quot;</span>)</code></pre></div>
+<pre><code>##  [1]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_view</span>(a, <span class="st">&quot;r&quot;</span>)</code></pre></div>
+<div id="htmlwidget-1dbb7cc25100cc6f279a" style="width:960px;height:auto;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1dbb7cc25100cc6f279a">{"x":{"html":"<ul>\n  <li>the quick<\/li>\n  <li>b<span class='match'>r<\/span>own<\/li>\n  <li>fox<\/li>\n  <li>jumps<\/li>\n  <li>ove<span class='match'>r<\/span><\/li>\n  <li>jumps<\/li>\n  <li>ove<span class='match'>r<\/span><\/li>\n  <li>the<\/li>\n  <li>lazy<\/li>\n  <li>dog<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_locate</span>(a, <span class="st">&quot;r&quot;</span>)</code></pre></div>
+<pre><code>##       start end
+##  [1,]    NA  NA
+##  [2,]     2   2
+##  [3,]    NA  NA
+##  [4,]    NA  NA
+##  [5,]     4   4
+##  [6,]    NA  NA
+##  [7,]     4   4
+##  [8,]    NA  NA
+##  [9,]    NA  NA
+## [10,]    NA  NA</code></pre>
 <div class="parallax">
 
 </div>
 </div>
 <div id="---" class="section level4">
-<h4>3.6 Разделение вектора по подстроке</h4>
+<h4>3.6 Замена подстроки в строке</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;the quick brown fox&quot;</span>, <span class="st">&quot;jumps over the lazy dog&quot;</span>)
+<span class="kw">sub</span>(<span class="st">&quot;o&quot;</span>, <span class="st">&quot;_&quot;</span>, b)</code></pre></div>
+<pre><code>## [1] &quot;the quick br_wn fox&quot;     &quot;jumps _ver the lazy dog&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gsub</span>(<span class="st">&quot;o&quot;</span>, <span class="st">&quot;_&quot;</span>, b)</code></pre></div>
+<pre><code>## [1] &quot;the quick br_wn f_x&quot;     &quot;jumps _ver the lazy d_g&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_replace</span>(b, <span class="st">&quot;o&quot;</span>, <span class="st">&quot;_&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;the quick br_wn fox&quot;     &quot;jumps _ver the lazy dog&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_replace_all</span>(b, <span class="st">&quot;o&quot;</span>, <span class="st">&quot;_&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;the quick br_wn f_x&quot;     &quot;jumps _ver the lazy d_g&quot;</code></pre>
 <div class="parallax">
 
 </div>
 </div>
 <div id="---" class="section level4">
-<h4>3.7 Выделение подстроки по номеру</h4>
+<h4>3.7 Разделение вектора по подстроке</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b</code></pre></div>
+<pre><code>## [1] &quot;the quick brown fox&quot;     &quot;jumps over the lazy dog&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">strsplit</span>(b, <span class="st">&quot; &quot;</span>)</code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;the&quot;   &quot;quick&quot; &quot;brown&quot; &quot;fox&quot;  
+## 
+## [[2]]
+## [1] &quot;jumps&quot; &quot;over&quot;  &quot;the&quot;   &quot;lazy&quot;  &quot;dog&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_split</span>(b, <span class="st">&quot; &quot;</span>)</code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;the&quot;   &quot;quick&quot; &quot;brown&quot; &quot;fox&quot;  
+## 
+## [[2]]
+## [1] &quot;jumps&quot; &quot;over&quot;  &quot;the&quot;   &quot;lazy&quot;  &quot;dog&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_split</span>(b, <span class="st">&quot; &quot;</span>, <span class="dt">simplify =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>##      [,1]    [,2]    [,3]    [,4]   [,5] 
+## [1,] &quot;the&quot;   &quot;quick&quot; &quot;brown&quot; &quot;fox&quot;  &quot;&quot;   
+## [2,] &quot;jumps&quot; &quot;over&quot;  &quot;the&quot;   &quot;lazy&quot; &quot;dog&quot;</code></pre>
+<div class="parallax">
+
+</div>
+</div>
+<div id="---" class="section level4">
+<h4>3.6 Выделение подстроки по номеру</h4>
 <div class="parallax">
 
 </div>
@@ -671,17 +725,28 @@ b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot
 <div class="section level4">
 <h4>4.1 Объединение</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a; b</code></pre></div>
-<pre><code>## [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;</code></pre>
-<pre><code>## [1] &quot;jumps&quot; &quot;over&quot;  &quot;the&quot;   &quot;lazy&quot;  &quot;dog&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(a, b)</code></pre></div>
 <pre><code>##  [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;     
 ##  [6] &quot;jumps&quot;     &quot;over&quot;      &quot;the&quot;       &quot;lazy&quot;      &quot;dog&quot;</code></pre>
+<pre><code>## [1] &quot;the quick brown fox&quot;     &quot;jumps over the lazy dog&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(a, b)</code></pre></div>
+<pre><code>##  [1] &quot;the quick&quot;               &quot;brown&quot;                  
+##  [3] &quot;fox&quot;                     &quot;jumps&quot;                  
+##  [5] &quot;over&quot;                    &quot;jumps&quot;                  
+##  [7] &quot;over&quot;                    &quot;the&quot;                    
+##  [9] &quot;lazy&quot;                    &quot;dog&quot;                    
+## [11] &quot;the quick brown fox&quot;     &quot;jumps over the lazy dog&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unique</span>(<span class="kw">c</span>(a, b))</code></pre></div>
-<pre><code>## [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;      &quot;the&quot;      
-## [7] &quot;lazy&quot;      &quot;dog&quot;</code></pre>
+<pre><code>##  [1] &quot;the quick&quot;               &quot;brown&quot;                  
+##  [3] &quot;fox&quot;                     &quot;jumps&quot;                  
+##  [5] &quot;over&quot;                    &quot;the&quot;                    
+##  [7] &quot;lazy&quot;                    &quot;dog&quot;                    
+##  [9] &quot;the quick brown fox&quot;     &quot;jumps over the lazy dog&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">union</span>(a, b)</code></pre></div>
-<pre><code>## [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;      &quot;the&quot;      
-## [7] &quot;lazy&quot;      &quot;dog&quot;</code></pre>
+<pre><code>##  [1] &quot;the quick&quot;               &quot;brown&quot;                  
+##  [3] &quot;fox&quot;                     &quot;jumps&quot;                  
+##  [5] &quot;over&quot;                    &quot;the&quot;                    
+##  [7] &quot;lazy&quot;                    &quot;dog&quot;                    
+##  [9] &quot;the quick brown fox&quot;     &quot;jumps over the lazy dog&quot;</code></pre>
 <div class="parallax">
 
 </div>
@@ -689,10 +754,11 @@ b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot
 <div class="section level4">
 <h4>4.2 Пересечение</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a; b</code></pre></div>
-<pre><code>## [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;</code></pre>
-<pre><code>## [1] &quot;jumps&quot; &quot;over&quot;  &quot;the&quot;   &quot;lazy&quot;  &quot;dog&quot;</code></pre>
+<pre><code>##  [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;     
+##  [6] &quot;jumps&quot;     &quot;over&quot;      &quot;the&quot;       &quot;lazy&quot;      &quot;dog&quot;</code></pre>
+<pre><code>## [1] &quot;the quick brown fox&quot;     &quot;jumps over the lazy dog&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">intersect</span>(a, b)</code></pre></div>
-<pre><code>## [1] &quot;jumps&quot; &quot;over&quot;</code></pre>
+<pre><code>## character(0)</code></pre>
 <div class="parallax">
 
 </div>
@@ -700,10 +766,12 @@ b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot
 <div class="section level4">
 <h4>4.3 Разность</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a; b</code></pre></div>
-<pre><code>## [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;</code></pre>
-<pre><code>## [1] &quot;jumps&quot; &quot;over&quot;  &quot;the&quot;   &quot;lazy&quot;  &quot;dog&quot;</code></pre>
+<pre><code>##  [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;     
+##  [6] &quot;jumps&quot;     &quot;over&quot;      &quot;the&quot;       &quot;lazy&quot;      &quot;dog&quot;</code></pre>
+<pre><code>## [1] &quot;the quick brown fox&quot;     &quot;jumps over the lazy dog&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setdiff</span>(a, b)</code></pre></div>
-<pre><code>## [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;</code></pre>
+<pre><code>## [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;      &quot;the&quot;      
+## [7] &quot;lazy&quot;      &quot;dog&quot;</code></pre>
 <div class="parallax">
 
 </div>
@@ -712,10 +780,11 @@ b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot
 <h4>4.4 Сравнение</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;brown&quot;</span>, <span class="st">&quot;fox&quot;</span>, <span class="st">&quot;jumps&quot;</span>, <span class="st">&quot;over&quot;</span>, <span class="st">&quot;the quick&quot;</span>)
 a; c</code></pre></div>
-<pre><code>## [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;</code></pre>
+<pre><code>##  [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;     
+##  [6] &quot;jumps&quot;     &quot;over&quot;      &quot;the&quot;       &quot;lazy&quot;      &quot;dog&quot;</code></pre>
 <pre><code>## [1] &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;      &quot;the quick&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setequal</span>(c, a)</code></pre></div>
-<pre><code>## [1] TRUE</code></pre>
+<pre><code>## [1] FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">identical</span>(c, a)</code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <div class="parallax">
@@ -725,7 +794,8 @@ a; c</code></pre></div>
 <div class="section level4">
 <h4>4.5 Подмножество?</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a</code></pre></div>
-<pre><code>## [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;</code></pre>
+<pre><code>##  [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;     
+##  [6] &quot;jumps&quot;     &quot;over&quot;      &quot;the&quot;       &quot;lazy&quot;      &quot;dog&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.element</span>(<span class="st">&quot;over&quot;</span>, a)</code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.element</span>(<span class="st">&quot;the dog&quot;</span>, a)</code></pre></div>
@@ -762,7 +832,7 @@ a; c</code></pre></div>
 <div id="-----" class="section level4">
 <h4>6.3 Искусственные данные по средней продолжительности сна</h4>
 <p><a href="https://goo.gl/dpCSV2">В данных по продолжительности сна</a> (1.1_sleep_hours.csv)<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> две переменных: код испытуемого и среднее время сна. Попробуйте сделать следующий график:</p>
-<p><img src="1_strings_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p><img src="1_strings_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 </div>
 <div id="-" class="section level4">
 <h4>6.4 Алфавитный порядок</h4>
