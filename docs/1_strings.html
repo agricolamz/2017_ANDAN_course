@@ -12,7 +12,7 @@
 <meta name="author" content="Г. Мороз" />
 
 
-<title>1.1 Работа со строками и регулярки</title>
+<title>1.1 Работа со строками</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -334,7 +334,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">1.1 Работа со строками и регулярки</h1>
+<h1 class="title toc-ignore">1.1 Работа со строками</h1>
 <h4 class="author"><em>Г. Мороз</em></h4>
 <h4 class="date"><em>25 июля 2017, АНДАН</em></h4>
 
@@ -704,6 +704,37 @@ latin_abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="s
 </div>
 <div id="---" class="section level4">
 <h4>3.8 Выделение подстроки по номеру</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b</code></pre></div>
+<pre><code>## [1] &quot;the quick brown fox&quot;     &quot;jumps over the lazy dog&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">substring</span>(b, <span class="dv">11</span>, <span class="dv">15</span>)</code></pre></div>
+<pre><code>## [1] &quot;brown&quot; &quot; the &quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># с 5 по 9 и с 16 по 19</span>
+<span class="kw">substring</span>(b, <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">16</span>), <span class="kw">c</span>(<span class="dv">9</span>, <span class="dv">19</span>))</code></pre></div>
+<pre><code>## [1] &quot;quick&quot; &quot;lazy&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">substring</span>(<span class="st">&quot;а роза упала на лапу Азора&quot;</span>, <span class="dv">1</span>:<span class="dv">26</span>, <span class="dv">1</span>:<span class="dv">26</span>)</code></pre></div>
+<pre><code>##  [1] &quot;а&quot; &quot; &quot; &quot;р&quot; &quot;о&quot; &quot;з&quot; &quot;а&quot; &quot; &quot; &quot;у&quot; &quot;п&quot; &quot;а&quot; &quot;л&quot; &quot;а&quot; &quot; &quot; &quot;н&quot; &quot;а&quot; &quot; &quot; &quot;л&quot;
+## [18] &quot;а&quot; &quot;п&quot; &quot;у&quot; &quot; &quot; &quot;А&quot; &quot;з&quot; &quot;о&quot; &quot;р&quot; &quot;а&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">substring</span>(<span class="st">&quot;мат и тут и там&quot;</span>, <span class="dv">1</span>:<span class="dv">15</span>, <span class="dv">15</span>:<span class="dv">1</span>)</code></pre></div>
+<pre><code>##  [1] &quot;мат и тут и там&quot; &quot;ат и тут и та&quot;   &quot;т и тут и т&quot;    
+##  [4] &quot; и тут и &quot;       &quot;и тут и&quot;         &quot; тут &quot;          
+##  [7] &quot;тут&quot;             &quot;у&quot;               &quot;&quot;               
+## [10] &quot;&quot;                &quot;&quot;                &quot;&quot;               
+## [13] &quot;&quot;                &quot;&quot;                &quot;&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_sub</span>(b, <span class="dv">11</span>, <span class="dv">15</span>)</code></pre></div>
+<pre><code>## [1] &quot;brown&quot; &quot; the &quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_sub</span>(b, <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">16</span>), <span class="kw">c</span>(<span class="dv">9</span>, <span class="dv">19</span>))</code></pre></div>
+<pre><code>## [1] &quot;quick&quot; &quot;lazy&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_sub</span>(<span class="st">&quot;а роза упала на лапу Азора&quot;</span>, <span class="dv">1</span>:<span class="dv">26</span>, <span class="dv">1</span>:<span class="dv">26</span>)</code></pre></div>
+<pre><code>##  [1] &quot;а&quot; &quot; &quot; &quot;р&quot; &quot;о&quot; &quot;з&quot; &quot;а&quot; &quot; &quot; &quot;у&quot; &quot;п&quot; &quot;а&quot; &quot;л&quot; &quot;а&quot; &quot; &quot; &quot;н&quot; &quot;а&quot; &quot; &quot; &quot;л&quot;
+## [18] &quot;а&quot; &quot;п&quot; &quot;у&quot; &quot; &quot; &quot;А&quot; &quot;з&quot; &quot;о&quot; &quot;р&quot; &quot;а&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_sub</span>(<span class="st">&quot;мат и тут и там&quot;</span>, <span class="dv">1</span>:<span class="dv">15</span>, <span class="dv">15</span>:<span class="dv">1</span>)</code></pre></div>
+<pre><code>##  [1] &quot;мат и тут и там&quot; &quot;ат и тут и та&quot;   &quot;т и тут и т&quot;    
+##  [4] &quot; и тут и &quot;       &quot;и тут и&quot;         &quot; тут &quot;          
+##  [7] &quot;тут&quot;             &quot;у&quot;               &quot;&quot;               
+## [10] &quot;&quot;                &quot;&quot;                &quot;&quot;               
+## [13] &quot;&quot;                &quot;&quot;                &quot;&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_sub</span>(b, -<span class="dv">3</span>, -<span class="dv">1</span>) <span class="co"># обратите внимание: нестандартное использование &quot;-&quot;</span></code></pre></div>
+<pre><code>## [1] &quot;fox&quot; &quot;dog&quot;</code></pre>
 <div class="parallax">
 
 </div>
@@ -809,38 +840,40 @@ a; c</code></pre></div>
 </div>
 </div>
 </div>
-<div id="-" class="section level3">
-<h3>5. Регулярные выражения</h3>
-<div class="parallax">
-
-</div>
-</div>
 <div class="section level3">
-<h3>6. Задачи</h3>
+<h3>5. Задачи</h3>
 <div id="-" class="section level4">
-<h4>6.1 Чет-нечет</h4>
+<h4>5.1 Чет-нечет</h4>
 <p>Напишите функцию <code>is.odd()</code>, которая возвращает значение <code>TRUE</code>, если число символов в строке нечетно, <code>FALSE</code>, если число символов в строке четно.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.odd</span>(<span class="kw">c</span>(<span class="st">&quot;odd&quot;</span>, <span class="st">&quot;even&quot;</span>, <span class="st">&quot;&quot;</span>))</code></pre></div>
 <pre><code>## [1]  TRUE FALSE FALSE</code></pre>
 </div>
 <div id="-" class="section level4">
-<h4>6.2 Лишние пробелы</h4>
+<h4>5.2 Лишние пробелы</h4>
 <p>Напишите функцию <code>spaceless()</code>, которая убирает лишние пробелы.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">spaceless</span>(<span class="kw">c</span>(<span class="st">&quot;two  spaces&quot;</span>, <span class="st">&quot;five     spaces&quot;</span>))</code></pre></div>
 <pre><code>## [1] &quot;two spaces&quot;  &quot;five spaces&quot;</code></pre>
 </div>
 <div id="-----" class="section level4">
-<h4>6.3 Искусственные данные по средней продолжительности сна</h4>
+<h4>5.3 Искусственные данные по средней продолжительности сна</h4>
 <p><a href="https://goo.gl/dpCSV2">В данных по продолжительности сна</a> (1.1_sleep_hours.csv)<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> две переменных: код испытуемого и среднее время сна. Попробуйте сделать следующий график:</p>
-<p><img src="1_strings_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p><img src="1_strings_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 </div>
 <div id="-" class="section level4">
-<h4>6.4 Алфавитный порядок</h4>
+<h4>5.4 Алфавитный порядок</h4>
 <p>Как было сказано выше, “алфавитный” порядок разный в разных локалях. Напишите функцию <code>ordering_in_locales</code>, которая на вход принимает два символа, а возвращает таблицу с информацией о том, в скольких локалях порядок соответствует поданному в функцию, а в скольких порядок обратный:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ordering_in_locales</span>(<span class="st">&quot;i&quot;</span>, <span class="st">&quot;и&quot;</span>)</code></pre></div>
 <pre><code>## 
 ## i_и и_i 
 ## 425 217</code></pre>
+</div>
+<div id="---" class="section level4">
+<h4>5.5 Функция для проверки полиндромности</h4>
+<p>Напишите функцию <code>is.palindrome</code>, которая будет проверять, является ли слово полиндромом.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.palindrome</span>(<span class="st">&quot;топот&quot;</span>)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.palindrome</span>(<span class="st">&quot;топор&quot;</span>)</code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
 <div class="parallax">
 
 </div>
@@ -849,7 +882,7 @@ a; c</code></pre></div>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Данная картинка – изображение из книжки Яна Экхольма “Тутта Карлссон, первая и единственная, Людвиг Четырнадцатый и другие”<a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>Данная картинка – рисунок Бориса Аркадьевича Диодорова из книжки Яна Экхольма “Тутта Карлссон, первая и единственная, Людвиг Четырнадцатый и другие”<a href="#fnref1">↩</a></p></li>
 <li id="fn2"><p>Если у Вас не получается считать файл, попробуйте добавлять разные аргументы к <code>read.csv</code>: <code>encoding=&quot;UTF-8&quot;</code> или <code>fileEncoding = &quot;UTF-8&quot;</code>… Я надеюсь, поможет…<a href="#fnref2">↩</a></p></li>
 </ol>
 </div>
