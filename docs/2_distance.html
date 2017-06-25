@@ -364,24 +364,103 @@ div.tocify {
 </div>
 <div id="-1" class="section level3">
 <h3>1. Определение языка<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">udhr &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://goo.gl/cHviY5&quot;</span>, <span class="dt">header =</span> <span class="ot">FALSE</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)
-udhr</code></pre></div>
+<p>Для определения языка существует два пакета <code>cld2</code> (вероятностный) и <code>cld3</code> (нейросетка).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">udhr_24 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://goo.gl/cHviY5&quot;</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)
+udhr_24</code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["V1"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"Каждый человек имеет право на отдых и досуг, включая право на разумное ограничение рабочего дня и на оплачиваемый периодический отпуск."},{"1":"Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay."},{"1":"Toute personne a droit au repos et aux loisirs et notamment à une limitation raisonnable de la durée du travail et à des congés payés périodiques."},{"1":"Toda persona tiene derecho al descanso, al disfrute del tiempo libre, a una limitación razonable de la duración del trabajo y a vacaciones periódicas pagadas."},{"1":"لكلِّ شخص حقٌّ في الراحة وأوقات الفراغ، وخصوصًا في تحديد معقول لساعات العمل وفي إجازات دورية مأجورة."},{"1":"人人有享有休息和闲暇的权利，包括工作时间有合理限制和定期给薪休假的权利。"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["article_text"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"Каждый человек имеет право на отдых и досуг, включая право на разумное ограничение рабочего дня и на оплачиваемый периодический отпуск."},{"1":"Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay."},{"1":"Toute personne a droit au repos et aux loisirs et notamment à une limitation raisonnable de la durée du travail et à des congés payés périodiques."},{"1":"Toda persona tiene derecho al descanso, al disfrute del tiempo libre, a una limitación razonable de la duración del trabajo y a vacaciones periódicas pagadas."},{"1":"لكلِّ شخص حقٌّ في الراحة وأوقات الفراغ، وخصوصًا في تحديد معقول لساعات العمل وفي إجازات دورية مأجورة."},{"1":"人人有享有休息和闲暇的权利，包括工作时间有合理限制和定期给薪休假的权利。"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld2::<span class="kw">detect_language</span>(udhr_24$article_text)</code></pre></div>
+<pre><code>## [1] &quot;ru&quot; &quot;en&quot; &quot;fr&quot; &quot;es&quot; &quot;ar&quot; &quot;zh&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld2::<span class="kw">detect_language</span>(udhr_24$article_text, <span class="dt">lang_code =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1] &quot;RUSSIAN&quot; &quot;ENGLISH&quot; &quot;FRENCH&quot;  &quot;SPANISH&quot; &quot;ARABIC&quot;  &quot;CHINESE&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld3::<span class="kw">detect_language</span>(udhr_24$article_text)</code></pre></div>
+<pre><code>## [1] &quot;ru&quot; &quot;en&quot; &quot;fr&quot; &quot;es&quot; &quot;ar&quot; &quot;zh&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld2::<span class="kw">detect_language_mixed</span>(<span class="st">&quot;Ты женат? Говорите ли по-английски?&quot;</span>)</code></pre></div>
+<pre><code>## $classificaton
+##    language code latin proportion
+## 1 BULGARIAN   bg FALSE       0.98
+## 2   UNKNOWN   un  TRUE       0.00
+## 3   UNKNOWN   un  TRUE       0.00
+## 
+## $bytes
+## [1] 63
+## 
+## $reliabale
+## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld3::<span class="kw">detect_language_mixed</span>(<span class="st">&quot;Ты женат? Говорите ли по-английски?&quot;</span>)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["language"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["probability"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["reliable"],"name":[3],"type":["lgl"],"align":["right"]},{"label":["proportion"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"ru","2":"0.5704396","3":"FALSE","4":"1"},{"1":"und","2":"0.0000000","3":"FALSE","4":"0"},{"1":"und","2":"0.0000000","3":"FALSE","4":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld2::<span class="kw">detect_language_mixed</span>(<span class="st">&quot;Варкалось. Хливкие шорьки пырялись по наве, и хрюкотали зелюки, как мюмзики в мове.&quot;</span>)</code></pre></div>
+<pre><code>## $classificaton
+##   language code latin proportion
+## 1  RUSSIAN   ru FALSE       0.99
+## 2  UNKNOWN   un  TRUE       0.00
+## 3  UNKNOWN   un  TRUE       0.00
+## 
+## $bytes
+## [1] 148
+## 
+## $reliabale
+## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld3::<span class="kw">detect_language_mixed</span>(<span class="st">&quot;Варкалось. Хливкие шорьки пырялись по наве, и хрюкотали зелюки, как мюмзики в мове.&quot;</span>)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["language"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["probability"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["reliable"],"name":[3],"type":["lgl"],"align":["right"]},{"label":["proportion"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"ru","2":"0.9310275","3":"TRUE","4":"1"},{"1":"und","2":"0.0000000","3":"FALSE","4":"0"},{"1":"und","2":"0.0000000","3":"FALSE","4":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld2::<span class="kw">detect_language_mixed</span>(<span class="st">&quot;Варчилось… Хлив&#39;язкі тхурки викрули, свербчись навкрузі, жасумновілі худоки гривіли зехряки в чузі.&quot;</span>)</code></pre></div>
+<pre><code>## $classificaton
+##    language code latin proportion
+## 1 UKRAINIAN   uk FALSE       0.99
+## 2   UNKNOWN   un  TRUE       0.00
+## 3   UNKNOWN   un  TRUE       0.00
+## 
+## $bytes
+## [1] 180
+## 
+## $reliabale
+## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld3::<span class="kw">detect_language_mixed</span>(<span class="st">&quot;Варчилось… Хлив&#39;язкі тхурки викрули, свербчись навкрузі, жасумновілі худоки гривіли зехряки в чузі.&quot;</span>)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["language"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["probability"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["reliable"],"name":[3],"type":["lgl"],"align":["right"]},{"label":["proportion"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"uk","2":"0.9999924","3":"TRUE","4":"1"},{"1":"und","2":"0.0000000","3":"FALSE","4":"0"},{"1":"und","2":"0.0000000","3":"FALSE","4":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld2::<span class="kw">detect_language_mixed</span>(<span class="st">&quot;Многие в нашей команде OpenDataScience занимаются state-of-the-art технологиями машинного обучения: DL-фреймворками, байесовскими методами машинного обучения, вероятностным программированием и не только.&quot;</span>)</code></pre></div>
+<pre><code>## $classificaton
+##   language code latin proportion
+## 1  RUSSIAN   ru FALSE       0.87
+## 2  ENGLISH   en  TRUE       0.11
+## 3  UNKNOWN   un  TRUE       0.00
+## 
+## $bytes
+## [1] 353
+## 
+## $reliabale
+## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld3::<span class="kw">detect_language_mixed</span>(<span class="st">&quot;Многие в нашей команде OpenDataScience занимаются state-of-the-art технологиями машинного обучения: DL-фреймворками, байесовскими методами машинного обучения, вероятностным программированием и не только.&quot;</span>)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["language"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["probability"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["reliable"],"name":[3],"type":["lgl"],"align":["right"]},{"label":["proportion"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"ru","2":"0.9983915","3":"TRUE","4":"0.88951844"},{"1":"en","2":"0.9992564","3":"TRUE","4":"0.05099150"},{"1":"sr","2":"0.4266239","3":"FALSE","4":"0.04815864"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <div class="parallax">
 
 </div>
 </div>
-<div id="-" class="section level3">
-<h3>2. Регулярные выражения</h3>
+<div id="--" class="section level3">
+<h3>2. Расстояния между строками</h3>
 <div class="parallax">
 
 </div>
 </div>
-<div id="--1" class="section level3">
+<div id="-" class="section level3">
 <h3>3. Регулярные выражения</h3>
 <div class="parallax">
 
