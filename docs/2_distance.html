@@ -364,7 +364,7 @@ div.tocify {
 </div>
 <div id="-1" class="section level3">
 <h3>1. Определение языка<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></h3>
-<p>Для определения языка существует два пакета <code>cld2</code> (вероятностный) и <code>cld3</code> (нейросетка).</p>
+<p>Для определения языка существует два пакета <code>cld2</code> (вероятностный) и <code>cld3</code> (нейросеть).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">udhr_24 &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://goo.gl/cHviY5&quot;</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)
 udhr_24</code></pre></div>
 <div data-pagedtable="false">
@@ -456,6 +456,27 @@ udhr_24</code></pre></div>
 </div>
 <div id="--" class="section level3">
 <h3>2. Расстояния между строками</h3>
+<p>Существует много разных метрик для измерения расстояния между строками (см. <code>?`stringdist-metrics`</code>), в примерах используется расстояние Дамерау — Левенштейна. Данное расстояние получается при подсчете количества операций, которые нужно сделать, чтобы перевести одну строку в другую.</p>
+<ul>
+<li>вставка ab → aNb</li>
+<li>удаление aOb → ab</li>
+<li>замена символа aOb → aNb</li>
+<li>перестановка символов ab → ba</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringdist::<span class="kw">stringdist</span>(<span class="st">&quot;корова&quot;</span>,<span class="st">&quot;корова&quot;</span>)</code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringdist::<span class="kw">stringdist</span>(<span class="st">&quot;коровы&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;курица&quot;</span>, <span class="st">&quot;бык&quot;</span>, <span class="st">&quot;утка&quot;</span>, <span class="st">&quot;корова&quot;</span>, <span class="st">&quot;осел&quot;</span>))</code></pre></div>
+<pre><code>## [1] 4 6 6 1 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringdist::<span class="kw">stringdistmatrix</span>(<span class="kw">c</span>(<span class="st">&quot;быки&quot;</span>, <span class="st">&quot;коровы&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;курица&quot;</span>, <span class="st">&quot;бык&quot;</span>, <span class="st">&quot;утка&quot;</span>, <span class="st">&quot;корова&quot;</span>, <span class="st">&quot;осел&quot;</span>))</code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    5    1    3    6    4
+## [2,]    4    6    6    1    5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringdist::<span class="kw">stringsim</span>(<span class="st">&quot;коровы&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;курица&quot;</span>, <span class="st">&quot;бык&quot;</span>, <span class="st">&quot;утка&quot;</span>, <span class="st">&quot;корова&quot;</span>, <span class="st">&quot;осел&quot;</span>))</code></pre></div>
+<pre><code>## [1] 0.3333333 0.0000000 0.0000000 0.8333333 0.1666667</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringdist::<span class="kw">amatch</span>(<span class="kw">c</span>(<span class="st">&quot;быки&quot;</span>, <span class="st">&quot;коровы&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;курица&quot;</span>, <span class="st">&quot;бык&quot;</span>, <span class="st">&quot;утка&quot;</span>, <span class="st">&quot;корова&quot;</span>, <span class="st">&quot;осел&quot;</span>), <span class="dt">maxDist =</span> <span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] 2 4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringdist::<span class="kw">ain</span>(<span class="kw">c</span>(<span class="st">&quot;осы&quot;</span>, <span class="st">&quot;коровы&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;курица&quot;</span>, <span class="st">&quot;бык&quot;</span>, <span class="st">&quot;утка&quot;</span>, <span class="st">&quot;корова&quot;</span>, <span class="st">&quot;осел&quot;</span>), <span class="dt">maxDist =</span> <span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] FALSE  TRUE</code></pre>
 <div class="parallax">
 
 </div>

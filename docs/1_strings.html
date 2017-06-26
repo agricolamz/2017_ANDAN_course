@@ -538,7 +538,7 @@ stringr::<span class="kw">str_sort</span>(unsorted_cyrillic)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_sort</span>(<span class="kw">c</span>(<span class="ot">NULL</span>, <span class="ot">NA</span>, <span class="st">&quot;&quot;</span>))</code></pre></div>
 <pre><code>## [1] &quot;&quot; NA</code></pre>
 <p>Список локалей можно посмотреть командой <code>stringi::stri_locale_list()</code>. Еще полезные команды: <code>stringi::stri_locale_info</code> и <code>stringi::stri_locale_set</code>.</p>
-<p>Не углубляясь в алгоритмы сортировки, отмечу, что алгоритм по-умолчанию хуже работает с большими данными:</p>
+<p>Не углубляясь в <a href="https://www.youtube.com/watch?v=BeoCbJPuvSE">разнообразие алгоритмов сортировки</a>, отмечу, что алгоритм по-умолчанию хуже работает с большими данными:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">42</span>)
 huge &lt;-<span class="st"> </span><span class="kw">sample</span>(letters, <span class="fl">1e7</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
 <span class="kw">head</span>(huge)</code></pre></div>
@@ -869,7 +869,7 @@ a; c</code></pre></div>
 </div>
 <div id="---" class="section level4">
 <h4>5.5 Функция для проверки полиндромности</h4>
-<p>Напишите функцию <code>is.palindrome</code>, которая будет проверять, является ли слово полиндромом.</p>
+<p>Напишите функцию <code>is.palindrome</code>, которая будет проверять, является ли <em>слово</em> полиндромом.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.palindrome</span>(<span class="st">&quot;топот&quot;</span>)</code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.palindrome</span>(<span class="st">&quot;топор&quot;</span>)</code></pre></div>
