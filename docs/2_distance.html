@@ -378,60 +378,18 @@ udhr_24</code></pre></div>
 <pre><code>## [1] &quot;RUSSIAN&quot; &quot;ENGLISH&quot; &quot;FRENCH&quot;  &quot;SPANISH&quot; &quot;ARABIC&quot;  &quot;CHINESE&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld3::<span class="kw">detect_language</span>(udhr_24$article_text)</code></pre></div>
 <pre><code>## [1] &quot;ru&quot; &quot;en&quot; &quot;fr&quot; &quot;es&quot; &quot;ar&quot; &quot;zh&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld2::<span class="kw">detect_language_mixed</span>(<span class="st">&quot;Ты женат? Говорите ли по-английски?&quot;</span>)</code></pre></div>
-<pre><code>## $classificaton
-##    language code latin proportion
-## 1 BULGARIAN   bg FALSE       0.98
-## 2   UNKNOWN   un  TRUE       0.00
-## 3   UNKNOWN   un  TRUE       0.00
-## 
-## $bytes
-## [1] 63
-## 
-## $reliabale
-## [1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld3::<span class="kw">detect_language_mixed</span>(<span class="st">&quot;Ты женат? Говорите ли по-английски?&quot;</span>)</code></pre></div>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["language"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["probability"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["reliable"],"name":[3],"type":["lgl"],"align":["right"]},{"label":["proportion"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"ru","2":"0.5704396","3":"FALSE","4":"1"},{"1":"und","2":"0.0000000","3":"FALSE","4":"0"},{"1":"und","2":"0.0000000","3":"FALSE","4":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld2::<span class="kw">detect_language_mixed</span>(<span class="st">&quot;Варкалось. Хливкие шорьки пырялись по наве, и хрюкотали зелюки, как мюмзики в мове.&quot;</span>)</code></pre></div>
-<pre><code>## $classificaton
-##   language code latin proportion
-## 1  RUSSIAN   ru FALSE       0.99
-## 2  UNKNOWN   un  TRUE       0.00
-## 3  UNKNOWN   un  TRUE       0.00
-## 
-## $bytes
-## [1] 148
-## 
-## $reliabale
-## [1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld3::<span class="kw">detect_language_mixed</span>(<span class="st">&quot;Варкалось. Хливкие шорьки пырялись по наве, и хрюкотали зелюки, как мюмзики в мове.&quot;</span>)</code></pre></div>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["language"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["probability"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["reliable"],"name":[3],"type":["lgl"],"align":["right"]},{"label":["proportion"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"ru","2":"0.9310275","3":"TRUE","4":"1"},{"1":"und","2":"0.0000000","3":"FALSE","4":"0"},{"1":"und","2":"0.0000000","3":"FALSE","4":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld2::<span class="kw">detect_language_mixed</span>(<span class="st">&quot;Варчилось… Хлив&#39;язкі тхурки викрули, свербчись навкрузі, жасумновілі худоки гривіли зехряки в чузі.&quot;</span>)</code></pre></div>
-<pre><code>## $classificaton
-##    language code latin proportion
-## 1 UKRAINIAN   uk FALSE       0.99
-## 2   UNKNOWN   un  TRUE       0.00
-## 3   UNKNOWN   un  TRUE       0.00
-## 
-## $bytes
-## [1] 180
-## 
-## $reliabale
-## [1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld3::<span class="kw">detect_language_mixed</span>(<span class="st">&quot;Варчилось… Хлив&#39;язкі тхурки викрули, свербчись навкрузі, жасумновілі худоки гривіли зехряки в чузі.&quot;</span>)</code></pre></div>
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["language"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["probability"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["reliable"],"name":[3],"type":["lgl"],"align":["right"]},{"label":["proportion"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"uk","2":"0.9999924","3":"TRUE","4":"1"},{"1":"und","2":"0.0000000","3":"FALSE","4":"0"},{"1":"und","2":"0.0000000","3":"FALSE","4":"0"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
-</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld2::<span class="kw">detect_language</span>(<span class="st">&quot;Ты женат? Говорите ли по-английски?&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;bg&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld3::<span class="kw">detect_language</span>(<span class="st">&quot;Ты женат? Говорите ли по-английски?&quot;</span>)</code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld2::<span class="kw">detect_language</span>(<span class="st">&quot;Варкалось. Хливкие шорьки пырялись по наве, и хрюкотали зелюки, как мюмзики в мове.&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;ru&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld3::<span class="kw">detect_language</span>(<span class="st">&quot;Варкалось. Хливкие шорьки пырялись по наве, и хрюкотали зелюки, как мюмзики в мове.&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;ru&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld2::<span class="kw">detect_language</span>(<span class="st">&quot;Варчилось… Хлив&#39;язкі тхурки викрули, свербчись навкрузі, жасумновілі худоки гривіли зехряки в чузі.&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;uk&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld3::<span class="kw">detect_language</span>(<span class="st">&quot;Варчилось… Хлив&#39;язкі тхурки викрули, свербчись навкрузі, жасумновілі худоки гривіли зехряки в чузі.&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;uk&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cld2::<span class="kw">detect_language_mixed</span>(<span class="st">&quot;Многие в нашей команде OpenDataScience занимаются state-of-the-art технологиями машинного обучения: DL-фреймворками, байесовскими методами машинного обучения, вероятностным программированием и не только.&quot;</span>)</code></pre></div>
 <pre><code>## $classificaton
 ##   language code latin proportion
