@@ -5,12 +5,12 @@ navbar:
     - href: index.html
       text: Home
     - href: 1_strings.html
-      text: "1.1 Строки"
+      text: "1. Работа со строками"
     - href: 2_distance.html
-      text: "1.2 Расстояния"
+      text: "2. Определение языка. Расстояния. Регулярки"
     - href: 3_frequency.html
-      text: "2.1 Частотность"
+      text: "3. Частотность"
     - href: 4_n_gramm.html
-      text: "2.2 n-граммы"
+      text: "4. n-граммы"
   title: ""
 output_dir: docs

@@ -12,7 +12,7 @@
 <meta name="author" content="Г. Мороз" />
 
 
-<title>1.2 Определение языка. Расстояния. Регулярки</title>
+<title></title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -308,16 +308,16 @@ div.tocify {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="1_strings.html">1.1 Строки</a>
+  <a href="1_strings.html">1. Работа со строками</a>
 </li>
 <li>
-  <a href="2_distance.html">1.2 Расстояния</a>
+  <a href="2_distance.html">2. Определение языка. Расстояния. Регулярки</a>
 </li>
 <li>
-  <a href="3_frequency.html">2.1 Частотность</a>
+  <a href="3_frequency.html">3. Частотность</a>
 </li>
 <li>
-  <a href="4_n_gramm.html">2.2 n-граммы</a>
+  <a href="4_n_gramm.html">4. n-граммы</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -331,7 +331,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">1.2 Определение языка. Расстояния. Регулярки</h1>
+<h1 class="title toc-ignore"><ol start="2" style="list-style-type: decimal">
+<li>Определение языка. Расстояния. Регулярки</li>
+</ol></h1>
 <h4 class="author"><em>Г. Мороз</em></h4>
 <h4 class="date"><em>25 июля 2017, АНДАН</em></h4>
 
@@ -441,15 +443,48 @@ udhr_24</code></pre></div>
 </div>
 <div id="-" class="section level3">
 <h3>3. Регулярные выражения</h3>
+<p>Все функции из раздела</p>
+<div id="-" class="section level4">
+<h4>3.1 Экранирование метасимволов</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">.&quot;</span></code></pre></div>
+<pre><code>## [1] &quot;\\.&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">$&quot;</span></code></pre></div>
+<pre><code>## [1] &quot;\\$&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">*&quot;</span></code></pre></div>
+<pre><code>## [1] &quot;\\*&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">+&quot;</span></code></pre></div>
+<pre><code>## [1] &quot;\\+&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">?&quot;</span></code></pre></div>
+<pre><code>## [1] &quot;\\?&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">|&quot;</span></code></pre></div>
+<pre><code>## [1] &quot;\\|&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">^&quot;</span></code></pre></div>
+<pre><code>## [1] &quot;\\^&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">[&quot;</span></code></pre></div>
+<pre><code>## [1] &quot;\\[&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">]&quot;</span></code></pre></div>
+<pre><code>## [1] &quot;\\]&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">{&quot;</span></code></pre></div>
+<pre><code>## [1] &quot;\\{&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">}&quot;</span></code></pre></div>
+<pre><code>## [1] &quot;\\}&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">)&quot;</span></code></pre></div>
+<pre><code>## [1] &quot;\\)&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\\\</span><span class="st">&quot;</span></code></pre></div>
+<pre><code>## [1] &quot;\\\\&quot;</code></pre>
 <div class="parallax">
 
+</div>
+<div class="parallax">
+
+</div>
 </div>
 </div>
 <div class="section level3">
 <h3>4. Задачи</h3>
 <div id="---" class="section level4">
 <h4>4.1 Функция для проверки полиндромности</h4>
-<p>Улучшите функцию <code>is.palindrome</code>, чтобы она могла учесть знаки препинания, пробелы и т. п.</p>
+<p>Улучшите функцию <code>is.palindrome()</code>, чтобы она могла учесть знаки препинания, пробелы и т. п.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.palindrome</span>(<span class="st">&quot;Замучен он, но не чумаз&quot;</span>)</code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.palindrome</span>(<span class="st">&quot;Замучена она, но не чумаза&quot;</span>)</code></pre></div>

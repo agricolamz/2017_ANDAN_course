@@ -12,7 +12,7 @@
 <meta name="author" content="Г. Мороз" />
 
 
-<title>1.1 Работа со строками</title>
+<title></title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -311,16 +311,16 @@ div.tocify {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="1_strings.html">1.1 Строки</a>
+  <a href="1_strings.html">1. Работа со строками</a>
 </li>
 <li>
-  <a href="2_distance.html">1.2 Расстояния</a>
+  <a href="2_distance.html">2. Определение языка. Расстояния. Регулярки</a>
 </li>
 <li>
-  <a href="3_frequency.html">2.1 Частотность</a>
+  <a href="3_frequency.html">3. Частотность</a>
 </li>
 <li>
-  <a href="4_n_gramm.html">2.2 n-граммы</a>
+  <a href="4_n_gramm.html">4. n-граммы</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -334,7 +334,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">1.1 Работа со строками</h1>
+<h1 class="title toc-ignore"><ol style="list-style-type: decimal">
+<li>Работа со строками</li>
+</ol></h1>
 <h4 class="author"><em>Г. Мороз</em></h4>
 <h4 class="date"><em>25 июля 2017, АНДАН</em></h4>
 
@@ -432,40 +434,8 @@ stringi::<span class="kw">stri_rand_strings</span>(<span class="dt">n =</span> <
 
 </div>
 </div>
-<div id="-" class="section level3">
-<h3>2. Экранирование метасимволов</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">.&quot;</span></code></pre></div>
-<pre><code>## [1] &quot;\\.&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">$&quot;</span></code></pre></div>
-<pre><code>## [1] &quot;\\$&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">*&quot;</span></code></pre></div>
-<pre><code>## [1] &quot;\\*&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">+&quot;</span></code></pre></div>
-<pre><code>## [1] &quot;\\+&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">?&quot;</span></code></pre></div>
-<pre><code>## [1] &quot;\\?&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">|&quot;</span></code></pre></div>
-<pre><code>## [1] &quot;\\|&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">^&quot;</span></code></pre></div>
-<pre><code>## [1] &quot;\\^&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">[&quot;</span></code></pre></div>
-<pre><code>## [1] &quot;\\[&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">]&quot;</span></code></pre></div>
-<pre><code>## [1] &quot;\\]&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">{&quot;</span></code></pre></div>
-<pre><code>## [1] &quot;\\{&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">}&quot;</span></code></pre></div>
-<pre><code>## [1] &quot;\\}&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\</span><span class="st">)&quot;</span></code></pre></div>
-<pre><code>## [1] &quot;\\)&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">&quot;</span><span class="ch">\\\\</span><span class="st">&quot;</span></code></pre></div>
-<pre><code>## [1] &quot;\\\\&quot;</code></pre>
-<div class="parallax">
-
-</div>
-</div>
 <div id="--" class="section level3">
-<h3>3. Операции со строками</h3>
+<h3>2. Операции со строками</h3>
 <ul>
 <li>изменение регистра</li>
 <li>подсчет количества символов в строке</li>
@@ -480,7 +450,7 @@ base R vs. <code>stringr</code>, <code>stringi</code>…
 
 </div>
 <div id="-" class="section level4">
-<h4>3.1 Изменение регистра</h4>
+<h4>2.1 Изменение регистра</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">latin &lt;-<span class="st"> &quot;tHe QuIcK BrOwN fOx JuMpS OvEr ThE lAzY dOg&quot;</span>
 <span class="kw">tolower</span>(latin)</code></pre></div>
 <pre><code>## [1] &quot;the quick brown fox jumps over the lazy dog&quot;</code></pre>
@@ -502,7 +472,7 @@ base R vs. <code>stringr</code>, <code>stringi</code>…
 </div>
 </div>
 <div id="--" class="section level4">
-<h4>3.2 Подсчет количества символов</h4>
+<h4>2.2 Подсчет количества символов</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nchar</span>(latin)</code></pre></div>
 <pre><code>## [1] 43</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nchar</span>(month.name)</code></pre></div>
@@ -520,7 +490,7 @@ base R vs. <code>stringr</code>, <code>stringi</code>…
 </div>
 </div>
 <div class="section level4">
-<h4>3.3 Сортировка</h4>
+<h4>2.3 Сортировка</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">unsorted_latin &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;I&quot;</span>, <span class="st">&quot;♥&quot;</span>, <span class="st">&quot;N&quot;</span>, <span class="st">&quot;Y&quot;</span>)
 <span class="kw">sort</span>(unsorted_latin)</code></pre></div>
 <pre><code>## [1] &quot;♥&quot; &quot;I&quot; &quot;N&quot; &quot;Y&quot;</code></pre>
@@ -547,36 +517,36 @@ huge &lt;-<span class="st"> </span><span class="kw">sample</span>(letters, <span
   <span class="kw">sort</span>(huge)
 )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   5.432   0.044   5.518</code></pre>
+##   5.349   0.017   5.367</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(
   <span class="kw">sort</span>(huge, <span class="dt">method =</span> <span class="st">&quot;radix&quot;</span>)
 )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.544   0.033   0.584</code></pre>
+##   0.507   0.033   0.541</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(
   stringr::<span class="kw">str_sort</span>(huge)
 )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##  10.261   0.076  10.352</code></pre>
+##  10.016   0.034  10.059</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">huge_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(huge)
 <span class="kw">system.time</span>(
   dplyr::<span class="kw">arrange</span>(<span class="dt">.data =</span> huge_df, huge)
 )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   5.714   0.014   5.735</code></pre>
+##   5.652   0.010   5.665</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">huge_tbl &lt;-<span class="st"> </span>tibble::<span class="kw">data_frame</span>(huge)
 <span class="kw">system.time</span>(
   dplyr::<span class="kw">arrange</span>(<span class="dt">.data =</span> huge_tbl, huge)
 )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   5.970   0.066   6.041</code></pre>
+##   5.821   0.043   5.871</code></pre>
 <p>Предварительный вывод: для больших данных – <code>sort(..., method = &quot;radix&quot;)</code>.</p>
 <div class="parallax">
 
 </div>
 </div>
 <div class="section level4">
-<h4>3.4 Соединение</h4>
+<h4>2.4 Соединение</h4>
 <ul>
 <li>одинаковое количество строк</li>
 </ul>
@@ -626,7 +596,7 @@ latin_abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="s
 </div>
 </div>
 <div id="---" class="section level4">
-<h4>3.5 Поиск строки по подстроке</h4>
+<h4>2.5 Поиск строки по подстроке</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;the quick&quot;</span>, <span class="st">&quot;brown&quot;</span>, <span class="st">&quot;fox&quot;</span>, <span class="st">&quot;jumps&quot;</span>, <span class="st">&quot;over&quot;</span>, <span class="st">&quot;jumps&quot;</span>, <span class="st">&quot;over&quot;</span>, <span class="st">&quot;the&quot;</span>, <span class="st">&quot;lazy&quot;</span>, <span class="st">&quot;dog&quot;</span>)
 <span class="kw">grep</span>(<span class="st">&quot;the&quot;</span>, a)</code></pre></div>
 <pre><code>## [1] 1 8</code></pre>
@@ -664,7 +634,7 @@ latin_abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="s
 </div>
 </div>
 <div id="---" class="section level4">
-<h4>3.6 Замена подстроки в строке</h4>
+<h4>2.6 Замена подстроки в строке</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;the quick brown fox&quot;</span>, <span class="st">&quot;jumps over the lazy dog&quot;</span>)
 <span class="kw">sub</span>(<span class="st">&quot;o&quot;</span>, <span class="st">&quot;_&quot;</span>, b)</code></pre></div>
 <pre><code>## [1] &quot;the quick br_wn fox&quot;     &quot;jumps _ver the lazy dog&quot;</code></pre>
@@ -679,7 +649,7 @@ latin_abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="s
 </div>
 </div>
 <div id="---" class="section level4">
-<h4>3.7 Разделение вектора по подстроке</h4>
+<h4>2.7 Разделение вектора по подстроке</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b</code></pre></div>
 <pre><code>## [1] &quot;the quick brown fox&quot;     &quot;jumps over the lazy dog&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">strsplit</span>(b, <span class="st">&quot; &quot;</span>)</code></pre></div>
@@ -703,7 +673,7 @@ latin_abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="s
 </div>
 </div>
 <div id="---" class="section level4">
-<h4>3.8 Выделение подстроки по номеру</h4>
+<h4>2.8 Выделение подстроки по номеру</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b</code></pre></div>
 <pre><code>## [1] &quot;the quick brown fox&quot;     &quot;jumps over the lazy dog&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">substring</span>(b, <span class="dv">11</span>, <span class="dv">15</span>)</code></pre></div>
@@ -741,7 +711,7 @@ latin_abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="s
 </div>
 </div>
 <div id="--" class="section level3">
-<h3>4. Операции над векторами</h3>
+<h3>3. Операции над векторами</h3>
 <p>Векторы не мноежества, но операции на них действуют те же:</p>
 <ul>
 <li>Объединение</li>
@@ -754,7 +724,7 @@ latin_abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="s
 
 </div>
 <div class="section level4">
-<h4>4.1 Объединение</h4>
+<h4>3.1 Объединение</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a; b</code></pre></div>
 <pre><code>##  [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;     
 ##  [6] &quot;jumps&quot;     &quot;over&quot;      &quot;the&quot;       &quot;lazy&quot;      &quot;dog&quot;</code></pre>
@@ -783,7 +753,7 @@ latin_abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="s
 </div>
 </div>
 <div class="section level4">
-<h4>4.2 Пересечение</h4>
+<h4>3.2 Пересечение</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a; b</code></pre></div>
 <pre><code>##  [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;     
 ##  [6] &quot;jumps&quot;     &quot;over&quot;      &quot;the&quot;       &quot;lazy&quot;      &quot;dog&quot;</code></pre>
@@ -795,7 +765,7 @@ latin_abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="s
 </div>
 </div>
 <div class="section level4">
-<h4>4.3 Разность</h4>
+<h4>3.3 Разность</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a; b</code></pre></div>
 <pre><code>##  [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;     
 ##  [6] &quot;jumps&quot;     &quot;over&quot;      &quot;the&quot;       &quot;lazy&quot;      &quot;dog&quot;</code></pre>
@@ -808,7 +778,7 @@ latin_abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="s
 </div>
 </div>
 <div class="section level4">
-<h4>4.4 Сравнение</h4>
+<h4>3.4 Сравнение</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">c &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;brown&quot;</span>, <span class="st">&quot;fox&quot;</span>, <span class="st">&quot;jumps&quot;</span>, <span class="st">&quot;over&quot;</span>, <span class="st">&quot;the quick&quot;</span>)
 a; c</code></pre></div>
 <pre><code>##  [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;     
@@ -823,7 +793,7 @@ a; c</code></pre></div>
 </div>
 </div>
 <div class="section level4">
-<h4>4.5 Подмножество?</h4>
+<h4>3.5 Подмножество?</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a</code></pre></div>
 <pre><code>##  [1] &quot;the quick&quot; &quot;brown&quot;     &quot;fox&quot;       &quot;jumps&quot;     &quot;over&quot;     
 ##  [6] &quot;jumps&quot;     &quot;over&quot;      &quot;the&quot;       &quot;lazy&quot;      &quot;dog&quot;</code></pre>
@@ -841,26 +811,26 @@ a; c</code></pre></div>
 </div>
 </div>
 <div class="section level3">
-<h3>5. Задачи</h3>
+<h3>4. Задачи</h3>
 <div id="-" class="section level4">
-<h4>5.1 Чет-нечет</h4>
+<h4>4.1 Чет-нечет</h4>
 <p>Напишите функцию <code>is.odd()</code>, которая возвращает значение <code>TRUE</code>, если число символов в строке нечетно, <code>FALSE</code>, если число символов в строке четно.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.odd</span>(<span class="kw">c</span>(<span class="st">&quot;odd&quot;</span>, <span class="st">&quot;even&quot;</span>, <span class="st">&quot;&quot;</span>))</code></pre></div>
 <pre><code>## [1]  TRUE FALSE FALSE</code></pre>
 </div>
 <div id="-" class="section level4">
-<h4>5.2 Лишние пробелы</h4>
+<h4>4.2 Лишние пробелы</h4>
 <p>Напишите функцию <code>spaceless()</code>, которая убирает лишние пробелы.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">spaceless</span>(<span class="kw">c</span>(<span class="st">&quot;two  spaces&quot;</span>, <span class="st">&quot;five     spaces&quot;</span>))</code></pre></div>
 <pre><code>## [1] &quot;two spaces&quot;  &quot;five spaces&quot;</code></pre>
 </div>
 <div id="-----" class="section level4">
-<h4>5.3 Искусственные данные по средней продолжительности сна</h4>
+<h4>4.3 Искусственные данные по средней продолжительности сна</h4>
 <p><a href="https://goo.gl/dpCSV2">В данных по продолжительности сна</a> (1.1_sleep_hours.csv)<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> две переменных: код испытуемого и среднее время сна. Попробуйте сделать следующий график:</p>
-<p><img src="1_strings_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p><img src="1_strings_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 </div>
 <div id="-" class="section level4">
-<h4>5.4 Алфавитный порядок</h4>
+<h4>4.4 Алфавитный порядок</h4>
 <p>Как было сказано выше, “алфавитный” порядок разный в разных локалях. Напишите функцию <code>ordering_in_locales</code>, которая на вход принимает два символа, а возвращает таблицу с информацией о том, в скольких локалях порядок соответствует поданному в функцию, а в скольких порядок обратный:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ordering_in_locales</span>(<span class="st">&quot;i&quot;</span>, <span class="st">&quot;и&quot;</span>)</code></pre></div>
 <pre><code>## 
@@ -868,7 +838,7 @@ a; c</code></pre></div>
 ## 425 217</code></pre>
 </div>
 <div id="---" class="section level4">
-<h4>5.5 Функция для проверки полиндромности</h4>
+<h4>4.5 Функция для проверки полиндромности</h4>
 <p>Напишите функцию <code>is.palindrome</code>, которая будет проверять, является ли <em>слово</em> полиндромом.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.palindrome</span>(<span class="st">&quot;топот&quot;</span>)</code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
