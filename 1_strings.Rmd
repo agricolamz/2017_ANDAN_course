@@ -190,18 +190,22 @@ stringr::str_c(c(NULL, NA, ""))
 
 #### 2.5 Поиск строки по подстроке
 ```{r}
-a <- c("the quick", "brown fox", "jumps", "over", "jumps", "over", "the", "lazy", "dog")
+a <- c("the quick", "brown fox", "jumps", "over the lazy dog")
 grep("the", a)
 grep("the", a, value = TRUE)
 grep("the", a, invert = TRUE)
 grep("the", a, invert = TRUE, value = TRUE)
 grepl("the", a)
+regexpr("o", a)
+gregexpr("o", a)
+regmatches("Мама увидела маму", regexec("[Мм]ам", "Мама увидела маму"))
+
 stringr::str_which(a, "the")
 stringr::str_subset(a, "the")
 stringr::str_detect(a, "the")
-stringr::str_view(a, "r")
+stringr::str_view(a, "o")
 stringr::str_view_all(a, "o")
-stringr::str_locate(a, "r")
+stringr::str_locate(a, "o")
 ```
 <div class="parallax"></div>
 
