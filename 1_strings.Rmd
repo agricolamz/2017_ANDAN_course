@@ -190,7 +190,7 @@ stringr::str_c(c(NULL, NA, ""))
 
 #### 2.5 Поиск строки по подстроке
 ```{r}
-a <- c("the quick", "brown", "fox", "jumps", "over", "jumps", "over", "the", "lazy", "dog")
+a <- c("the quick", "brown fox", "jumps", "over", "jumps", "over", "the", "lazy", "dog")
 grep("the", a)
 grep("the", a, value = TRUE)
 grep("the", a, invert = TRUE)
@@ -200,6 +200,7 @@ stringr::str_which(a, "the")
 stringr::str_subset(a, "the")
 stringr::str_detect(a, "the")
 stringr::str_view(a, "r")
+stringr::str_view_all(a, "o")
 stringr::str_locate(a, "r")
 ```
 <div class="parallax"></div>
@@ -312,22 +313,14 @@ is.odd <- function(x){nchar(x) %% 2 == 1}
 is.odd(c("odd", "even", ""))
 ```
 
-#### 4.2 Лишние пробелы
-Напишите функцию `spaceless()`, которая убирает лишние пробелы.
-```{r,echo=FALSE, message = FALSE}
-spaceless <- function(x){gsub(" {1,}", " ", x)}
-```
-```{r}
-spaceless(c("two  spaces", "five     spaces"))
-```
 
-#### 4.3 Искусственные данные по средней продолжительности сна
+#### 4.2 Искусственные данные по средней продолжительности сна
 [В данных по продолжительности сна](https://goo.gl/dpCSV2) (1.1_sleep_hours.csv)[^2] две переменных: код испытуемого и среднее время сна. Попробуйте сделать следующий график:
 
 ```{r, echo=FALSE, message = FALSE}
 library(tidyverse)
 read.csv("https://goo.gl/dpCSV2") %>% 
-  mutate(sex = gsub("[0-9]|_", "", code)) %>% 
+  mutate(sex = gsub("[0-9_]", "", code)) %>% 
   ggplot(aes(sleep_hours, fill = sex))+
   geom_density(alpha= 0.4)+
   theme_bw()+
@@ -339,7 +332,7 @@ read.csv("https://goo.gl/dpCSV2") %>%
 
 [^2]: Если у Вас не получается считать файл, попробуйте добавлять разные аргументы к `read.csv`: `encoding="UTF-8"` или `fileEncoding = "UTF-8"`… Я надеюсь, поможет…
 
-#### 4.4 Алфавитный порядок
+#### 4.3 Алфавитный порядок
 Как было сказано выше, "алфавитный" порядок разный в разных локалях. Напишите функцию `ordering_in_locales`, которая на вход принимает два символа, а возвращает таблицу с информацией о том, в скольких локалях порядок соответствует поданному в функцию, а в скольких порядок обратный:
 ```{r, echo=FALSE, message = FALSE}
 ordering_in_locales <- function(x, y){
@@ -351,13 +344,11 @@ ordering_in_locales <- function(x, y){
 ordering_in_locales("i", "и")
 ```
 
-#### 4.5 Функция для проверки полиндромности
+#### 4.4 Функция для проверки полиндромности
 Напишите функцию `is.palindrome`, которая будет проверять, является ли *слово* полиндромом.
 ```{r, echo=FALSE, message = FALSE}
 is.palindrome <- function(x){
-  x <- tolower(x)
-  x <- gsub(" ", "", x)
-  x <- gsub("[[:punct:]]", "", x)
+  x <- gsub("\\W", "", tolower(x))
   x == paste0(rev(substring(x, 1:nchar(x), 1:nchar(x))), collapse = "")
 }
 ```

@@ -70,36 +70,83 @@ stringdist::ain(c("осы", "коровы"), c("курица", "бык", "утк
 <div class="parallax"></div>
 
 ### 3. Регулярные выражения
-Все функции из раздела 
+Большинство функций из [раздела об операциях над векторами](https://agricolamz.github.io/2017_ANDAN_course/1_strings.html#3_%D0%BE%D0%BF%D0%B5%D1%80%D0%B0%D1%86%D0%B8%D0%B8_%D0%BD%D0%B0%D0%B4_%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%B0%D0%BC%D0%B8) имеют следующую структуру:
+
+* строка с которой работает функция
+* образец (pattern)
 
 #### 3.1 Экранирование метасимволов
 ```{r}
-"\\."
-"\\$"
-"\\*"
-"\\+"
-"\\?"
-"\\|"
-"\\^"
-"\\["
-"\\]"
-"\\{"
-"\\}"
-"\\)"
-"\\\\"
+a <- "Всем известно, что 4$\\2 + 3$ * 5 = 17$? Да? Ну хорошо (а то я не был уверен). [|}^{|]"
+stringr::str_view_all(a, "$")
+stringr::str_view_all(a, "\\$")
+stringr::str_view_all(a, "\\.")
+stringr::str_view_all(a, "\\*")
+stringr::str_view_all(a, "\\+")
+stringr::str_view_all(a, "\\?")
+stringr::str_view_all(a, "\\(")
+stringr::str_view_all(a, "\\)")
+stringr::str_view_all(a, "\\|")
+stringr::str_view_all(a, "\\^")
+stringr::str_view_all(a, "\\[")
+stringr::str_view_all(a, "\\]")
+stringr::str_view_all(a, "\\{")
+stringr::str_view_all(a, "\\}")
+stringr::str_view_all(a, "\\\\")
 ```
 <div class="parallax"></div>
 
+#### 3.2 Классы знаков
+
+* `\\d` -- цифры. `\\D` -- не цифры.
+```{r}
+stringr::str_view_all("2 15 42. 42 15. 37 08 5. 20 20 20!", "\\d")
+stringr::str_view_all("2 15 42. 42 15. 37 08 5. 20 20 20!", "\\D")
+```
+
+* `\\s` -- пробелы. `\\S` -- не пробелы.
+```{r}
+stringr::str_view_all("2 15 42. 42 15. 37 08 5. 20 20 20!", "\\s")
+stringr::str_view_all("2 15 42. 42 15. 37 08 5. 20 20 20!", "\\S")
+```
+
+* `\\w` -- не пробелы и не знаки препинания. `\\S` -- пробелы и знаки препинания.
+```{r}
+stringr::str_view_all("два 15 42. 42 15. 37 08 5. 20 20 20!", "\\w")
+stringr::str_view_all("два 15 42. 42 15. 37 08 5. 20 20 20!", "\\W")
+```
+
+* произвольная группа и обратная к ней
+```{r}
+stringr::str_view_all("Умей мечтать, не став рабом мечтанья", "[оауиыэёеяю]")
+stringr::str_view_all("И мыслить, мысли не обожествив", "[^оауиыэёеяю]")
+```
+
+* есть еще и другие группы, см. `?regex`
+
 <div class="parallax"></div>
 
+#### 3.3 Группы знаков
+
+```{r}
+stringr::str_view_all("Карл у Клары украл кораллы, а Клара у Карла украла кларнет", "ар|ра")
+stringr::str_view_all(" За гиппопотамом по пятам топает гиппопотам.", "(по)*")
+```
+
 ### 4. Задачи
-#### 4.1 Функция для проверки полиндромности
+#### 4.1 Лишние пробелы
+Напишите функцию `spaceless()`, которая убирает лишние пробелы.
+```{r,echo=FALSE, message = FALSE}
+spaceless <- function(x){gsub("\\s{1,}", " ", x)}
+```
+```{r}
+spaceless(c("two  spaces", "five     spaces"))
+```
+#### 4.2 Функция для проверки полиндромности
 Улучшите функцию `is.palindrome()`, чтобы она могла учесть знаки препинания, пробелы и т. п.
 ```{r, echo=FALSE, message = FALSE}
 is.palindrome <- function(x){
-  x <- tolower(x)
-  x <- gsub(" ", "", x)
-  x <- gsub("[[:punct:]]", "", x)
+  x <- gsub("\\W", "", tolower(x))
   x == paste0(rev(substring(x, 1:nchar(x), 1:nchar(x))), collapse = "")
 }
 ```
