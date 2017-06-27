@@ -361,5 +361,18 @@ is.palindrome("топот")
 is.palindrome("топор")
 ```
 
-
+#### 4.5 Функция для зеркального отражения размера букв
+Напишите функцию `mirror_case()`, которая в строке все большие буквы заменяет на маленькие, а все маленькие -- на большие.
+```{r, echo=FALSE, message = FALSE}
+mirror_case <- function(x){
+  x <- substring(x, 1:nchar(x), 1:nchar(x))
+  lower <- tolower(x)
+  paste0(sapply(seq_along(x), function(i){
+    ifelse(x[i] == lower[i], 
+           toupper(lower[i]), lower[i])}), collapse = "")
+}
+```
+```{r}
+mirror_case("ЖиЛи БыЛи ТрИ мЕдВеДя")
+```
 <div class="parallax"></div>

@@ -199,6 +199,7 @@ spaceless <- function(x){gsub("\\s{1,}", " ", x)}
 ```{r}
 spaceless(c("two  spaces", "five     spaces"))
 ```
+
 #### 4.2 Функция для проверки полиндромности
 Улучшите функцию `is.palindrome()`, чтобы она могла учесть знаки препинания, пробелы и т. п.
 ```{r, echo=FALSE, message = FALSE}
@@ -211,5 +212,9 @@ is.palindrome <- function(x){
 is.palindrome("Замучен он, но не чумаз")
 is.palindrome("Замучена она, но не чумаза")
 ```
+
+#### 4.3 Спеллчекер? Легко!
+
+#### 4.4 Анализ небрежных данных
 
 <div class="parallax"></div>
