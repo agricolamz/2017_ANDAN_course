@@ -234,14 +234,47 @@ is.palindrome("Замучена она, но не чумаза")
 * возвращает слова из строки, которых нет в словаре;
 * если аргумент `suggestions = TRUE`, то возвращает слово с минимальным расстояние Дамерау — Левенштейна.
 
-#### 4.5 Анализ небрежных данных
-В ходе анализа данных чаще всего бороться со строками и регулярными выражениями приходится с неаккуратными анкетами. Предлагаю поразвлекаться [с такими данными](https://goo.gl/tbCQcW):
+#### 4.5 Анализ данных небрежно собраннных анкет
+В ходе анализа данных чаще всего бороться со строками и регулярными выражениями приходится в процессе обработки неаккуратно собранных анкет. Предлагаю поразвлекаться [с подобными данными](https://goo.gl/tbCQcW) и построить следующие графики:
 
-```{r}
+```{r,echo = FALSE, message = FALSE}
 library(tidyverse); library(stringr)
 quest <- read_tsv("https://goo.gl/tbCQcW")
 quest %>% 
-  mutate(ifelse(sex == "[Жж](ен)"))
+  mutate(sex = ifelse(str_detect(sex, "^[Ж|ж]"), "женский", "мужской")) %>% 
+  mutate(age = as.integer(ifelse(age == "18 лет", "18", age))) ->
+  quest
+quest %>% 
+  ggplot(aes(age, fill = sex))+
+  geom_density(alpha = 0.4)+
+  theme_bw()+
+  ggtitle("Распределение респондентов по полу и возрасту")
 ```
+
+```{r,echo = FALSE, message = FALSE}
+quest %>% 
+  mutate(fear_of_the_dark = ifelse(str_detect(fear_of_the_dark, "[Дд]а|[Нн]емного|Определённо|панически"),
+                      "да",
+                      "нет")) ->
+  quest
+quest %>% 
+  ggplot(aes(fear_of_the_dark, fill = sex)) +
+  geom_bar(position = "dodge")+
+  theme_bw()+
+  labs(title = "Распределение боящихся темноты по полу",
+       x = "страх темноты",
+       y = "количество респондентов")
+```
+
+
+```{r}
+quest %>% 
+  mutate(frequency_be_in_the_fresh_air = ifelse(str_detect(frequency_be_in_the_fresh_air, "[Дд]а|[Нн]емного|Определённо|панически"),
+                      "да",
+                      "нет")) ->
+  quest
+
+```
+
 
 <div class="parallax"></div>
