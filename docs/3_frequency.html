@@ -557,8 +557,10 @@ tidy_chekhov %&gt;%<span class="st"> </span>
 
 </div>
 </div>
-<div id="tf-idf" class="section level3">
-<h3>6. TF-IDF</h3>
+<div id="tfidf" class="section level3">
+<h3>6. TfIdf</h3>
+<p>Откидывание стоп-слов позволяет не анализировать малозначимые слова. Однако как показать, что какие-то два текста похожи, а другие различаются? Для этого используется мера TfIdf (term frequency inverse document frequency).</p>
+<p><span class="math display">\[tf = \frac{количество\ употреблений\ единицы\ в\ тексте}{количество\ уникальных\ единиц\ в тексте}\]</span> <span class="math display">\[idf = log\left(\frac{количество\ документов\ в\ корпусе}{количество\ документов\ с\ исследуемой\ единицей}\right)\]</span> <span class="math display">\[TfIdf = tf*idf\]</span></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_chekhov %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">count</span>(title, word)%&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) %&gt;%<span class="st"> </span>
@@ -610,6 +612,84 @@ PCA &lt;-<span class="st"> </span><span class="kw">prcomp</span>(gospels[,<span 
 </div>
 <div id="n-" class="section level3">
 <h3>8. n-граммы</h3>
+<p>Все это время мы работали с униграммами, однако достаточно много информации дает биграмное, триграммное и т. д. представление. Для того, чтобы получить n-граммы нужно использовать уже известную функцию <code>unnest_tokens()</code> с аргументом <code>token = &quot;ngrams&quot;</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">all_texts %&gt;%
+<span class="st">  </span><span class="kw">unnest_tokens</span>(bigram, text, <span class="dt">token =</span> <span class="st">&quot;ngrams&quot;</span>, <span class="dt">n =</span> <span class="dv">2</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">bigram =</span> <span class="kw">str_replace_all</span>(bigram, <span class="st">&quot;ё&quot;</span>, <span class="st">&quot;е&quot;</span>)) -&gt;
+<span class="st">  </span>tidy_chekhov_bigrams
+
+<span class="kw">head</span>(tidy_chekhov_bigrams)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["title"],"name":[1],"type":["chr"],"align":["left"]},{"label":["sentences"],"name":[2],"type":["int"],"align":["right"]},{"label":["bigram"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"cinik.txt","2":"1","3":"полдень управляющий"},{"1":"cinik.txt","2":"1","3":"управляющий зверинца"},{"1":"cinik.txt","2":"1","3":"зверинца братьев"},{"1":"cinik.txt","2":"1","3":"братьев пихнау"},{"1":"cinik.txt","2":"1","3":"пихнау отставной"},{"1":"cinik.txt","2":"1","3":"отставной портупей"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Биграмма – это строка… Надо распилить</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_chekhov_bigrams %&gt;%
+<span class="st">  </span><span class="kw">separate</span>(bigram, <span class="kw">c</span>(<span class="st">&quot;word1&quot;</span>, <span class="st">&quot;word2&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>) -&gt;
+<span class="st">  </span>tidy_chekhov_bigrams
+<span class="kw">head</span>(tidy_chekhov_bigrams)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["title"],"name":[1],"type":["chr"],"align":["left"]},{"label":["sentences"],"name":[2],"type":["int"],"align":["right"]},{"label":["word1"],"name":[3],"type":["chr"],"align":["left"]},{"label":["word2"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"cinik.txt","2":"1","3":"полдень","4":"управляющий"},{"1":"cinik.txt","2":"1","3":"управляющий","4":"зверинца"},{"1":"cinik.txt","2":"1","3":"зверинца","4":"братьев"},{"1":"cinik.txt","2":"1","3":"братьев","4":"пихнау"},{"1":"cinik.txt","2":"1","3":"пихнау","4":"отставной"},{"1":"cinik.txt","2":"1","3":"отставной","4":"портупей"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Выкинем стоп-слова:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_chekhov_bigrams %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(!word1 %in%<span class="st"> </span>ru_stop_words$V1) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(!word2 %in%<span class="st"> </span>ru_stop_words$V1) -&gt;
+<span class="st">  </span>tidy_chekhov_bigrams
+<span class="kw">head</span>(tidy_chekhov_bigrams)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["title"],"name":[1],"type":["chr"],"align":["left"]},{"label":["sentences"],"name":[2],"type":["int"],"align":["right"]},{"label":["word1"],"name":[3],"type":["chr"],"align":["left"]},{"label":["word2"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"cinik.txt","2":"1","3":"полдень","4":"управляющий"},{"1":"cinik.txt","2":"1","3":"управляющий","4":"зверинца"},{"1":"cinik.txt","2":"1","3":"зверинца","4":"братьев"},{"1":"cinik.txt","2":"1","3":"братьев","4":"пихнау"},{"1":"cinik.txt","2":"1","3":"пихнау","4":"отставной"},{"1":"cinik.txt","2":"1","3":"отставной","4":"портупей"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_chekhov_bigrams %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(title) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">count</span>(word1, word2, <span class="dt">sort =</span> <span class="ot">TRUE</span>) -&gt;
+<span class="st">  </span>tidy_chekhov_bigrams
+<span class="kw">head</span>(tidy_chekhov_bigrams)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["title"],"name":[1],"type":["chr"],"align":["left"]},{"label":["word1"],"name":[2],"type":["chr"],"align":["left"]},{"label":["word2"],"name":[3],"type":["chr"],"align":["left"]},{"label":["n"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"cinik.txt","2":"хо","3":"хо","4":"28"},{"1":"jeger.txt","2":"егор","3":"власыч","4":"14"},{"1":"zhenich_i_papenka.txt","2":"хе","3":"хе","4":"12"},{"1":"nervi.txt","2":"розалия","3":"карловна","4":"7"},{"1":"gost.txt","2":"парфений","3":"саввич","4":"5"},{"1":"obshee_obrazovaniye.txt","2":"петр","3":"ильич","4":"5"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Разъединили? Можно и объединитьǃ</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_chekhov_bigrams %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">unite</span>(bigram, word1, word2, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>) -&gt;
+<span class="st">  </span>tidy_chekhov_bigrams
+<span class="kw">head</span>(tidy_chekhov_bigrams)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["title"],"name":[1],"type":["chr"],"align":["left"]},{"label":["bigram"],"name":[2],"type":["chr"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"cinik.txt","2":"хо хо","3":"28"},{"1":"jeger.txt","2":"егор власыч","3":"14"},{"1":"zhenich_i_papenka.txt","2":"хе хе","3":"12"},{"1":"nervi.txt","2":"розалия карловна","3":"7"},{"1":"gost.txt","2":"парфений саввич","3":"5"},{"1":"obshee_obrazovaniye.txt","2":"петр ильич","3":"5"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_chekhov_bigrams %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(n &gt;<span class="st"> </span><span class="dv">3</span>) %&gt;%<span class="st"> </span><span class="co"># число опять от фонаря</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(bigram, n, <span class="dt">fill =</span> title))+
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>)+
+<span class="st">  </span><span class="kw">coord_flip</span>()+
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="3_frequency_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>Можно опять же посчитать TfIdf:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_chekhov_bigrams %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">bind_tf_idf</span>(bigram, title, n) %&gt;%
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(tf_idf)) -&gt;<span class="st"> </span>
+<span class="st">  </span>tidy_chekhov_bigrams_tf_idf
+<span class="kw">head</span>(tidy_chekhov_bigrams_tf_idf)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["title"],"name":[1],"type":["chr"],"align":["left"]},{"label":["bigram"],"name":[2],"type":["chr"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]},{"label":["tf"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["idf"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["tf_idf"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"cinik.txt","2":"хо хо","3":"28","4":"0.07427056","5":"2.708050","6":"0.20112840"},{"1":"jeger.txt","2":"егор власыч","3":"14","4":"0.04255319","5":"3.401197","6":"0.14473180"},{"1":"zhenich_i_papenka.txt","2":"хе хе","3":"12","4":"0.04225352","5":"2.014903","6":"0.08513675"},{"1":"nervi.txt","2":"розалия карловна","3":"7","4":"0.02439024","5":"3.401197","6":"0.08295603"},{"1":"dorogaya_sobaka.txt","2":"мужеского пола","3":"4","4":"0.02051282","5":"3.401197","6":"0.06976815"},{"1":"dachniki.txt","2":"милости просим","3":"3","4":"0.02027027","5":"3.401197","6":"0.06894319"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_chekhov_bigrams_tf_idf %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(tf_idf &gt;<span class="st"> </span><span class="fl">0.04</span>) %&gt;%<span class="st"> </span><span class="co"># число подобрано по данным</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(bigram, tf_idf, <span class="dt">fill =</span> title))+
+<span class="st">  </span><span class="kw">coord_flip</span>()+
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span> <span class="st">&quot;identity&quot;</span>)+
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="3_frequency_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 </div>
 <div class="section level3">
 <h3>9. Задачи</h3>

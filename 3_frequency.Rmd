@@ -116,7 +116,6 @@ fit$coefficients
 fit$adj.r.squared
 ```
 
-
 <div class="parallax"></div>
 
 ### 4. Закон Ципфа
@@ -182,7 +181,7 @@ tidy_chekhov %>%
 
 <div class="parallax"></div>
 
-### 6. TF-IDF
+### 6. TfIdf
 Откидывание стоп-слов позволяет не анализировать малозначимые слова. Однако как показать, что какие-то два текста похожи, а другие различаются? Для этого используется мера TfIdf (term frequency inverse document frequency).
 
 $$tf = \frac{количество\ употреблений\ единицы\ в\ тексте}{количество\ уникальных\ единиц\ в тексте}$$
@@ -225,6 +224,79 @@ summary(PCA)
 ```
 
 ### 8. n-граммы
+Все это время мы работали с униграммами, однако достаточно много информации дает биграмное, триграммное и т. д. представление. Для того, чтобы получить n-граммы нужно использовать уже известную функцию `unnest_tokens()` с аргументом `token = "ngrams"`
+
+```{r}
+all_texts %>%
+  unnest_tokens(bigram, text, token = "ngrams", n = 2) %>% 
+  mutate(bigram = str_replace_all(bigram, "ё", "е")) ->
+  tidy_chekhov_bigrams
+
+head(tidy_chekhov_bigrams)
+```
+
+Биграмма -- это строка... Надо распилить
+
+```{r}
+tidy_chekhov_bigrams %>%
+  separate(bigram, c("word1", "word2"), sep = " ") ->
+  tidy_chekhov_bigrams
+head(tidy_chekhov_bigrams)
+```
+
+Выкинем стоп-слова:
+
+```{r}
+tidy_chekhov_bigrams %>% 
+  filter(!word1 %in% ru_stop_words$V1) %>%
+  filter(!word2 %in% ru_stop_words$V1) ->
+  tidy_chekhov_bigrams
+head(tidy_chekhov_bigrams)
+```
+
+```{r}
+tidy_chekhov_bigrams %>% 
+  group_by(title) %>% 
+  count(word1, word2, sort = TRUE) ->
+  tidy_chekhov_bigrams
+head(tidy_chekhov_bigrams)
+```
+
+Разъединили? Можно и объединитьǃ
+
+```{r}
+tidy_chekhov_bigrams %>% 
+  unite(bigram, word1, word2, sep = " ") ->
+  tidy_chekhov_bigrams
+head(tidy_chekhov_bigrams)
+
+tidy_chekhov_bigrams %>% 
+  filter(n > 3) %>% # число опять от фонаря
+  ggplot(aes(bigram, n, fill = title))+
+  geom_bar(stat = "identity")+
+  coord_flip()+
+  theme_bw()
+```
+
+Можно опять же посчитать TfIdf:
+
+```{r}
+tidy_chekhov_bigrams %>% 
+  bind_tf_idf(bigram, title, n) %>%
+  arrange(desc(tf_idf)) -> 
+  tidy_chekhov_bigrams_tf_idf
+head(tidy_chekhov_bigrams_tf_idf)
+```
+
+```{r}
+tidy_chekhov_bigrams_tf_idf %>% 
+  filter(tf_idf > 0.04) %>% # число подобрано по данным
+  ggplot(aes(bigram, tf_idf, fill = title))+
+  coord_flip()+
+  geom_bar(stat= "identity")+
+  theme_bw()
+```
+
 
 ### 9. Задачи
 #### 9.1 Еще немножко о законе Ципфа
