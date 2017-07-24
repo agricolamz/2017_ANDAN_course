@@ -22,6 +22,7 @@ library(tidyverse)
 
 ### Полезное
 
+* все материалы курса доступны на [GitHub](https://github.com/agricolamz/2017_ANDAN_course) и [на сайте](https://agricolamz.github.io/2017_ANDAN_course/)
 * [CRAN Task View: Natural Language Processing](https://cran.r-project.org/web/views/NaturalLanguageProcessing.html)
 * [Sanchez, G. (2013) Handling and Processing Strings in R](http://gastonsanchez.com/Handling_and_Processing_Strings_in_R.pdf)
 * [Silge J., Robinson D. (2017) Text Mining with R. A Tidy Approach](http://tidytextmining.com/)
