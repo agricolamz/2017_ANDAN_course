@@ -163,13 +163,54 @@ zipf %>%
 str_detect(tidy_chekhov, "ё")
 ```
 ```{r}
-ru_stop_words <- read_csv("https://goo.gl/pfpUrB")
+ru_stop_words <- read.csv("https://goo.gl/pfpUrB", header = FALSE)
+str_detect(ru_stop_words, "ё")
 ```
 
+```{r}
+tidy_chekhov$word <- str_replace_all(tidy_chekhov$word, "ё", "е")
+tidy_chekhov %>% 
+  filter(!word %in% ru_stop_words$V1) %>%
+  filter(str_detect(title, "moi_jeni.txt|nalim.txt|jeger.txt")) %>%
+  count(title, word, sort = TRUE) %>% 
+  filter(n > 3) %>% 
+  ggplot(aes(word, n))+
+  coord_flip()+
+  geom_bar(stat= "identity")+
+  facet_wrap(~title, scale = "free")+
+  theme_bw()
+```
 
 <div class="parallax"></div>
 
 ### 6. TF-IDF
+
+```{r}
+tidy_chekhov %>% 
+  count(title, word)%>% 
+  arrange(desc(n))->
+  tidy_chekhov_n
+head(tidy_chekhov_n)
+
+tidy_chekhov_n %>% 
+  group_by(title) %>% 
+  summarise(sum(n)) %>% 
+  left_join(tidy_chekhov_n) ->
+  tidy_chekhov
+head(tidy_chekhov)
+
+tidy_chekhov %>% 
+  bind_tf_idf(word, title, n) ->
+  tidy_chekhov_tf_idf
+head(tidy_chekhov_tf_idf)
+
+tidy_chekhov_tf_idf %>% 
+  filter(tf_idf > 0.03) %>% # число подобрано по данным
+  ggplot(aes(word, tf_idf, fill = title))+
+  coord_flip()+
+  geom_bar(stat= "identity")+
+  theme_bw()
+```
 
 <div class="parallax"></div>
 

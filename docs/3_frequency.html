@@ -539,17 +539,65 @@ fit$coefficients</code></pre></div>
 </blockquote>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_detect</span>(tidy_chekhov, <span class="st">&quot;ё&quot;</span>)</code></pre></div>
 <pre><code>## [1] FALSE FALSE  TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ru_stop_words &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://goo.gl/pfpUrB&quot;</span>)</code></pre></div>
-<pre><code>## Parsed with column specification:
-## cols(
-##   c = col_character()
-## )</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ru_stop_words &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://goo.gl/pfpUrB&quot;</span>, <span class="dt">header =</span> <span class="ot">FALSE</span>)
+<span class="kw">str_detect</span>(ru_stop_words, <span class="st">&quot;ё&quot;</span>)</code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_chekhov$word &lt;-<span class="st"> </span><span class="kw">str_replace_all</span>(tidy_chekhov$word, <span class="st">&quot;ё&quot;</span>, <span class="st">&quot;е&quot;</span>)
+tidy_chekhov %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(!word %in%<span class="st"> </span>ru_stop_words$V1) %&gt;%
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(title, <span class="st">&quot;moi_jeni.txt|nalim.txt|jeger.txt&quot;</span>)) %&gt;%
+<span class="st">  </span><span class="kw">count</span>(title, word, <span class="dt">sort =</span> <span class="ot">TRUE</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(n &gt;<span class="st"> </span><span class="dv">3</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(word, n))+
+<span class="st">  </span><span class="kw">coord_flip</span>()+
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span> <span class="st">&quot;identity&quot;</span>)+
+<span class="st">  </span><span class="kw">facet_wrap</span>(~title, <span class="dt">scale =</span> <span class="st">&quot;free&quot;</span>)+
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="3_frequency_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <div class="parallax">
 
 </div>
 </div>
 <div id="tf-idf" class="section level3">
 <h3>6. TF-IDF</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_chekhov %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">count</span>(title, word)%&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n))-&gt;
+<span class="st">  </span>tidy_chekhov_n
+<span class="kw">head</span>(tidy_chekhov_n)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["title"],"name":[1],"type":["chr"],"align":["left"]},{"label":["word"],"name":[2],"type":["chr"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"moi_jeni.txt","2":"и","3":"85"},{"1":"rukovodstvo_dlya_zhelayushich_zhenica.txt","2":"и","3":"70"},{"1":"ninochka.txt","2":"и","3":"60"},{"1":"mertvoje_telo.txt","2":"и","3":"58"},{"1":"starosta.txt","2":"и","3":"57"},{"1":"moi_jeni.txt","2":"в","3":"55"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_chekhov_n %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(title) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="kw">sum</span>(n)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">left_join</span>(tidy_chekhov_n) -&gt;
+<span class="st">  </span>tidy_chekhov</code></pre></div>
+<pre><code>## Joining, by = &quot;title&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(tidy_chekhov)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["title"],"name":[1],"type":["chr"],"align":["left"]},{"label":["sum(n)"],"name":[2],"type":["int"],"align":["right"]},{"label":["word"],"name":[3],"type":["chr"],"align":["left"]},{"label":["n"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"cinik.txt","2":"1120","3":"и","4":"51"},{"1":"cinik.txt","2":"1120","3":"хо","4":"43"},{"1":"cinik.txt","2":"1120","3":"в","4":"28"},{"1":"cinik.txt","2":"1120","3":"не","4":"26"},{"1":"cinik.txt","2":"1120","3":"что","4":"23"},{"1":"cinik.txt","2":"1120","3":"а","4":"16"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_chekhov %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">bind_tf_idf</span>(word, title, n) -&gt;
+<span class="st">  </span>tidy_chekhov_tf_idf
+<span class="kw">head</span>(tidy_chekhov_tf_idf)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["title"],"name":[1],"type":["chr"],"align":["left"]},{"label":["sum(n)"],"name":[2],"type":["int"],"align":["right"]},{"label":["word"],"name":[3],"type":["chr"],"align":["left"]},{"label":["n"],"name":[4],"type":["int"],"align":["right"]},{"label":["tf"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["idf"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["tf_idf"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"cinik.txt","2":"1120","3":"и","4":"51","5":"0.04553571","6":"0.00000","7":"0.0000000"},{"1":"cinik.txt","2":"1120","3":"хо","4":"43","5":"0.03839286","6":"2.70805","7":"0.1039698"},{"1":"cinik.txt","2":"1120","3":"в","4":"28","5":"0.02500000","6":"0.00000","7":"0.0000000"},{"1":"cinik.txt","2":"1120","3":"не","4":"26","5":"0.02321429","6":"0.00000","7":"0.0000000"},{"1":"cinik.txt","2":"1120","3":"что","4":"23","5":"0.02053571","6":"0.00000","7":"0.0000000"},{"1":"cinik.txt","2":"1120","3":"а","4":"16","5":"0.01428571","6":"0.00000","7":"0.0000000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_chekhov_tf_idf %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(tf_idf &gt;<span class="st"> </span><span class="fl">0.03</span>) %&gt;%<span class="st"> </span><span class="co"># число подобрано по данным</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(word, tf_idf, <span class="dt">fill =</span> title))+
+<span class="st">  </span><span class="kw">coord_flip</span>()+
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span> <span class="st">&quot;identity&quot;</span>)+
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="3_frequency_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <div class="parallax">
 
 </div>
@@ -572,7 +620,7 @@ PCA &lt;-<span class="st"> </span><span class="kw">prcomp</span>(gospels[,<span 
          <span class="dt">label =</span> <span class="ot">TRUE</span>,
          <span class="dt">loadings.label =</span> <span class="ot">TRUE</span>)+
 <span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
-<p><img src="3_frequency_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="3_frequency_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(PCA)</code></pre></div>
 <pre><code>## Importance of components%s:
 ##                             PC1      PC2       PC3       PC4

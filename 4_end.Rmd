@@ -22,7 +22,9 @@ author: "Г. Мороз"
 <div class="parallax"></div>
 
 * лемматизация: [mystem](https://tech.yandex.ru/mystem/), [pymorphy2](https://pymorphy2.readthedocs.io/en/latest/)
+* краулеры: [rvest](https://cran.r-project.org/web/packages/rvest/README.html)
 * анализ тональности
-* векторное представление текстов
+* векторное представление текстов: [Word Vectors](https://github.com/bmschmidt/wordVectors)
+* прикладные задачи компьютерной лингвистики: информационный поиск, автоматический перевод, автоматическое реферирование, создание чат-ботов и многое другое
 
 <div class="parallax"></div>
