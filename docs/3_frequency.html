@@ -317,7 +317,7 @@ div.tocify {
   <a href="3_frequency.html">3. Частотность</a>
 </li>
 <li>
-  <a href="4_n_gramm.html">4. n-граммы</a>
+  <a href="4_end.html">4. Что дальше?</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -413,7 +413,7 @@ texts &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="
 <div id="--tidytext" class="section level3">
 <h3>2. Введение в <code>tidytext</code></h3>
 <p>Обычная философия <strong>tidy data</strong>: одна строчка – одно наблюдение; один столбец – одна переменная. Попробуем tidyфицировать один текст:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(tidytext)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(tidytext); <span class="kw">library</span>(stringr)
 text_df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">line =</span> <span class="kw">seq_along</span>(texts[[<span class="dv">1</span>]]),
                               <span class="dt">text =</span> texts[[<span class="dv">1</span>]])
 <span class="kw">head</span>(text_df)</code></pre></div>
@@ -531,14 +531,31 @@ fit$coefficients</code></pre></div>
 
 </div>
 </div>
+<div id="-" class="section level3">
+<h3>5. Стоп слова</h3>
+<p>Чтобы начать анализировать текст нужно удалить “служебные” слова, которые часто встречаются в тексте, но не очень приближают к его пониманию. Такие списки для английского языка встроены в пакет <code>tidytext</code> (см. <code>data(stop_words)</code>). Для русского языка, конечно, ничего не встроено, но подобные списки легко гуглятся (я буду использовать <a href="https://github.com/stopwords-iso/stopwords-ru">этот</a>).</p>
+<blockquote>
+<p>ОБЯЗАТЕЛЬНО: проверьте используется ли буква <em>ё</em> в ваших данных и в вашем списке стоп слов.</p>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str_detect</span>(tidy_chekhov, <span class="st">&quot;ё&quot;</span>)</code></pre></div>
+<pre><code>## [1] FALSE FALSE  TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ru_stop_words &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://goo.gl/pfpUrB&quot;</span>)</code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   c = col_character()
+## )</code></pre>
+<div class="parallax">
+
+</div>
+</div>
 <div id="tf-idf" class="section level3">
-<h3>5. TF-IDF</h3>
+<h3>6. TF-IDF</h3>
 <div class="parallax">
 
 </div>
 </div>
 <div id="--" class="section level3">
-<h3>6. Частота как переменная</h3>
+<h3>7. Частота как переменная</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggfortify)
 gospels &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://goo.gl/mdBVVe&quot;</span>)
 <span class="kw">head</span>(gospels)</code></pre></div>
@@ -555,13 +572,16 @@ PCA &lt;-<span class="st"> </span><span class="kw">prcomp</span>(gospels[,<span 
          <span class="dt">label =</span> <span class="ot">TRUE</span>,
          <span class="dt">loadings.label =</span> <span class="ot">TRUE</span>)+
 <span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
-<p><img src="3_frequency_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="3_frequency_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(PCA)</code></pre></div>
 <pre><code>## Importance of components%s:
 ##                             PC1      PC2       PC3       PC4
 ## Standard deviation     0.003482 0.001599 0.0008725 0.0007001
 ## Proportion of Variance 0.761020 0.160420 0.0477900 0.0307700
 ## Cumulative Proportion  0.761020 0.921440 0.9692300 1.0000000</code></pre>
+</div>
+<div id="n-" class="section level3">
+<h3>8. n-граммы</h3>
 </div>
 <div class="section level3">
 <h3>7. Задачи</h3>

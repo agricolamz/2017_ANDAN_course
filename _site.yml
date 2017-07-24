@@ -10,7 +10,7 @@ navbar:
       text: "2. Определение языка. Расстояния. Регулярки"
     - href: 3_frequency.html
       text: "3. Частотность"
-    - href: 4_n_gramm.html
-      text: "4. n-граммы"
+    - href: 4_end.html
+      text: "4. Что дальше?"
   title: ""
 output_dir: docs

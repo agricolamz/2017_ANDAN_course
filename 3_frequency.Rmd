@@ -48,7 +48,7 @@ texts <- lapply(paste0(path, files), FUN=readLines) # считаем все фа
 ### 2. Введение в `tidytext`
 Обычная философия **tidy data**: одна строчка -- одно наблюдение; один столбец -- одна переменная. Попробуем tidyфицировать один текст:
 ```{r, message = FALSE}
-library(tidyverse); library(tidytext)
+library(tidyverse); library(tidytext); library(stringr)
 text_df <- data_frame(line = seq_along(texts[[1]]),
                               text = texts[[1]])
 head(text_df)
@@ -155,7 +155,18 @@ zipf %>%
 <div class="parallax"></div>
 
 ### 5. Стоп слова
-Чтобы найти что-то 
+Чтобы начать анализировать текст нужно удалить "служебные" слова, которые часто встречаются в тексте, но не очень приближают к его пониманию. Такие списки для английского языка встроены в пакет `tidytext` (см. `data(stop_words)`). Для русского языка, конечно, ничего не встроено, но подобные списки легко гуглятся (я буду использовать  [этот](https://github.com/stopwords-iso/stopwords-ru)).
+
+> ОБЯЗАТЕЛЬНО: проверьте используется ли буква _ё_ в ваших данных и в вашем списке стоп слов.
+
+```{r}
+str_detect(tidy_chekhov, "ё")
+```
+```{r}
+ru_stop_words <- read_csv("https://goo.gl/pfpUrB")
+```
+
+
 <div class="parallax"></div>
 
 ### 6. TF-IDF

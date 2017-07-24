@@ -1,0 +1,28 @@
+---
+title: "4. Что мы не обсудили?"
+date: "25-26 июля 2017, АНДАН"
+author: "Г. Мороз"
+---
+<style>
+.parallax {
+    /* The image used */
+    background-image: url("4_end.jpg");
+
+    /* Set a specific height */
+    min-height: 360px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: length;
+}
+</style>
+
+<div class="parallax"></div>
+
+* лемматизация: [mystem](https://tech.yandex.ru/mystem/), [pymorphy2](https://pymorphy2.readthedocs.io/en/latest/)
+* анализ тональности
+* векторное представление текстов
+
+<div class="parallax"></div>
