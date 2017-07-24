@@ -28,6 +28,49 @@
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
 <style type="text/css">
@@ -321,30 +364,213 @@ div.tocify {
 <div class="parallax">
 
 </div>
-<div id="--tidytext1" class="section level3">
-<h3>1. Введение в <code>tidytext</code><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></h3>
+<div id="1" class="section level3">
+<h3>1. Подготовка<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></h3>
+<p>Начнем с того, что скачаем датасет, с которым мы будем работать.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">temp &lt;-<span class="st"> </span><span class="kw">tempfile</span>() <span class="co"># создаем временный файл</span>
+path &lt;-<span class="st"> &quot;./docs/materials/Chekhov/&quot;</span>
+<span class="kw">download.file</span>(<span class="st">&quot;https://goo.gl/9DWBF5&quot;</span>, <span class="dt">destfile =</span> temp) <span class="co"># скачиваем в него архив</span>
+<span class="kw">unzip</span>(temp, <span class="dt">exdir =</span> path) <span class="co"># создаем папку Chekhov и распаковываем туда</span>
+<span class="kw">rm</span>(temp) <span class="co"># удаляем временный файл</span>
+<span class="kw">list.files</span>(<span class="dt">path =</span> path) <span class="co"># смотрим на список распокованных файлов</span></code></pre></div>
+<pre><code>##  [1] &quot;cinik.txt&quot;                                
+##  [2] &quot;dachniki.txt&quot;                             
+##  [3] &quot;delec.txt&quot;                                
+##  [4] &quot;dorogaya_sobaka.txt&quot;                      
+##  [5] &quot;gost.txt&quot;                                 
+##  [6] &quot;intellegentnoje_delo.txt&quot;                 
+##  [7] &quot;jeger.txt&quot;                                
+##  [8] &quot;mertvoje_telo.txt&quot;                        
+##  [9] &quot;mislitel.txt&quot;                             
+## [10] &quot;moi_jeni.txt&quot;                             
+## [11] &quot;nalim.txt&quot;                                
+## [12] &quot;nervi.txt&quot;                                
+## [13] &quot;ne_sudba.txt&quot;                             
+## [14] &quot;ninochka.txt&quot;                             
+## [15] &quot;obshee_obrazovaniye.txt&quot;                  
+## [16] &quot;otec_semejstva.txt&quot;                       
+## [17] &quot;psichopaty.txt&quot;                           
+## [18] &quot;rukovodstvo_dlya_zhelayushich_zhenica.txt&quot;
+## [19] &quot;rybje_delo.txt&quot;                           
+## [20] &quot;sapogi.txt&quot;                               
+## [21] &quot;simulianti.txt&quot;                           
+## [22] &quot;starosta.txt&quot;                             
+## [23] &quot;stena.txt&quot;                                
+## [24] &quot;straji_pod_strajey.txt&quot;                   
+## [25] &quot;svistuni.txt&quot;                             
+## [26] &quot;utoplennik.txt&quot;                           
+## [27] &quot;v_apteke.txt&quot;                             
+## [28] &quot;zabludshije.txt&quot;                          
+## [29] &quot;zhenich_i_papenka.txt&quot;                    
+## [30] &quot;zloumishlennik.txt&quot;</code></pre>
+<p>Это 30 маленьких рассказов А. П. Чехова. Давайте все их считаем:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">files &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="dt">path =</span> path) <span class="co"># создадим переменную со списком файлов</span>
+texts &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">paste0</span>(path, files), <span class="dt">FUN=</span>readLines) <span class="co"># считаем все файлы в одну переменную</span></code></pre></div>
+<div class="parallax">
+
+</div>
+</div>
+<div id="--tidytext" class="section level3">
+<h3>2. Введение в <code>tidytext</code></h3>
+<p>Обычная философия <strong>tidy data</strong>: одна строчка – одно наблюдение; один столбец – одна переменная. Попробуем tidyфицировать один текст:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(tidytext)
+text_df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">line =</span> <span class="kw">seq_along</span>(texts[[<span class="dv">1</span>]]),
+                              <span class="dt">text =</span> texts[[<span class="dv">1</span>]])
+<span class="kw">head</span>(text_df)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["line"],"name":[1],"type":["int"],"align":["right"]},{"label":["text"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"Полдень. Управляющий \"Зверинца братьев Пихнау\", отставной портупей-юнкер Егор Сюсин, здоровеннейший парень с обрюзглым, испитым лицом, в грязной сорочке и в засаленном фраке, уже пьян. Перед публикой вертится он, как чёрт перед заутреней: бегает, изгибается, хихикает, играет глазами и словно кокетничает своими угловатыми манерами и расстегнутыми пуговками. Когда его большая стриженая голова бывает наполнена винными парами, публика любит его. В это время он \"объясняет\" зверей не просто, а по новому, ему одному только принадлежащему, способу."},{"1":"2","2":"-- Как объяснять? -- спрашивает он публику, подмигивая глазом. -- Просто или с психологией и тенденцией?"},{"1":"3","2":"-- С психологией и тенденцией!"},{"1":"4","2":"-- Bene! {Хорошо! (лат.).} Начинаю! Африканский лев! -- говорит он, покачиваясь и насмешливо глядя на льва, сидящего в углу клетки и кротко мигающего глазами. -- Синоним могущества, соединенного с грацией, краса и гордость фауны! Когда-то, в дни молодости, пленял своею мощью и ревом наводил ужас на окрестности, а теперь... Хо-хо-хо... а теперь, болван этакий, сидит в клетке... Что, братец лев? Сидишь? Философствуешь? А небось, как по лесам рыскал, так -- куда тебе! -- думал, что сильнее и зверя нет, что и чёрт тебе не брат, -- ан и вышло, что дура судьба сильнее... хоть и дура она, а сильнее... Хо-хо-хо! Ишь ведь, куда черти занесли из Африки! Чай, и не снилось, что сюда попадешь! Меня тоже, братец ты мой, ух как черти носили! Был я и в гимназии, и в канцелярии, и в землемерах, и на телеграфе, и на военной, и на макаронной фабрике... и чёрт меня знает, где я только не был! В конце концов в зверинец попал... в вонь... Хо-хо-хо!"},{"1":"5","2":"И публика, зараженная искренним смехом пьяного Сюсина, сама гогочет."},{"1":"6","2":"-- Чай, хочется на свободу! -- мигает глазом на льва малый, пахнущий краской и покрытый разноцветными жирными пятнами."}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text_df %&gt;%
+<span class="st">  </span><span class="kw">unnest_tokens</span>(word, text) -&gt;
+<span class="st">  </span>tidy_df
+<span class="kw">head</span>(tidy_df)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["line"],"name":[1],"type":["int"],"align":["right"]},{"label":["word"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"полдень"},{"1":"1","2":"управляющий"},{"1":"1","2":"зверинца"},{"1":"1","2":"братьев"},{"1":"1","2":"пихнау"},{"1":"1","2":"отставной"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Чтобы избежать изменения размера шрифта нужно использовать аргумент <code>to_lower = FALSE</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text_df %&gt;%
+<span class="st">  </span><span class="kw">unnest_tokens</span>(word, text, <span class="dt">to_lower =</span> <span class="ot">FALSE</span>) -&gt;
+<span class="st">  </span>tidy_df
+<span class="kw">head</span>(tidy_df)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["line"],"name":[1],"type":["int"],"align":["right"]},{"label":["word"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"Полдень"},{"1":"1","2":"Управляющий"},{"1":"1","2":"Зверинца"},{"1":"1","2":"братьев"},{"1":"1","2":"Пихнау"},{"1":"1","2":"отставной"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>На следующем шаге хотелось бы создать датафрейм со всем произведениями, которые мы рассматриваем.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">texts &lt;-<span class="st"> </span><span class="kw">lapply</span>(<span class="kw">seq_along</span>(texts), function(x){
+  <span class="kw">data_frame</span>(<span class="dt">title =</span> files[[x]],
+             <span class="dt">sentences =</span> <span class="kw">seq_along</span>(texts[[x]]),
+             <span class="dt">text =</span> texts[[x]])
+})
+
+all_texts &lt;-<span class="st"> </span><span class="kw">Reduce</span>(function(x,y){<span class="kw">merge</span>(x,y, <span class="dt">all =</span> <span class="ot">TRUE</span>)}, texts)
+
+all_texts %&gt;%
+<span class="st">  </span><span class="kw">unnest_tokens</span>(word, text) -&gt;
+<span class="st">  </span>tidy_chekhov
+
+<span class="kw">head</span>(tidy_chekhov)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["title"],"name":[1],"type":["chr"],"align":["left"]},{"label":["sentences"],"name":[2],"type":["int"],"align":["right"]},{"label":["word"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"cinik.txt","2":"1","3":"полдень"},{"1":"cinik.txt","2":"1","3":"управляющий"},{"1":"cinik.txt","2":"1","3":"зверинца"},{"1":"cinik.txt","2":"1","3":"братьев"},{"1":"cinik.txt","2":"1","3":"пихнау"},{"1":"cinik.txt","2":"1","3":"отставной"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 <div class="parallax">
 
 </div>
 </div>
 <div id="--" class="section level3">
-<h3>2. Закон Хердана-Хипса</h3>
-<p>Закон Хердана-Хипса (или Herdan-Heaps’ law)…</p>
+<h3>3. Закон Хердана-Хипса</h3>
+<p>Закон Хердана-Хипса (Herdan-Heaps’ law) – имперический закон, согласно которому количество уникальных слов в тексте зависит от длины текста.</p>
+<p><span class="math display">\[V(n) = K\times n ^{β}\]</span></p>
+<ul>
+<li>V(n) – количество уникальных слов в тексте длины n</li>
+<li>обычно K между 10 и 100</li>
+<li>обычно β между 0.4 и 0.6</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_chekhov %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(title) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n_words =</span> <span class="kw">n</span>(),
+            <span class="dt">n_unique =</span> <span class="kw">length</span>(<span class="kw">unique</span>(word))) -&gt;
+<span class="st">  </span>heaps
+heaps  %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(n_words, n_unique))+
+<span class="st">  </span><span class="kw">geom_point</span>()+
+<span class="st">  </span><span class="kw">theme_bw</span>()+
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Иллюстрация закона Хердана-Хипса на примере рассказов Чехова&quot;</span>,
+       <span class="dt">x =</span> <span class="st">&quot;количество слов&quot;</span>,
+       <span class="dt">y =</span> <span class="st">&quot;количество уникальных слов&quot;</span>)</code></pre></div>
+<p><img src="3_frequency_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit &lt;-<span class="st"> </span><span class="kw">summary</span>(<span class="kw">lm</span>(n_unique~<span class="kw">sqrt</span>(n_words)-<span class="dv">1</span>, <span class="dt">data =</span> heaps))
+fit$coefficients</code></pre></div>
+<pre><code>##               Estimate Std. Error  t value     Pr(&gt;|t|)
+## sqrt(n_words) 19.12088  0.4248343 45.00785 2.186672e-28</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit$adj.r.squared</code></pre></div>
+<pre><code>## [1] 0.9853994</code></pre>
 <div class="parallax">
 
 </div>
 </div>
 <div id="-" class="section level3">
-<h3>3. Закон Ципфа</h3>
-<p>Закон Ципфа (или Zipf’s law)</p>
+<h3>4. Закон Ципфа</h3>
+<p>Закон Ципфа (Zipf’s law) – имперический закон, согласно которому частотность слова обратно пропорционально его рангу.</p>
+<p><span class="math display">\[freq(r) = A \times N \times r^{-1}\]</span></p>
+<ul>
+<li>freq(r) – частотность слова с рангом r</li>
+<li>N – общее количество слов</li>
+<li>A – обычно 0.1</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_chekhov %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(word) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">term_frequency =</span> <span class="kw">n</span>()/<span class="kw">nrow</span>(tidy_chekhov)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(term_frequency)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rank =</span> <span class="kw">row_number</span>()) -&gt;<span class="st"> </span>zipf
+
+<span class="kw">head</span>(zipf)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["word"],"name":[1],"type":["chr"],"align":["left"]},{"label":["term_frequency"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["rank"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"и","2":"0.04134304","3":"1"},{"1":"не","2":"0.02434102","3":"2"},{"1":"в","2":"0.02247569","3":"3"},{"1":"я","2":"0.01400526","3":"4"},{"1":"на","2":"0.01394410","3":"5"},{"1":"что","2":"0.01391352","3":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">zipf %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(rank, term_frequency))+
+<span class="st">  </span><span class="kw">geom_line</span>()+
+<span class="st">  </span><span class="kw">scale_x_log10</span>() +
+<span class="st">  </span><span class="kw">scale_y_log10</span>() +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Иллюстрация закона Хердана-Хипса на примере рассказов Чехова&quot;</span>,
+       <span class="dt">y =</span> <span class="st">&quot;log(term frequency)&quot;</span>,
+       <span class="dt">x=</span> <span class="st">&quot;log(rank)&quot;</span>)+
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="3_frequency_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <div class="parallax">
 
 </div>
 </div>
 <div id="tf-idf" class="section level3">
-<h3>4. TF-IDF</h3>
+<h3>5. TF-IDF</h3>
 <div class="parallax">
 
+</div>
+</div>
+<div id="--" class="section level3">
+<h3>6. Частота как переменная</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggfortify)
+gospels &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://goo.gl/mdBVVe&quot;</span>)
+<span class="kw">head</span>(gospels)</code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["word"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["John"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Luke"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Mark"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Matthew"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"abide","2":"0.0020627063","3":"0.0004161465","4":"0.0002449780","5":"0.0001473405"},{"1":"abraham","2":"0.0016501650","3":"0.0019420169","4":"0.0002449780","5":"0.0010313835"},{"1":"abroad","2":"0.0004125413","3":"0.0005548620","4":"0.0009799118","5":"0.0007367025"},{"1":"accusation","2":"0.0002062706","3":"0.0002774310","4":"0.0002449780","5":"0.0001473405"},{"1":"accuse","2":"0.0004125413","3":"0.0005548620","4":"0.0002449780","5":"0.0001473405"},{"1":"adultery","2":"0.0004125413","3":"0.0004161465","4":"0.0007349339","5":"0.0010313835"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">row.names</span>(gospels) &lt;-<span class="st"> </span>gospels$word
+PCA &lt;-<span class="st"> </span><span class="kw">prcomp</span>(gospels[,<span class="dv">2</span>:<span class="dv">5</span>])
+<span class="kw">autoplot</span>(PCA,
+         <span class="dt">shape =</span> <span class="ot">FALSE</span>,
+         <span class="dt">loadings =</span> <span class="ot">TRUE</span>,
+         <span class="dt">label =</span> <span class="ot">TRUE</span>,
+         <span class="dt">loadings.label =</span> <span class="ot">TRUE</span>)+
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="3_frequency_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(PCA)</code></pre></div>
+<pre><code>## Importance of components%s:
+##                             PC1      PC2       PC3       PC4
+## Standard deviation     0.003482 0.001599 0.0008725 0.0007001
+## Proportion of Variance 0.761020 0.160420 0.0477900 0.0307700
+## Cumulative Proportion  0.761020 0.921440 0.9692300 1.0000000</code></pre>
+</div>
+<div class="section level3">
+<h3>7. Задачи</h3>
+<div id="----" class="section level4">
+<h4>7.1 Еще немножко о законе Ципфа</h4>
+<p>У функции <code>unnest_tokens()</code> есть аргумент <code>token</code>, значение которого по умолчанию <code>&quot;words&quot;</code>. Попробуйте использовать значение <code>&quot;characters&quot;</code> и определить будет ли соблюдаться закон Ципфа для отдельных символов.</p>
+<div class="parallax">
+
+</div>
 </div>
 </div>
 <div class="footnotes">

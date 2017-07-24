@@ -23,21 +23,181 @@ author: "Г. Мороз"
 
 <div class="parallax"></div>
 
-### 1. Введение в `tidytext`[^1]
+### 1. Подготовка[^1]
+
 [^1]: Я использовал один из рисунков Эрнеста Говарда Шепарда к Винни-Пуху.
 
+Начнем с того, что скачаем датасет, с которым мы будем работать.
+```{r}
+temp <- tempfile() # создаем временный файл
+path <- "./docs/materials/Chekhov/"
+download.file("https://goo.gl/9DWBF5", destfile = temp) # скачиваем в него архив
+unzip(temp, exdir = path) # создаем папку Chekhov и распаковываем туда
+rm(temp) # удаляем временный файл
+list.files(path = path) # смотрим на список распокованных файлов
+```
+
+Это 30 маленьких рассказов А. П. Чехова. Давайте все их считаем:
+```{r}
+files <- list.files(path = path) # создадим переменную со списком файлов
+texts <- lapply(paste0(path, files), FUN=readLines) # считаем все файлы в одну переменную
+```
+
 <div class="parallax"></div>
 
-### 2. Закон Хердана-Хипса
-Закон Хердана-Хипса (или Herdan-Heaps' law)...
+### 2. Введение в `tidytext`
+Обычная философия **tidy data**: одна строчка -- одно наблюдение; один столбец -- одна переменная. Попробуем tidyфицировать один текст:
+```{r, message = FALSE}
+library(tidyverse); library(tidytext)
+text_df <- data_frame(line = seq_along(texts[[1]]),
+                              text = texts[[1]])
+head(text_df)
+text_df %>%
+  unnest_tokens(word, text) ->
+  tidy_df
+head(tidy_df)
+```
+
+Чтобы избежать изменения размера шрифта нужно использовать аргумент `to_lower = FALSE`
+```{r}
+text_df %>%
+  unnest_tokens(word, text, to_lower = FALSE) ->
+  tidy_df
+head(tidy_df)
+```
+
+На следующем шаге хотелось бы создать датафрейм со всем произведениями, которые мы рассматриваем.
+
+```{r}
+texts <- lapply(seq_along(texts), function(x){
+  data_frame(title = files[[x]],
+             sentences = seq_along(texts[[x]]),
+             text = texts[[x]])
+})
+
+all_texts <- Reduce(function(x,y){merge(x,y, all = TRUE)}, texts)
+
+all_texts %>%
+  unnest_tokens(word, text) ->
+  tidy_chekhov
+
+head(tidy_chekhov)
+```
+
 
 <div class="parallax"></div>
 
-### 3. Закон Ципфа
-Закон Ципфа (или Zipf's law)
+### 3. Закон Хердана-Хипса
+Закон Хердана-Хипса (Herdan-Heaps' law) -- имперический закон, согласно которому количество уникальных слов в тексте зависит от длины текста.
+
+$$V(n) = K\times n ^{β}$$
+
+* V(n) -- количество уникальных слов в тексте длины n
+* обычно K между 10 и 100
+* обычно β между 0.4 и 0.6
+
+```{r}
+tidy_chekhov %>% 
+  group_by(title) %>% 
+  summarise(n_words = n(),
+            n_unique = length(unique(word))) ->
+  heaps
+heaps  %>% 
+  ggplot(aes(n_words, n_unique))+
+  geom_point()+
+  theme_bw()+
+  labs(title = "Иллюстрация закона Хердана-Хипса на примере рассказов Чехова",
+       x = "количество слов",
+       y = "количество уникальных слов")
+```
+
+```{r}
+fit <- summary(lm(n_unique~sqrt(n_words)-1, data = heaps))
+fit$coefficients
+fit$adj.r.squared
+```
+
 
 <div class="parallax"></div>
 
-### 4. TF-IDF
+### 4. Закон Ципфа
+Закон Ципфа (Zipf's law) -- имперический закон, согласно которому частотность слова обратно пропорционально его рангу.
+
+$$freq(r) = A \times N \times r^{-1}$$
+
+* freq(r) -- частотность слова с рангом r
+* N -- общее количество слов
+* A -- обычно 0.1
+
+```{r}
+tidy_chekhov %>% 
+  group_by(word) %>% 
+  summarise(term_frequency = n()/nrow(tidy_chekhov)) %>% 
+  arrange(desc(term_frequency)) %>% 
+  mutate(rank = row_number()) -> zipf
+
+head(zipf)
+```
+
+```{r}
+zipf %>% 
+  ggplot(aes(rank, term_frequency))+
+  geom_line()+
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(title = "Иллюстрация закона Хердана-Хипса на примере рассказов Чехова",
+       y = "log(term frequency)",
+       x= "log(rank)")+
+  theme_bw()
+```
+
+
+<div class="parallax"></div>
+
+### 5. Стоп слова
+Чтобы найти что-то 
+<div class="parallax"></div>
+
+### 6. TF-IDF
+
+<div class="parallax"></div>
+
+### 7. Частота как переменная
+```{r}
+library(ggfortify)
+gospels <- read.csv("https://goo.gl/mdBVVe")
+head(gospels)
+row.names(gospels) <- gospels$word
+PCA <- prcomp(gospels[,2:5])
+autoplot(PCA,
+         shape = FALSE,
+         loadings = TRUE,
+         label = TRUE,
+         loadings.label = TRUE)+
+  theme_bw()
+summary(PCA)
+```
+
+### 8. n-граммы
+
+### 7. Задачи
+#### 7.1 Еще немножко о законе Ципфа
+У функции `unnest_tokens()` есть аргумент `token`, значение которого по умолчанию `"words"`. Попробуйте использовать значение `"characters"` и определить будет ли соблюдаться закон Ципфа для отдельных символов.
+```{r, include=FALSE}
+all_texts %>%
+  unnest_tokens(characters, text, token = "characters") %>% 
+  group_by(characters) %>% 
+  summarise(term_frequency = n()/nrow(tidy_chekhov)) %>% 
+  arrange(desc(term_frequency)) %>% 
+  mutate(rank = row_number()) %>% 
+    ggplot(aes(rank, term_frequency))+
+  geom_line()+
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(title = "Иллюстрация закона Хердана-Хипса на примере рассказов Чехова",
+       y = "log(term frequency)",
+       x= "log(rank)")+
+  theme_bw()
+```
 
 <div class="parallax"></div>
