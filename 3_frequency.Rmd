@@ -80,7 +80,6 @@ all_texts <- Reduce(function(x,y){merge(x,y, all = TRUE)}, texts)
 all_texts %>%
   unnest_tokens(word, text) ->
   tidy_chekhov
-
 head(tidy_chekhov)
 ```
 
@@ -135,7 +134,6 @@ tidy_chekhov %>%
   summarise(term_frequency = n()/nrow(tidy_chekhov)) %>% 
   arrange(desc(term_frequency)) %>% 
   mutate(rank = row_number()) -> zipf
-
 head(zipf)
 ```
 
@@ -174,6 +172,7 @@ tidy_chekhov %>%
   filter(str_detect(title, "moi_jeni.txt|nalim.txt|jeger.txt")) %>%
   count(title, word, sort = TRUE) %>% 
   filter(n > 3) %>% 
+  mutate(word = reorder(word, n)) %>% 
   ggplot(aes(word, n))+
   coord_flip()+
   geom_bar(stat= "identity")+
@@ -184,28 +183,23 @@ tidy_chekhov %>%
 <div class="parallax"></div>
 
 ### 6. TF-IDF
+Откидывание стоп-слов позволяет не анализировать малозначимые слова. Однако как показать, что какие-то два текста похожи, а другие различаются? Для этого используется мера TfIdf (term frequency inverse document frequency).
+
+$$tf = \frac{количество\ употреблений\ единицы\ в\ тексте}{количество\ уникальных\ единиц\ в тексте}$$
+$$idf = log\left(\frac{количество\ документов\ в\ корпусе}{количество\ документов\ с\ исследуемой\ единицей}\right)$$
+$$TfIdf = tf*idf$$
 
 ```{r}
 tidy_chekhov %>% 
   count(title, word)%>% 
-  arrange(desc(n))->
-  tidy_chekhov_n
-head(tidy_chekhov_n)
-
-tidy_chekhov_n %>% 
-  group_by(title) %>% 
-  summarise(sum(n)) %>% 
-  left_join(tidy_chekhov_n) ->
-  tidy_chekhov
-head(tidy_chekhov)
-
-tidy_chekhov %>% 
+  arrange(desc(n)) %>% 
   bind_tf_idf(word, title, n) ->
   tidy_chekhov_tf_idf
 head(tidy_chekhov_tf_idf)
 
 tidy_chekhov_tf_idf %>% 
   filter(tf_idf > 0.03) %>% # число подобрано по данным
+  mutate(word = reorder(word, tf_idf)) %>% 
   ggplot(aes(word, tf_idf, fill = title))+
   coord_flip()+
   geom_bar(stat= "identity")+
