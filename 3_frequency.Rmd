@@ -416,7 +416,7 @@ text_generater <- function(first_word, text, text_length = 10){
 ```
 ```{r}
 text <- readLines("https://goo.gl/rgatpY")
-text_generater(first_word = "блокнот", text = text, text_length = 10)
+text_generater(first_word = "честь", text = text, text_length = 10)
 ```
 
 <div class="parallax"></div>
