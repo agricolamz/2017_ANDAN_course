@@ -691,6 +691,9 @@ PCA &lt;-<span class="st"> </span><span class="kw">prcomp</span>(gospels[,<span 
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span> <span class="st">&quot;identity&quot;</span>)+
 <span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
 <p><img src="3_frequency_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<div class="parallax">
+
+</div>
 </div>
 <div class="section level3">
 <h3>9. Задачи</h3>
@@ -698,9 +701,26 @@ PCA &lt;-<span class="st"> </span><span class="kw">prcomp</span>(gospels[,<span 
 <h4>9.1 Еще немножко о законе Ципфа</h4>
 <p>У функции <code>unnest_tokens()</code> есть аргумент <code>token</code>, значение которого по умолчанию <code>&quot;words&quot;</code>. Попробуйте использовать значение <code>&quot;characters&quot;</code> и определить будет ли соблюдаться закон Ципфа для отдельных символов.</p>
 </div>
-<div id=".-.-" class="section level4">
-<h4>9.2 П. Г. Вудхауз</h4>
+<div id="--" class="section level4">
+<h4>9.2 Фамильная честь Вустеров</h4>
 <p>Возможно, это прозвучит скучно, но давайте повторим все, что мы прошли, используя роман П. Г. Вудхауза “Фамильная честь Вустеров”.</p>
+<ul>
+<li>скачайте <a href="https://goo.gl/rgatpY">текст романа</a></li>
+<li>создайте переменную, отвечающую за номер главы (название давайте включим в первую главу).</li>
+<li>tidyфицируйте текст (занудства ради я бы попросил создать переменную с номером строки: <code>row_number()</code>)</li>
+<li>В какой главе живет самая частотная униграмма?</li>
+<li>Уберите стоп-слова. В какой главе теперь живет самая частотная униграмма?</li>
+<li>Посчитайте TfIdf (исключив стоп-слова). В какой главе живет слово с самым высоким значением TfIdf?</li>
+<li>Посчитайте TfIdf (исключив стоп-слова) для биграмного представления текста.</li>
+<li>Постройте график зависимостти абсолютной частоты и меры TfIdf. Назовите, какие четыре биграммы выглядят выбросами на графике.</li>
+</ul>
+<p><img src="3_frequency_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<ul>
+<li>Напишите функцию <code>text_generater()</code>, которая будет генерировать текст заданной наперед длины на основе частотной биграммной модели, построенной на основе входного текста.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">text &lt;-<span class="st"> </span><span class="kw">readLines</span>(<span class="st">&quot;https://goo.gl/rgatpY&quot;</span>)
+<span class="kw">text_generater</span>(<span class="dt">first_word =</span> <span class="st">&quot;блокнот&quot;</span>, <span class="dt">text =</span> text, <span class="dt">text_length =</span> <span class="dv">10</span>)</code></pre></div>
+<pre><code>## [1] &quot;блокнот гасси финк ноттл видимо понял дела великолепно дживс слушаю сэр&quot;</code></pre>
 <div class="parallax">
 
 </div>

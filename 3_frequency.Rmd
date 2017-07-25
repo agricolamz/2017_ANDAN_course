@@ -298,6 +298,7 @@ tidy_chekhov_bigrams_tf_idf %>%
   theme_bw()
 ```
 
+<div class="parallax"></div>
 
 ### 9. Задачи
 #### 9.1 Еще немножко о законе Ципфа
@@ -322,13 +323,100 @@ all_texts %>%
 #### 9.2 Фамильная честь Вустеров
 Возможно, это прозвучит скучно, но давайте повторим все, что мы прошли, используя роман П. Г. Вудхауза "Фамильная честь Вустеров".
 
-* скачайте текст романа
-* tidyфицируйте и добавьте также переменную глава (мы главы будем использовать как разные тексты)
+* скачайте [текст романа](https://goo.gl/rgatpY)
+* создайте переменную, отвечающую за номер главы (название давайте включим в первую главу).
+* tidyфицируйте текст (занудства ради я бы попросил создать переменную с номером строки: `row_number()`)
+* В какой главе живет самая частотная униграмма?
+* Уберите стоп-слова. В какой главе теперь живет самая частотная униграмма?
+* Посчитайте TfIdf (исключив стоп-слова). В какой главе живет слово с самым высоким значением TfIdf?
+* Посчитайте TfIdf (исключив стоп-слова) для биграмного представления текста.
+* Постройте график зависимостти абсолютной частоты и меры TfIdf. Назовите, какие четыре биграммы выглядят выбросами на графике.
 
 ```{r, include=FALSE}
+wodehouse <- data_frame(text = readLines("https://goo.gl/rgatpY"))
 
+chapt_lines <- c(str_which(wodehouse$text, "ГЛАВА")[-1]-1, 7507)
+chapt_length <- chapt_lines - c(0, chapt_lines[-14])
+wodehouse$chapter <- rep(paste("Глава", 1:14), chapt_length)
+
+wodehouse$text <- str_replace_all(wodehouse$text, "ё", "е")
+
+wodehouse %>%
+  mutate(linenumber = row_number()) %>% 
+  unnest_tokens(word, text) ->
+  wodehouse_unigrams
+
+wodehouse_unigrams %>%
+  count(chapter, word) %>% 
+  arrange(desc(n))
+
+wodehouse_unigrams %>%
+  filter(!word %in% ru_stop_words$V1) %>%
+  count(chapter, word) %>% 
+  arrange(desc(n))
+
+wodehouse_unigrams %>%
+  filter(!word %in% ru_stop_words$V1) %>%
+  count(chapter, word) %>% 
+  bind_tf_idf(word, chapter, n) %>% 
+  arrange(desc(tf_idf))
+
+wodehouse %>%
+  mutate(linenumber = row_number()) %>% 
+  unnest_tokens(bigram, text, token = "ngrams", n = 2) %>% 
+  separate(bigram, c("word1", "word2"), sep = " ") %>% 
+  filter(!word1 %in% ru_stop_words$V1) %>%
+  filter(!word2 %in% ru_stop_words$V1) %>%
+  unite(bigram, word1, word2, sep = " ") %>%
+  count(chapter, bigram) %>%
+  bind_tf_idf(bigram, chapter, n) %>% 
+  arrange(desc(tf_idf)) ->
+  wodehouse_bigram_tf_idf
 ```
 
+```{r, echo = FALSE}
+wodehouse_bigram_tf_idf %>% 
+  ggplot(aes(n, tf_idf, label = bigram))+
+  geom_point()+
+  theme_bw()+
+  labs(title = "Соотношение частотности и TfIdf",
+       x = "абсолютная частота",
+       y = "мера TfIdf по каждой главе")
+```
 
+* Напишите функцию `text_generater()`, которая будет генерировать текст заданной наперед длины на основе частотной биграммной модели, построенной на основе входного текста.
+```{r, include= FALSE}
+text_generater <- function(first_word, text, text_length = 10){
+  ru_stop_words <- read.csv("https://goo.gl/pfpUrB", header = FALSE)
+  data_frame(text = text) %>% 
+    unnest_tokens(bigram, text, token = "ngrams", n = 2) %>% 
+    separate(bigram, c("word1", "word2"), sep = " ") %>% 
+    filter(!word1 %in% ru_stop_words$V1) %>%
+    filter(!word2 %in% ru_stop_words$V1) %>%
+    unite(bigram, word1, word2, sep = " ") %>%
+    count(bigram) %>% 
+    separate(bigram, c("word1", "word2"), sep = " ") ->
+    model
+  
+  i <- 0
+  result <- first_word
+  while(i < text_length){
+    model %>% 
+      filter(word1 == tolower(first_word)) %>% 
+      arrange(desc(n)) %>% 
+      select(word2) %>% 
+      slice(1) ->
+      new_word
+    result <- paste(result, new_word)
+    first_word <- new_word
+    i <- i + 1
+  }
+  result
+}
+```
+```{r}
+text <- readLines("https://goo.gl/rgatpY")
+text_generater(first_word = "блокнот", text = text, text_length = 10)
+```
 
 <div class="parallax"></div>
