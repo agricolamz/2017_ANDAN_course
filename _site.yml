@@ -7,7 +7,7 @@ navbar:
     - href: 1_strings.html
       text: "1. Работа со строками"
     - href: 2_distance.html
-      text: "2. Определение языка. Расстояния. Регулярки"
+      text: "2. Растояния и др."
     - href: 3_frequency.html
       text: "3. Частотность"
     - href: 4_end.html
