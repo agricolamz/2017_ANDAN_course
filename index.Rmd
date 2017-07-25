@@ -9,16 +9,16 @@ output:
 
 ### Библиотеки:
 ```{r, message=FALSE}
-library(stringr)
-library(stringi)
-library(cld2)
-library(cld3)
-library(stringdist)
-library(tidytext)
-library(tidyverse)
+library(stringr); packageVersion("stringr")
+library(stringi); packageVersion("stringi")
+library(cld2); packageVersion("cld2")
+library(cld3); packageVersion("cld3")
+library(stringdist); packageVersion("stringdist")
+library(tidytext); packageVersion("tidytext")
+library(tidyverse); packageVersion("tidyverse")
 ```
 
-Требования к участникам: умение писать свои функции и базовое знание `dplyr`, `ggplot` и `tidyr`. Славно, если слушатель знает что такое PCA.
+Требования к участникам: умение писать свои функции и базовое знание `dplyr`, `ggplot` и `tidyr`.
 
 ### Полезное
 

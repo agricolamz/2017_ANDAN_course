@@ -332,7 +332,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore"><ol start="3" style="list-style-type: decimal">
-<li>Частотность слов</li>
+<li>Частотность слов в тексте</li>
 </ol></h1>
 <h4 class="author"><em>Г. Мороз</em></h4>
 <h4 class="date"><em>26 июля 2017, АНДАН</em></h4>
@@ -646,8 +646,7 @@ PCA &lt;-<span class="st"> </span><span class="kw">prcomp</span>(gospels[,<span 
   </script>
 </div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_chekhov_bigrams %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">group_by</span>(title) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">count</span>(word1, word2, <span class="dt">sort =</span> <span class="ot">TRUE</span>) -&gt;
+<span class="st">  </span><span class="kw">count</span>(title, word1, word2, <span class="dt">sort =</span> <span class="ot">TRUE</span>)  -&gt;
 <span class="st">  </span>tidy_chekhov_bigrams
 <span class="kw">head</span>(tidy_chekhov_bigrams)</code></pre></div>
 <div data-pagedtable="false">
@@ -667,6 +666,7 @@ PCA &lt;-<span class="st"> </span><span class="kw">prcomp</span>(gospels[,<span 
 </div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_chekhov_bigrams %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(n &gt;<span class="st"> </span><span class="dv">3</span>) %&gt;%<span class="st"> </span><span class="co"># число опять от фонаря</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">bigram =</span> <span class="kw">reorder</span>(bigram, n)) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(bigram, n, <span class="dt">fill =</span> title))+
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>)+
 <span class="st">  </span><span class="kw">coord_flip</span>()+
@@ -685,6 +685,7 @@ PCA &lt;-<span class="st"> </span><span class="kw">prcomp</span>(gospels[,<span 
 </div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tidy_chekhov_bigrams_tf_idf %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(tf_idf &gt;<span class="st"> </span><span class="fl">0.04</span>) %&gt;%<span class="st"> </span><span class="co"># число подобрано по данным</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">bigram =</span> <span class="kw">reorder</span>(bigram, tf_idf)) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(bigram, tf_idf, <span class="dt">fill =</span> title))+
 <span class="st">  </span><span class="kw">coord_flip</span>()+
 <span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span> <span class="st">&quot;identity&quot;</span>)+
@@ -696,6 +697,10 @@ PCA &lt;-<span class="st"> </span><span class="kw">prcomp</span>(gospels[,<span 
 <div id="----" class="section level4">
 <h4>9.1 Еще немножко о законе Ципфа</h4>
 <p>У функции <code>unnest_tokens()</code> есть аргумент <code>token</code>, значение которого по умолчанию <code>&quot;words&quot;</code>. Попробуйте использовать значение <code>&quot;characters&quot;</code> и определить будет ли соблюдаться закон Ципфа для отдельных символов.</p>
+</div>
+<div id=".-.-" class="section level4">
+<h4>9.2 П. Г. Вудхауз</h4>
+<p>Возможно, это прозвучит скучно, но давайте повторим все, что мы прошли, используя роман П. Г. Вудхауза “Фамильная честь Вустеров”.</p>
 <div class="parallax">
 
 </div>

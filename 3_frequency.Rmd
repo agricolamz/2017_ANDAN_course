@@ -1,5 +1,5 @@
 ---
-title: "3. Частотность слов"
+title: "3. Частотность слов в тексте"
 date: "26 июля 2017, АНДАН"
 author: "Г. Мороз"
 ---
@@ -256,8 +256,7 @@ head(tidy_chekhov_bigrams)
 
 ```{r}
 tidy_chekhov_bigrams %>% 
-  group_by(title) %>% 
-  count(word1, word2, sort = TRUE) ->
+  count(title, word1, word2, sort = TRUE)  ->
   tidy_chekhov_bigrams
 head(tidy_chekhov_bigrams)
 ```
@@ -272,6 +271,7 @@ head(tidy_chekhov_bigrams)
 
 tidy_chekhov_bigrams %>% 
   filter(n > 3) %>% # число опять от фонаря
+  mutate(bigram = reorder(bigram, n)) %>% 
   ggplot(aes(bigram, n, fill = title))+
   geom_bar(stat = "identity")+
   coord_flip()+
@@ -291,6 +291,7 @@ head(tidy_chekhov_bigrams_tf_idf)
 ```{r}
 tidy_chekhov_bigrams_tf_idf %>% 
   filter(tf_idf > 0.04) %>% # число подобрано по данным
+  mutate(bigram = reorder(bigram, tf_idf)) %>% 
   ggplot(aes(bigram, tf_idf, fill = title))+
   coord_flip()+
   geom_bar(stat= "identity")+
@@ -317,5 +318,17 @@ all_texts %>%
        x= "log(rank)")+
   theme_bw()
 ```
+
+#### 9.2 Фамильная честь Вустеров
+Возможно, это прозвучит скучно, но давайте повторим все, что мы прошли, используя роман П. Г. Вудхауза "Фамильная честь Вустеров".
+
+* скачайте текст романа
+* tidyфицируйте и добавьте также переменную глава (мы главы будем использовать как разные тексты)
+
+```{r, include=FALSE}
+
+```
+
+
 
 <div class="parallax"></div>
