@@ -166,6 +166,8 @@ nobel_laureates %>%
   theme_bw()
 ```
 
+<div class="parallax"></div>
+
 ### 5. Какие бывают проблемы?
 
 * > In R everything that exists is an object and everything that happens is a function call[^1]. In Java, everything is an object. In **Javascript**, everything is a terrible mistake. <br> merged from [Antoine Sabot-Durand](https://twitter.com/antoine_sd/status/664729010316931072) and [John Chambers](http://user2014.r-project.org/files/chambers.pdf)
