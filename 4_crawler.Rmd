@@ -112,6 +112,8 @@ nobel_laureates <- data_frame(name = eng_list, texts)
 str(nobel_laureates)
 ```
 
+<div class="parallax"></div>
+
 ### 4. `tidytext` опять!
 
 Давайте посчитаем слова!
