@@ -74,7 +74,7 @@ head(texts)
 
 <div class="parallax"></div>
 
-### 3. Задача про нобелевских лауреатов
+### 3. Нобелевские лауреаты
 Скачайте список нобелевских лауреатов по литературе.
 
 * [английский список](https://en.wikipedia.org/wiki/Category:Nobel_laureates_in_Literature) (вот первые 6)
