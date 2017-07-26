@@ -1,0 +1,166 @@
+---
+title: "4. Краулер"
+date: "25-26 июля 2017, АНДАН"
+author: "Г. Мороз"
+---
+<style>
+.parallax {
+    /* The image used */
+    background-image: url("5_end.jpg");
+
+    /* Set a specific height */
+    min-height: 360px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: length;
+}
+</style>
+
+<div class="parallax"></div>
+
+### 1. CSS-селекторы
+Можно долго и нудно бороться с тегами скаченной веб-страницы, однако можно использовать CSS-селекторы.
+
+* [список css-селекторов](https://www.w3schools.com/cssref/css_selectors.asp)
+* [сss-тестер](https://www.w3schools.com/cssref/trysel.asp)
+
+<div class="parallax"></div>
+
+### 2. Краулер
+
+```{r, message = FALSE}
+library(tidyverse); library(rvest); library(tidytext)
+```
+
+
+* во-первых нужно ввести ссылку
+```{r}
+source <- read_html("https://ling.hse.ru/news/")
+```
+
+* потом нужно узнать CSS-селектор
+* потом пройтись функциями пакета `rvest`
+```{r}
+source %>% 
+  html_nodes("div.post:nth-child(2) > div:nth-child(2) > h2:nth-child(1)") %>%
+  html_text() -> 
+  titles
+titles
+```
+
+* посмотреть внимательнее и пройтись функциями пакета `rvest`
+
+```{r}
+source %>% 
+  html_nodes("h2") %>%
+  html_text() -> 
+  titles
+titles
+```
+
+Давайте сделаем аналогичное для текстов
+```{r}
+source %>% 
+  html_nodes("div.post__text") %>%
+  html_text() ->
+  texts
+head(texts)
+```
+
+<div class="parallax"></div>
+
+### 3. Задача про нобелевских лауреатов
+Скачайте список нобелевских лауреатов по литературе.
+
+* [английский список](https://en.wikipedia.org/wiki/Category:Nobel_laureates_in_Literature) (вот первые 6)
+
+```{r, echo = FALSE}
+eng_list_link <- read_html("https://en.wikipedia.org/wiki/Category:Nobel_laureates_in_Literature")
+
+eng_list_link %>% 
+  html_nodes("li") %>%
+  html_text() ->
+  eng_list
+eng_list <- eng_list[2:114]
+head(eng_list)
+```
+
+* создайте вектор ссылок на каждого автора (вот последние 6)
+```{r, echo = FALSE}
+links <- paste0("https://en.wikipedia.org/wiki/", gsub(" ", "_", eng_list))
+tail(links)
+```
+
+* Скачайте тексты всех статей (напишите функцию, но запускайте на двух статьях). Когда получиться, возьмите с флешки или отсюда данные
+```{r, echo = FALSE, cache= TRUE}
+texts <- sapply(links, function(x){
+  read_html(x) %>% 
+    html_nodes("p") %>%
+    html_text() %>% 
+    paste(., collapse = " ")
+  })
+```
+
+* создайте тиббл (`data_frame`) с двумя переменными `name` и `text`, со списком авторов и текстами о них
+```{r}
+nobel_laureates <- data_frame(name = eng_list, texts)
+str(nobel_laureates)
+```
+
+### 4. Немного `tidytext`
+
+Давайте посчитаем слова!
+```{r, echo = FALSE}
+nobel_laureates %>%
+  unnest_tokens(word, texts) ->
+  nobel_laureates
+nobel_laureates %>%
+  count(word, sort = TRUE) ->
+  word_count
+head(word_count)
+```
+
+Уберем стопслова.
+```{r, echo = FALSE}
+data(stop_words)
+nobel_laureates %>%
+  anti_join(stop_words) %>% 
+  count(word, sort = TRUE)
+```
+
+Давайте нарисуем картинку!
+```{r, echo = FALSE}
+nobel_laureates %>%
+  anti_join(stop_words) %>% 
+  count(word, sort = TRUE) %>% 
+  filter(n > 350) %>%
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(word, n)) +
+  geom_bar(stat = "identity") +
+  xlab(NULL) +
+  coord_flip()+
+  theme_bw()
+```
+
+А как это устроено по авторам?
+
+```{r, echo = FALSE}
+nobel_laureates %>%
+  filter(name == c("Bob Dylan", "Ernest Hemingway")) %>% 
+  anti_join(stop_words) %>% 
+  group_by(name) %>% 
+  count(word, sort = TRUE) %>% 
+  filter(n > 10) %>%
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(word, n)) +
+  geom_bar(stat = "identity") +
+  xlab(NULL) +
+  coord_flip() +
+  facet_wrap(~name, scales =  "free")+
+  theme_bw()
+```
+
+<div class="parallax"></div>

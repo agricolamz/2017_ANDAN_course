@@ -16,6 +16,7 @@ library(cld3); packageVersion("cld3")
 library(stringdist); packageVersion("stringdist")
 library(tidytext); packageVersion("tidytext")
 library(tidyverse); packageVersion("tidyverse")
+library(rvest); packageVersion("rvest")
 ```
 
 Требования к участникам: умение писать свои функции и базовое знание `dplyr`, `ggplot` и `tidyr`.
