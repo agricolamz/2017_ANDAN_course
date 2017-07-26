@@ -10,7 +10,7 @@ navbar:
       text: "2. Растояния и др."
     - href: 3_frequency.html
       text: "3. Частотность"
-    - href: 4_crowler.html
+    - href: 4_crawler.html
       text: "4. Краулер"
     - href: 5_end.html
       text: "5. Что дальше?"
