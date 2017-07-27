@@ -9,7 +9,7 @@ author: "Г. Мороз"
     background-image: url("4._crawler.png");
 
     /* Set a specific height */
-    min-height: 360px; 
+    min-height: 260px; 
 
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
