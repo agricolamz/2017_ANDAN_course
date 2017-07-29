@@ -588,6 +588,21 @@ latin_abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="s
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_c</span>(greek_abc, latin_abc, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>, <span class="dt">collapse =</span> <span class="st">&quot;_&quot;</span>)</code></pre></div>
 <pre><code>## [1] &quot;Α-A_Β-B_Γ-C_Δ-D&quot;</code></pre>
 <ul>
+<li>К сожалению, аргументы <code>sep</code> и <code>collapse</code> не векторизованы, так что если хочется использовать разные разделители, нужно использовать аргумент <code>separators</code>:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_c</span>(greek_abc, <span class="dt">separaters =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>, <span class="st">&quot;_&quot;</span>))</code></pre></div>
+<pre><code>## [1] &quot;Α-&quot; &quot;Β_&quot; &quot;Γ-&quot; &quot;Δ_&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_c</span>(greek_abc, <span class="dt">separaters =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>, <span class="st">&quot;_&quot;</span>), <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Α-Β_Γ-Δ_&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_c</span>(greek_abc, latin_abc, <span class="dt">separaters =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>, <span class="st">&quot;_&quot;</span>))</code></pre></div>
+<pre><code>## [1] &quot;ΑA-&quot; &quot;ΒB_&quot; &quot;ΓC-&quot; &quot;ΔD_&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_c</span>(greek_abc, latin_abc, <span class="dt">separaters =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>, <span class="st">&quot;_&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;^&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Α^A^-&quot; &quot;Β^B^_&quot; &quot;Γ^C^-&quot; &quot;Δ^D^_&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_c</span>(greek_abc, latin_abc, <span class="dt">separaters =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>, <span class="st">&quot;_&quot;</span>), <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;ΑA-ΒB_ΓC-ΔD_&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_c</span>(greek_abc, latin_abc, <span class="dt">sep =</span> <span class="st">&quot;^&quot;</span>, <span class="dt">separaters =</span> <span class="kw">c</span>(<span class="st">&quot;-&quot;</span>, <span class="st">&quot;_&quot;</span>), <span class="dt">collapse =</span> <span class="st">&quot;&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Α^A^-Β^B^_Γ^C^-Δ^D^_&quot;</code></pre>
+<ul>
 <li>глюки</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste</span>(<span class="kw">c</span>(<span class="ot">NULL</span>, <span class="ot">NA</span>, <span class="st">&quot;&quot;</span>))</code></pre></div>
@@ -851,7 +866,7 @@ a; c</code></pre></div>
 <div id="-----" class="section level4">
 <h4>4.2 Искусственные данные по средней продолжительности сна</h4>
 <p><a href="https://goo.gl/dpCSV2">В данных по продолжительности сна</a> (1.1_sleep_hours.csv)<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> две переменных: код испытуемого и среднее время сна. Попробуйте сделать следующий график:</p>
-<p><img src="1_strings_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p><img src="1_strings_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 </div>
 <div id="-" class="section level4">
 <h4>4.3 Алфавитный порядок</h4>

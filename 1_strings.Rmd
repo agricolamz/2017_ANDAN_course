@@ -180,6 +180,18 @@ stringr::str_c(greek_abc, collapse = "_")
 stringr::str_c(greek_abc, latin_abc, collapse = "_")
 stringr::str_c(greek_abc, latin_abc, sep = "-", collapse = "_")
 ```
+
+* К сожалению, аргументы `sep` и `collapse` не векторизованы, так что если хочется использовать разные разделители, нужно использовать аргумент `separators`:
+```{r}
+stringr::str_c(greek_abc, separaters = c("-", "_"))
+stringr::str_c(greek_abc, separaters = c("-", "_"), collapse = "")
+stringr::str_c(greek_abc, latin_abc, separaters = c("-", "_"))
+stringr::str_c(greek_abc, latin_abc, separaters = c("-", "_"), sep = "^")
+stringr::str_c(greek_abc, latin_abc, separaters = c("-", "_"), collapse = "")
+stringr::str_c(greek_abc, latin_abc, sep = "^", separaters = c("-", "_"), collapse = "")
+```
+
+
 * глюки
 ```{r}
 paste(c(NULL, NA, ""))
