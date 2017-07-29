@@ -259,6 +259,17 @@ stringr::str_sub(b, -3, -1) # обратите внимание: нестанд�
 ```
 
 <div class="parallax"></div>
+#### 2.9 Транслитерация строк
+В пакете `stringi` сууществует достаточно много методов транслитераций строк, которые можно вывести командой `stri_trans_list()`. Вот пример использования некоторых из них:
+```{r}
+stringi::stri_trans_general("stringi", "latin-cyrillic")
+stringi::stri_trans_general("сырники", "cyrillic-latin")
+stringi::stri_trans_general("stringi", "latin-greek")
+stringi::stri_trans_general("stringi", "latin-armenian")
+```
+
+
+<div class="parallax"></div>
 
 ### 3. Операции над векторами
 

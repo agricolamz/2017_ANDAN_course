@@ -761,6 +761,21 @@ latin_abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="s
 
 </div>
 </div>
+<div id="-" class="section level4">
+<h4>2.9 Транслитерация строк</h4>
+<p>В пакете <code>stringi</code> сууществует достаточно много методов транслитераций строк, которые можно вывести командой <code>stri_trans_list()</code>. Вот пример использования некоторых из них:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringi::<span class="kw">stri_trans_general</span>(<span class="st">&quot;stringi&quot;</span>, <span class="st">&quot;latin-cyrillic&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;стринги&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringi::<span class="kw">stri_trans_general</span>(<span class="st">&quot;сырники&quot;</span>, <span class="st">&quot;cyrillic-latin&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;syrniki&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringi::<span class="kw">stri_trans_general</span>(<span class="st">&quot;stringi&quot;</span>, <span class="st">&quot;latin-greek&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;στριγγι&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringi::<span class="kw">stri_trans_general</span>(<span class="st">&quot;stringi&quot;</span>, <span class="st">&quot;latin-armenian&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;ստրինգի&quot;</code></pre>
+<div class="parallax">
+
+</div>
+</div>
 </div>
 <div id="--" class="section level3">
 <h3>3. Операции над векторами</h3>
@@ -866,7 +881,7 @@ a; c</code></pre></div>
 <div id="-----" class="section level4">
 <h4>4.2 Искусственные данные по средней продолжительности сна</h4>
 <p><a href="https://goo.gl/dpCSV2">В данных по продолжительности сна</a> (1.1_sleep_hours.csv)<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> две переменных: код испытуемого и среднее время сна. Попробуйте сделать следующий график:</p>
-<p><img src="1_strings_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p><img src="1_strings_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 </div>
 <div id="-" class="section level4">
 <h4>4.3 Алфавитный порядок</h4>
