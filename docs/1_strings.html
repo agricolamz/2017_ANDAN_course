@@ -776,6 +776,28 @@ latin_abc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="s
 
 </div>
 </div>
+<div id="----" class="section level4">
+<h4>2.10 Подгонка количества символов в строке</h4>
+<p>Для удобства представления, иногда удобно обрезать строки до фиксированного количества символов в строке:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">s &lt;-<span class="st"> &quot;Это слишком длинная строка&quot;</span>
+stringr::<span class="kw">str_trunc</span>(s, <span class="dv">20</span>, <span class="st">&quot;right&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Это слишком длинн...&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_trunc</span>(s, <span class="dv">20</span>, <span class="st">&quot;left&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;...ом длинная строка&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_trunc</span>(s, <span class="dv">20</span>, <span class="st">&quot;center&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;Это слишк...я строка&quot;</code></pre>
+<p>Или наоборот подогнать к какому-то фиксированному количеству символов:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">w &lt;-<span class="st"> &quot;коротковато&quot;</span>
+stringr::<span class="kw">str_pad</span>(w, <span class="dv">20</span>, <span class="st">&quot;right&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;коротковато         &quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_pad</span>(w, <span class="dv">20</span>, <span class="st">&quot;left&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;         коротковато&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stringr::<span class="kw">str_pad</span>(w, <span class="dv">20</span>, <span class="st">&quot;both&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;    коротковато     &quot;</code></pre>
+<div class="parallax">
+
+</div>
+</div>
 </div>
 <div id="--" class="section level3">
 <h3>3. Операции над векторами</h3>
@@ -881,7 +903,7 @@ a; c</code></pre></div>
 <div id="-----" class="section level4">
 <h4>4.2 Искусственные данные по средней продолжительности сна</h4>
 <p><a href="https://goo.gl/dpCSV2">В данных по продолжительности сна</a> (1.1_sleep_hours.csv)<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> две переменных: код испытуемого и среднее время сна. Попробуйте сделать следующий график:</p>
-<p><img src="1_strings_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p><img src="1_strings_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 </div>
 <div id="-" class="section level4">
 <h4>4.3 Алфавитный порядок</h4>
