@@ -232,6 +232,8 @@ is.palindrome("Замучен он, но не чумаз")
 is.palindrome("Замучена она, но не чумаза")
 ```
 
+Скачайте [произведение Жоржа Перека](https://raw.githubusercontent.com/agricolamz/2017_ANDAN_course/master/docs/materials/Perec_palindrome.txt), посчитайте количество слов в нем и проверьте на полиндромность. Мой вариант несколько препарирован, оригинал можно найти [здесь](http://cui.unige.ch/isi/cours/javalettres/perec.txt).
+
 #### 4.4 Спеллчекер? Легко!
 Скачайте [словарь форм русского языка](https://goo.gl/8oYdtk) (осторожно, большой файл) на основе словаря А. А. Залязняка и сделайте функцию `spellcheck()`, которая
 
