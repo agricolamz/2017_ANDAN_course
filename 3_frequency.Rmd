@@ -142,7 +142,7 @@ zipf %>%
   geom_line()+
   scale_x_log10() +
   scale_y_log10() +
-  labs(title = "Иллюстрация закона Хердана-Хипса на примере рассказов Чехова",
+  labs(title = "Иллюстрация закона Ципфа на примере рассказов Чехова",
        y = "log(term frequency)",
        x= "log(rank)")+
   theme_bw()
