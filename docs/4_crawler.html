@@ -389,42 +389,42 @@ div.tocify {
 <li>потом нужно узнать CSS-селектор</li>
 <li>потом пройтись функциями пакета <code>rvest</code></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">source %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&quot;div.post:nth-child(2) &gt; div:nth-child(2) &gt; h2:nth-child(1)&quot;</span>) %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">source <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&quot;div.post:nth-child(2) &gt; div:nth-child(2) &gt; h2:nth-child(1)&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">html_text</span>() -&gt;<span class="st"> </span>
 <span class="st">  </span>titles
 titles</code></pre></div>
-<pre><code>## [1] &quot;«Я поняла, что хочу учиться здесь и нигде больше»&quot;</code></pre>
+<pre><code>## [1] &quot;«Проблема сохранения языка актуальна для многих народов, в том числе и в России»&quot;</code></pre>
 <ul>
 <li>посмотреть внимательнее и пройтись функциями пакета <code>rvest</code></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">source %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&quot;h2&quot;</span>) %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">source <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&quot;h2&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">html_text</span>() -&gt;<span class="st"> </span>
 <span class="st">  </span>titles
 titles</code></pre></div>
-<pre><code>##  [1] &quot;«Мыслить научно и всегда быть up-to-date»&quot;                                        
-##  [2] &quot;«Я поняла, что хочу учиться здесь и нигде больше»&quot;                                
-##  [3] &quot;Открытие сайта Атласа многоязычия Дагестана&quot;                                      
-##  [4] &quot;«Еще полгода назад я не программировала, а теперь мне снится код»&quot;                
-##  [5] &quot;Курица не птица: мастер-класс по снятию лексической неоднозначности&quot;              
-##  [6] &quot;100 лет независимости Финляндии, или преподаватели РКИ на конференции в Хельсинки&quot;
-##  [7] &quot;«Нужно сделать так, чтобы школьники почувствовали себя исследователями»&quot;          
-##  [8] &quot;«Студентам Вышки недостаточно просто знать — они хотят решать научные проблемы»&quot;  
-##  [9] &quot;Социальные сети Медеи, Арагорна и Ганнибала Лектера&quot;                              
-## [10] &quot;Лингвисты Вышки на «Диалоге–2017»&quot;</code></pre>
+<pre><code>##  [1] &quot;«Студенты в России не догадываются, как хорошо выглядят их дипломы за границей»&quot;    
+##  [2] &quot;«Проблема сохранения языка актуальна для многих народов, в том числе и в России»&quot;   
+##  [3] &quot;«Взглянуть на историю литературы с нового нестандартного угла»&quot;                     
+##  [4] &quot;Анастасия Лопухина на конференции Linguistic Evidence в Германии&quot;                   
+##  [5] &quot;«Отделить собаку от супа»: отчет о горномарийской экспедиции&quot;                       
+##  [6] &quot;Разработка Центра цифровых гуманитарных исследований номинирована на DH Awards 2017&quot;
+##  [7] &quot;ЕВРика: сборник и база данных «поисков» и «находок»&quot;                                
+##  [8] &quot;Поздравляем Любовь Нестеренко с рождением дочери&quot;                                   
+##  [9] &quot;«Акка Кнебекайзе школы лингвистики»&quot;                                                
+## [10] &quot;Георгий Мороз рассказал о лингвистике в Лектории ВДНХ&quot;</code></pre>
 <p>Давайте сделаем аналогичное для текстов</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">source %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&quot;div.post__text&quot;</span>) %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">source <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&quot;div.post__text&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">html_text</span>() -&gt;
 <span class="st">  </span>texts
 <span class="kw">head</span>(texts)</code></pre></div>
-<pre><code>## [1] &quot;\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\tВыпускник бакалавриата «Фундаментальная и компьютерная лингвистика» Григорий Игнатьев — о том, как Вышка избавляет от узости мышления, о «ламповой» атмосфере школы лингвистики и немного о любви.\n\t\t\t&quot;                                                                                         
-## [2] &quot;\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\tВыпускница бакалавриата Александра Мартынова — о  своих четырех годах изучения лингвистики, профессорском борще и важности глупых вопросов.\n\t\t\t&quot;                                                                                                                                                
-## [3] &quot;\n\t\t\t\t\n\t\t\t\tСотрудники Международной лаборатории языковой конвергенции работают над Атласом многоязычия Дагестана. Совсем недавно при поддержке лаборатории и Collegium de Lyon открылся сайт, который представляет собой ресурс для исследований различных социальных и географических особенностей многоязычия в Дагестане.\n\t\t\t&quot;
-## [4] &quot;\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\tСтуденты программы профессиональной переподготовки «Компьютерная лингвистика» поучаствовали в хакатоне «Мемориала» — и поделились своими впечатлениями.\n\t\t\t&quot;                                                                                                                                    
-## [5] &quot;\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\tСлушатели магистерской программы «Компьютерная лингвистика» узнали о современных методах автоматического разделения и выявления значений многозначных слов.\n\t\t\t&quot;                                                                                                                                
-## [6] &quot;\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t7-9 июня в университете Хельсинки (Финляндия) состоялась конференция \&quot;Русская грамматика: описание, преподавание, тестирование\&quot;, в которой приняли участие и преподаватели Центра РКИ НИУ ВШЭ.\n\t\t\t&quot;</code></pre>
+<pre><code>## [1] &quot;\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t.fa-islider_box .fotorama__img { max-width: 100% !important;}\n\t\t\t\t\n\t\t\t\tВыпускница бакалавриата «Фундаментальная и прикладная лингвистика» Мария Медведева — об аспирантуре в Голландии, автоматическом предсказании решений судов и особой атмосфере Гронингена.\n\t\t\t&quot;                                                                                                     
+## [2] &quot;\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t.fa-islider_box .fotorama__img { max-width: 100% !important;}\n\t\t\t\t\n\t\t\t\t\n\t\t\t\tДоцент школы лингвистики НИУ ВШЭ Борис Орехов выступил на радио в программе, посвященной Международному дню родного языка и сохранению малых языков.\n\t\t\t&quot;
+## [3] &quot;\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t.fa-islider_box .fotorama__img { max-width: 100% !important;}\n\t\t\t\t\n\t\t\t\t\n\t\t\t&quot;                                                                                                                                                                                                                                                                                              
+## [4] &quot;\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t.fa-islider_box .fotorama__img { max-width: 100% !important;}\n\t\t\t\t\n\t\t\t\tНаучный сотрудник Лаборатории нейролингвистики НИУ ВШЭ Анастасия Лопухина на конференции Linguistic Evidence в Германии\n\t\t\t&quot;                                                                                                                                                                       
+## [5] &quot;\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t.fa-islider_box .fotorama__img { max-width: 100% !important;}\n\t\t\t\t\n\t\t\t\tВ Москву вернулась очередная марийская экспедиция Школы лингвистики НИУ ВШЭ (совместная с МГУ им. Ломоносова). Шестой состав привез домой новое знание об архитектуре горномарийского языка – и поучительную историю о глупой собаке.\n\t\t\t&quot;                                                         
+## [6] &quot;\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t.fa-islider_box .fotorama__img { max-width: 100% !important;}\n\t\t\t\t\n\t\t\t\tВеб-сервис Easy Linavis позволяет максимально быстро превратить текст или иные данные в граф и исследовать его методами сетевого анализа. Навыки программирования при этом не требуются.\n\t\t\t&quot;</code></pre>
 <div class="parallax">
 
 </div>
@@ -435,25 +435,29 @@ titles</code></pre></div>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Category:Nobel_laureates_in_Literature">английский список</a> (вот первые 6)</li>
 </ul>
-<pre><code>## [1] &quot;Shmuel Yosef Agnon&quot;    &quot;Vicente Aleixandre&quot;    &quot;Svetlana Alexievich&quot;  
-## [4] &quot;Ivo Andrić&quot;            &quot;Miguel Ángel Asturias&quot; &quot;Samuel Beckett&quot;</code></pre>
+<pre><code>## [1] &quot;List of Nobel laureates in Literature&quot;
+## [2] &quot;Shmuel Yosef Agnon&quot;                   
+## [3] &quot;Vicente Aleixandre&quot;                   
+## [4] &quot;Svetlana Alexievich&quot;                  
+## [5] &quot;Ivo Andrić&quot;                           
+## [6] &quot;Miguel Ángel Asturias&quot;</code></pre>
 <ul>
 <li>создайте вектор ссылок на каждого автора (вот последние 6)</li>
 </ul>
-<pre><code>## [1] &quot;https://en.wikipedia.org/wiki/Tomas_Tranströmer&quot; 
-## [2] &quot;https://en.wikipedia.org/wiki/Sigrid_Undset&quot;     
-## [3] &quot;https://en.wikipedia.org/wiki/Mario_Vargas_Llosa&quot;
-## [4] &quot;https://en.wikipedia.org/wiki/Derek_Walcott&quot;     
-## [5] &quot;https://en.wikipedia.org/wiki/Patrick_White&quot;     
-## [6] &quot;https://en.wikipedia.org/wiki/W._B._Yeats&quot;</code></pre>
+<pre><code>## [1] &quot;https://en.wikipedia.org/wiki/Wisława_Szymborska&quot; 
+## [2] &quot;https://en.wikipedia.org/wiki/Rabindranath_Tagore&quot;
+## [3] &quot;https://en.wikipedia.org/wiki/Tomas_Tranströmer&quot;  
+## [4] &quot;https://en.wikipedia.org/wiki/Sigrid_Undset&quot;      
+## [5] &quot;https://en.wikipedia.org/wiki/Mario_Vargas_Llosa&quot; 
+## [6] &quot;https://en.wikipedia.org/wiki/Derek_Walcott&quot;</code></pre>
 <ul>
-<li><p>Скачайте тексты всех статей (напишите функцию, но запускайте на четырех статьях). Когда получиться, возьмите с флешки или <a href="https://goo.gl/93kdsL">отсюда</a> все данные.</p></li>
+<li><p>Скачайте тексты всех статей (напишите функцию, но запускайте на четырех статьях). Когда получится, возьмите с флешки или <a href="https://goo.gl/93kdsL">отсюда</a> все данные.</p></li>
 <li><p>создайте тиббл (<code>data_frame</code>) с двумя переменными <code>name</code> и <code>text</code>, со списком авторов и текстами о них</p></li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nobel_laureates &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">name =</span> eng_list, texts)
 <span class="kw">str</span>(nobel_laureates)</code></pre></div>
 <pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    113 obs. of  2 variables:
-##  $ name : chr  &quot;Shmuel Yosef Agnon&quot; &quot;Vicente Aleixandre&quot; &quot;Svetlana Alexievich&quot; &quot;Ivo Andrić&quot; ...
+##  $ name : chr  &quot;List of Nobel laureates in Literature&quot; &quot;Shmuel Yosef Agnon&quot; &quot;Vicente Aleixandre&quot; &quot;Svetlana Alexievich&quot; ...
 ##  $ texts: chr  &quot;Shmuel Yosef Agnon (Hebrew: שמואל יוסף עגנון‎‎) (July 17, 1888 – February 17, 1970)[1] was a Nobel Prize laureate&quot;| __truncated__ &quot;Vicente Pío Marcelino Cirilo Aleixandre y Merlo (26 April 1898 – 14 December 1984) was a Spanish poet who was b&quot;| __truncated__ &quot;Svetlana Alexandrovna Alexievich[1] (born 31 May 1948) is a Belarusian investigative journalist and non-fiction&quot;| __truncated__ &quot;Ivo Andrić (Serbian Cyrillic: Иво Андрић, pronounced [ǐːʋɔ ǎːndritɕ]; born Ivan Andrić; 9 October 1892 – 13 Mar&quot;| __truncated__ ...</code></pre>
 <div class="parallax">
 
@@ -489,8 +493,8 @@ titles</code></pre></div>
 </ul>
 <ul>
 <li>Сайт, который открывается по частям (например, после обращения к базе данных). В таком случае надо будет создавать сессию, передовать куки. Это можно делать при помощи пакета <code>httr</code>.</li>
-<li>Авторы сайта не такие глупые, так что нужно чуть лучше претворяться браузером.</li>
-<li>Блокировка обкачки. Например, обкачать всю Википедию не получиться.</li>
+<li>Авторы сайта не такие глупые, так что нужно чуть лучше притворяться браузером.</li>
+<li>Блокировка обкачки. Например, обкачать всю Википедию не получится.</li>
 <li>…</li>
 </ul>
 <div class="parallax">
